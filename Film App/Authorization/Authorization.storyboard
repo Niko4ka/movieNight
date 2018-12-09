@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Auth View Controller-->
+        <scene sceneID="56m-kp-hZ4">
+            <objects>
+                <viewController storyboardIdentifier="AuthController" id="wkZ-1T-p1S" customClass="AuthViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hAk-om-cT8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startScreen" translatesAutoresizingMaskIntoConstraints="NO" id="1EC-Xe-hUz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GC1-85-cey">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qbM-GK-0Wb">
+                                        <rect key="frame" x="84.666666666666686" y="140" width="206" height="96"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiX-Rk-ldg">
+                                                <rect key="frame" x="0.0" y="0.0" width="206" height="43"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsL-Zr-4dr">
+                                                <rect key="frame" x="0.0" y="48" width="206" height="48"/>
+                                                <string key="text">For you to decide 
+what to watch this night</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="fbAuth" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCe-St-JZh" customClass="authButton" customModule="Film_App" customModuleProvider="target">
+                                        <rect key="frame" x="37.666666666666657" y="644" width="300" height="50"/>
+                                        <color key="backgroundColor" red="0.1960784314" green="0.29411764709999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="7p0-1P-hbc"/>
+                                            <constraint firstAttribute="height" constant="50" id="LYf-gQ-0ng"/>
+                                        </constraints>
+                                        <state key="normal" title="Sign in with Facebook">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="vkAuth" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wad-2c-Rdq" customClass="authButton" customModule="Film_App" customModuleProvider="target">
+                                        <rect key="frame" x="37.666666666666657" y="578" width="300" height="50"/>
+                                        <color key="backgroundColor" red="0.23137254901960785" green="0.38039215686274508" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Ula-Tn-PEF"/>
+                                            <constraint firstAttribute="width" constant="300" id="WgJ-jG-Epc"/>
+                                        </constraints>
+                                        <state key="normal" title="Sign in with Vkontakte">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="signInVKButtonPressed:" destination="wkZ-1T-p1S" eventType="touchUpInside" id="AJF-Zv-kM7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="googleAuth" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eV-0y-rNh" customClass="authButton" customModule="Film_App" customModuleProvider="target">
+                                        <rect key="frame" x="37.666666666666657" y="512" width="300" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="4Kc-EW-0QR"/>
+                                            <constraint firstAttribute="width" constant="300" id="iPh-FW-1L5"/>
+                                        </constraints>
+                                        <state key="normal" title="Sign in with Google">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="VKLogout:" destination="wkZ-1T-p1S" eventType="touchUpInside" id="83R-ZO-qjI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="qbM-GK-0Wb" firstAttribute="centerX" secondItem="GC1-85-cey" secondAttribute="centerX" id="2ao-2l-v8e"/>
+                                    <constraint firstItem="wad-2c-Rdq" firstAttribute="centerX" secondItem="GC1-85-cey" secondAttribute="centerX" id="6w1-Z5-rt7"/>
+                                    <constraint firstAttribute="bottom" secondItem="lCe-St-JZh" secondAttribute="bottom" constant="40" id="QAz-ig-s8h"/>
+                                    <constraint firstItem="lCe-St-JZh" firstAttribute="centerX" secondItem="GC1-85-cey" secondAttribute="centerX" id="Qgh-sD-p4t"/>
+                                    <constraint firstItem="7eV-0y-rNh" firstAttribute="centerX" secondItem="GC1-85-cey" secondAttribute="centerX" id="SFa-qf-epU"/>
+                                    <constraint firstItem="qbM-GK-0Wb" firstAttribute="top" secondItem="GC1-85-cey" secondAttribute="top" constant="140" id="iGK-Cb-6Gj"/>
+                                    <constraint firstItem="wad-2c-Rdq" firstAttribute="top" secondItem="7eV-0y-rNh" secondAttribute="bottom" constant="16" id="r1j-FW-hEI"/>
+                                    <constraint firstItem="lCe-St-JZh" firstAttribute="top" secondItem="wad-2c-Rdq" secondAttribute="bottom" constant="16" id="z1O-W3-vDO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="1EC-Xe-hUz" secondAttribute="bottom" id="B36-v9-rHE"/>
+                            <constraint firstItem="GC1-85-cey" firstAttribute="leading" secondItem="T7C-Kw-EiI" secondAttribute="leading" id="KMa-Iv-gPv"/>
+                            <constraint firstItem="1EC-Xe-hUz" firstAttribute="leading" secondItem="T7C-Kw-EiI" secondAttribute="leading" id="N7f-0s-E1y"/>
+                            <constraint firstItem="GC1-85-cey" firstAttribute="top" secondItem="T7C-Kw-EiI" secondAttribute="top" id="UD9-gn-2Dw"/>
+                            <constraint firstItem="1EC-Xe-hUz" firstAttribute="top" secondItem="hAk-om-cT8" secondAttribute="top" id="XZg-hU-8uz"/>
+                            <constraint firstItem="GC1-85-cey" firstAttribute="trailing" secondItem="T7C-Kw-EiI" secondAttribute="trailing" id="Yp7-pC-8g0"/>
+                            <constraint firstItem="GC1-85-cey" firstAttribute="bottom" secondItem="T7C-Kw-EiI" secondAttribute="bottom" id="qc2-it-n6G"/>
+                            <constraint firstItem="1EC-Xe-hUz" firstAttribute="trailing" secondItem="T7C-Kw-EiI" secondAttribute="trailing" id="qkB-QQ-Npb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="T7C-Kw-EiI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Lf-Sv-jpz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="112.8" y="84.975369458128085"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="startScreen" width="3567" height="4160"/>
+    </resources>
+</document>
