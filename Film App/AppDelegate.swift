@@ -13,7 +13,7 @@ import VKSdkFramework
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let apiKey = "81c0943d1596e1cc2b1c8de9e9ba8945"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -23,14 +23,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vkSDK?.uiDelegate = VKHandler.shared
         
         // Root Controller
-        let storyboard = UIStoryboard(name: "Authorization", bundle: Bundle.main)
         
-        guard let authController = storyboard.instantiateViewController(withIdentifier: "AuthController") as? AuthViewController else {
-            return false
+        if let token = KeychainService.shared.readToken(account: KeychainService.Accounts.vkontakte.rawValue) {
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {
+                return false
+            }
+            
+            window = UIWindow()
+            window?.rootViewController = tabBarController
+            window?.makeKeyAndVisible()
+            
+        } else {
+            let storyboard = UIStoryboard(name: "Authorization", bundle: Bundle.main)
+            
+            guard let authController = storyboard.instantiateViewController(withIdentifier: "AuthController") as? AuthViewController else {
+                return false
+            }
+            
+            window = UIWindow()
+            window?.rootViewController = authController
+            window?.makeKeyAndVisible()
         }
-        window = UIWindow()
-        window?.rootViewController = authController
-        window?.makeKeyAndVisible()
         
         return true
     }

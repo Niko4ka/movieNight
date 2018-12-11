@@ -8,7 +8,6 @@
 
 import UIKit
 import VKSdkFramework
-import SafariServices
 
 /**
 Helper for VK authorization
@@ -19,7 +18,7 @@ class VKHandler: NSObject {
     static let shared = VKHandler()
     
     static let VK_APP_ID = "6749149"
-    let permissions = ["email", "photos"] as [AnyObject]
+    let permissions = ["email"] as [AnyObject]
     
     var userEmail: String!
     var userID: String!
@@ -29,7 +28,6 @@ class VKHandler: NSObject {
         VKSdk.wakeUpSession(self.permissions) { (state, error) in
             if state == .authorized && error == nil && VKSdk.accessToken() != nil {
                 print("Vk authorized")
-                print("Email - \(self.userEmail)")
                 completion(true)
             } else if state == .initialized {
                 print("vk initialized")
@@ -63,6 +61,13 @@ extension VKHandler: VKSdkDelegate, VKSdkUIDelegate {
                 self.token = token
                 self.userID = id
                 print("Token - \(self.token), email - \(self.userEmail), id - \(self.userID)")
+                
+                KeychainService.shared.saveToken(account: KeychainService.Accounts.vkontakte.rawValue, token: token)
+                
+                
+                
+                let mainController = AuthViewController()
+                mainController.authorizeUser()
             }
                         
         } else if ((result.error) != nil) {
