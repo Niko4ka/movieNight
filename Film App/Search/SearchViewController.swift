@@ -14,8 +14,7 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var keywordsTableView: UITableView!
     @IBOutlet weak var hintLabel: UILabel!
-    @IBOutlet weak var resultsTableView: UITableView!
-    
+    @IBOutlet weak var childControllersStackView: UIStackView!
     
     let searchController = UISearchController(searchResultsController: nil)
     var keywordResults = [String]()
@@ -36,9 +35,6 @@ class SearchViewController: UIViewController {
         keywordsTableView.dataSource = self
         keywordsTableView.isHidden = true
         
-        resultsTableView.delegate = self
-        resultsTableView.dataSource = self
-        resultsTableView.isHidden = true
     }
     
     private func keywordsRequest(forKey key: String) {
@@ -74,7 +70,8 @@ class SearchViewController: UIViewController {
     private func showSearchResult(forKey key: String) {
         
         keywordsTableView.isHidden = true
-        
+        hintLabel.isHidden = true
+
         guard let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         AF.request("https://api.themoviedb.org/3/search/multi?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en&query=\(encodedKey)&page=1&include_adult=false").responseJSON { (response) in
             
@@ -90,11 +87,24 @@ class SearchViewController: UIViewController {
                 }
             }
             
-            self.resultsTableView.isHidden = false
-            self.resultsTableView.reloadData()
+            let childVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsTableViewController
+            childVC.data = self.databaseResults
+
+            childVC.view.frame.size = CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
+            self.addChild(childVC)
+            self.view.addSubview(childVC.view)
+            childVC.didMove(toParent: self)
+
 
             
-            
+        
+//            let childVC = MoviesCollectionViewController(withData: self.databaseResults)
+//            childVC.view.frame.size = CGSize(width: UIScreen.main.bounds.width, height: 220.0)
+//            
+//            self.addChild(childVC)
+//            self.childControllersStackView.addSubview(childVC.view)
+//            childVC.didMove(toParent: self)
+
         }
     }
     
@@ -104,29 +114,15 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if tableView == keywordsTableView {
             return keywordResults.count
-        } else {
-            print("database results count - \(databaseResults.count)")
-            return databaseResults.count
-        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView == keywordsTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "KeywordCell", for: indexPath)
             cell.textLabel?.text = keywordResults[indexPath.row]
             return cell
-        } else {
-            
-            let object = databaseResults[indexPath.row]
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DatabaseObjectCell", for: indexPath) as! ResultTableViewCell
-            cell.configure(with: object)
-            return cell
-        }
-        
     }
     
     
@@ -136,13 +132,10 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if tableView == keywordsTableView {
             let cell = tableView.cellForRow(at: indexPath)
             guard let selectedKeyword = cell?.textLabel?.text else { return }
             showSearchResult(forKey: selectedKeyword)
-        }
-        
-        
+
     }
 }
 
