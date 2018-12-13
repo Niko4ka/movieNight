@@ -23,9 +23,6 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7ZY-2z-PLP">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
-                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ssm-fi-iVt">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -55,12 +52,8 @@
                         <constraints>
                             <constraint firstItem="aj6-JO-YgB" firstAttribute="trailing" secondItem="PUS-sX-ULH" secondAttribute="trailing" constant="40" id="8lw-jN-O9O"/>
                             <constraint firstItem="PUS-sX-ULH" firstAttribute="leading" secondItem="aj6-JO-YgB" secondAttribute="leading" constant="40" id="AAt-ix-r7H"/>
-                            <constraint firstItem="7ZY-2z-PLP" firstAttribute="trailing" secondItem="aj6-JO-YgB" secondAttribute="trailing" id="BNy-vC-KbA"/>
-                            <constraint firstItem="7ZY-2z-PLP" firstAttribute="top" secondItem="aj6-JO-YgB" secondAttribute="top" id="CYZ-kf-Yo3"/>
-                            <constraint firstItem="7ZY-2z-PLP" firstAttribute="leading" secondItem="aj6-JO-YgB" secondAttribute="leading" id="Q00-sd-fxb"/>
                             <constraint firstItem="PUS-sX-ULH" firstAttribute="centerX" secondItem="aj6-JO-YgB" secondAttribute="centerX" id="ScJ-2K-KIx"/>
                             <constraint firstItem="PUS-sX-ULH" firstAttribute="top" secondItem="aj6-JO-YgB" secondAttribute="top" constant="166" id="Ztc-2r-UXc"/>
-                            <constraint firstItem="7ZY-2z-PLP" firstAttribute="bottom" secondItem="aj6-JO-YgB" secondAttribute="bottom" id="n1D-Zt-g0a"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aj6-JO-YgB"/>
                     </view>
@@ -68,7 +61,6 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="childControllersStackView" destination="7ZY-2z-PLP" id="bAc-JW-fBk"/>
                         <outlet property="hintLabel" destination="PUS-sX-ULH" id="Lgk-nJ-HlH"/>
                         <outlet property="keywordsTableView" destination="ssm-fi-iVt" id="jnn-0c-W4v"/>
                         <outlet property="searchDisplayController" destination="DeY-tb-0ZU" id="i3W-gE-iNG"/>
@@ -95,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="250" id="q1m-LJ-Rmt" customClass="ItemTableViewCell" customModule="Film_App" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ResultCell" rowHeight="250" id="q1m-LJ-Rmt" customClass="ResultTableViewCell" customModule="Film_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="250"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q1m-LJ-Rmt" id="oXk-OF-kkS">
@@ -156,8 +148,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="cellHeaderTitle" destination="W0o-ml-b0T" id="gHj-zt-2KU"/>
-                                    <outlet property="moviesCollectionView" destination="6MA-Y7-XHM" id="opB-Q7-F9z"/>
+                                    <outlet property="headerTitle" destination="W0o-ml-b0T" id="gHj-zt-2KU"/>
+                                    <outlet property="itemsCollectionView" destination="6MA-Y7-XHM" id="opB-Q7-F9z"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

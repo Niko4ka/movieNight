@@ -1,5 +1,5 @@
 //
-//  MovieCollectionViewCell.swift
+//  ItemCollectionViewCell.swift
 //  Film App
 //
 //  Created by Вероника Данилова on 11/12/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieCollectionViewCell: UICollectionViewCell {
+class ItemCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!

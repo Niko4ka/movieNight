@@ -14,11 +14,10 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var keywordsTableView: UITableView!
     @IBOutlet weak var hintLabel: UILabel!
-    @IBOutlet weak var childControllersStackView: UIStackView!
     
     let searchController = UISearchController(searchResultsController: nil)
     var keywordResults = [String]()
-    var databaseResults = [DatabaseObject]()
+    var databaseResults = [String: [DatabaseObject]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +26,7 @@ class SearchViewController: UIViewController {
         searchController.searchBar.placeholder = "Search"
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.delegate = self
         searchController.searchBar.delegate = self
         navigationItem.titleView = self.searchController.searchBar
         definesPresentationContext = true
@@ -69,6 +69,10 @@ class SearchViewController: UIViewController {
     
     private func showSearchResult(forKey key: String) {
         
+        var movies = [DatabaseObject]()
+        var tvShows = [DatabaseObject]()
+        var persons = [DatabaseObject]()
+        
         keywordsTableView.isHidden = true
         hintLabel.isHidden = true
 
@@ -80,11 +84,41 @@ class SearchViewController: UIViewController {
                     print(" --- 2 ---- error")
                     return
             }
-            
+
             for object in dictionary {
                 if let databaseObject = DatabaseObject(fromJson: object) {
-                    self.databaseResults.append(databaseObject)
+                    
+                    switch databaseObject.mediaType {
+                    case "movie":
+                        movies.append(databaseObject)
+                    case "tv":
+                        tvShows.append(databaseObject)
+                    case "person":
+                        persons.append(databaseObject)
+                    default:
+                        ()
+                    }
                 }
+            }
+            
+            if !movies.isEmpty {
+                self.databaseResults["Movies"] = movies
+            }
+            
+            if !tvShows.isEmpty {
+                self.databaseResults["TV Shows"] = tvShows
+            }
+            
+            if !persons.isEmpty {
+                self.databaseResults["Persons"] = persons
+            }
+            
+            print("Keys - \(self.databaseResults.keys)")
+            
+            guard !self.databaseResults.isEmpty else {
+                self.hintLabel.isHidden = false
+                self.hintLabel.text = "No matching results"
+                return
             }
             
             let childVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsTableViewController
@@ -94,17 +128,6 @@ class SearchViewController: UIViewController {
             self.addChild(childVC)
             self.view.addSubview(childVC.view)
             childVC.didMove(toParent: self)
-
-
-            
-        
-//            let childVC = MoviesCollectionViewController(withData: self.databaseResults)
-//            childVC.view.frame.size = CGSize(width: UIScreen.main.bounds.width, height: 220.0)
-//            
-//            self.addChild(childVC)
-//            self.childControllersStackView.addSubview(childVC.view)
-//            childVC.didMove(toParent: self)
-
         }
     }
     
@@ -163,5 +186,29 @@ extension SearchViewController: UISearchBarDelegate {
         print("Search button clicked")
         guard let searchText = searchBar.text else { return }
         showSearchResult(forKey: searchText)
+    }
+
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("Begin editing")
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            print("child")
+            
+            if let childVC = self.children.first {
+                print("Child vc exists")
+                childVC.view.removeFromSuperview()
+                childVC.removeFromParent()
+                keywordsTableView.isHidden = false
+            }
+            
+            
+        }
+    }
+}
+
+extension SearchViewController: UISearchControllerDelegate {
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.showsCancelButton = false
     }
 }

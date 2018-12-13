@@ -10,15 +10,12 @@ import UIKit
 
 class ResultsTableViewController: UITableViewController {
     
-    public var data = [DatabaseObject]()
+    public var data = [String: [DatabaseObject]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.tableFooterView = UIView()
-        
-        print("Results - \(data.count)")
-       
     }
 
     // MARK: - Table view data source
@@ -30,13 +27,17 @@ class ResultsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return 1
+        return data.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
-        cell.cellHeaderTitle.text = "Ячейка \(indexPath)"
-        cell.data = self.data
+        
+        let title = Array(data)[indexPath.row].key
+        let items = Array(data)[indexPath.row].value
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! ResultTableViewCell
+        cell.headerTitle.text = title
+        cell.data = items
         
         return cell
     }
