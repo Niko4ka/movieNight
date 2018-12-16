@@ -16,6 +16,7 @@ class ResultsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.tableView.tableFooterView = UIView()
+        
     }
 
     // MARK: - Table view data source
@@ -38,6 +39,21 @@ class ResultsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! ResultTableViewCell
         cell.headerTitle.text = title
         cell.data = items
+        
+        cell.pushController = { id, type, genres in
+         
+            let storyboard = UIStoryboard(name: "Movie", bundle: nil)
+            guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieViewController") as? MovieViewController else {
+                return
+            }
+
+            controller.movieId = id
+            controller.mediaType = type
+            controller.genres = genres
+            
+            let parentController = self.parent
+            parentController?.navigationController?.pushViewController(controller, animated: true)
+        }
         
         return cell
     }

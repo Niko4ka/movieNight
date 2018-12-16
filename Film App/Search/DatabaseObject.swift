@@ -10,9 +10,14 @@ import Foundation
 
 struct DatabaseObject {
     
+//    enum MediaTypes: String {
+//        case movie = "movie"
+//        case tv = "tv"
+//    }
+    
     var mediaType: String
     var image: String
-    var genreIds: [Int]?
+    var genres: String = ""
     var title: String
     var id: Int
 
@@ -39,35 +44,39 @@ struct DatabaseObject {
         }
         
         if let genreIds = json["genre_ids"] as? Array<Int> {
-            self.genreIds = genreIds
+
+            for i in 0..<genreIds.count {
+
+                switch mediaType {
+                case "movie":
+                    
+                    if let genre = Genres.shared.moviesGenres[genreIds[i]] {
+                        if i == genreIds.count - 1 {
+                            self.genres.append(genre)
+                        } else {
+                            let comma = ", "
+                            self.genres.append(genre + comma)
+                        }
+                    }
+                case "tv":
+                    
+                    if let genre = Genres.shared.tvGenres[genreIds[i]] {
+                        if i == genreIds.count - 1 {
+                            self.genres.append(genre)
+                        } else {
+                            let comma = ", "
+                            self.genres.append(genre + comma)
+                        }
+                    }
+                    
+                default:
+                    break
+                }
+            }
         }
         
         self.mediaType = mediaType
         self.id = id
     }
     
-//    private enum CodingKeys: String, CodingKey {
-//        case title = "title"
-//        case name = "name"
-//        case mediaType = "media_type"
-//        case posterPath = "poster_path"
-//        case genreIds = "genre_ids"
-//        case id = "id"
-//    }
 }
-
-//extension DatabaseObject: Decodable {
-//    init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        mediaType = try values.decode(String.self, forKey: .mediaType)
-//        posterPath = try values.decode(String.self, forKey: .posterPath)
-//        id = try values.decode(Int.self, forKey: .id)
-//        genreIds = try values.decode(Array<Int>.self, forKey: .genreIds)
-//
-//        if let objectTitle = try? values.decode(String.self, forKey: .title) {
-//            title = objectTitle
-//        } else {
-//            title = try values.decode(String.self, forKey: .name)
-//        }
-//    }
-//}

@@ -12,7 +12,7 @@
         <!--Search View Controller-->
         <scene sceneID="Wn4-9C-Poi">
             <objects>
-                <viewController id="vz8-uq-zGX" customClass="SearchViewController" customModule="Film_App" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" id="vz8-uq-zGX" customClass="SearchViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wVb-Fv-DVf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

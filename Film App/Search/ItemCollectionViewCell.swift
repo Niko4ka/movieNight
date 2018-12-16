@@ -13,7 +13,8 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieGenre: UILabel!
-    var objectID: Int!
+    public var objectID: Int!
+    public var mediaType: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +24,9 @@ class ItemCollectionViewCell: UICollectionViewCell {
     func configure(with object: DatabaseObject) {
         
         self.objectID = object.id
+        self.mediaType = object.mediaType
         movieTitle.text = object.title
-        movieGenre.text = object.mediaType
+        movieGenre.text = object.genres
         
         let url = URL(string: "https://image.tmdb.org/t/p/w500/\(object.image)")
         movieImage.kf.indicatorType = .activity

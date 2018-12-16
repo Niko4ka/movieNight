@@ -14,6 +14,7 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var itemsCollectionView: UICollectionView!
     
     public var data = [DatabaseObject]()
+    var pushController: ((Int, String, String)->())?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,6 +44,19 @@ extension ResultTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
         // Configure the cell
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Select item")
+        let item = collectionView.cellForItem(at: indexPath) as! ItemCollectionViewCell
+        
+        if item.mediaType != "person" {
+            pushController!(item.objectID, item.mediaType, item.movieGenre.text!)
+        }
     }
     
 }

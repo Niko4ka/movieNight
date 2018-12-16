@@ -37,6 +37,8 @@ class SearchViewController: UIViewController {
         
     }
     
+    
+    
     private func keywordsRequest(forKey key: String) {
         
         keywordResults.removeAll()
@@ -68,6 +70,9 @@ class SearchViewController: UIViewController {
     }
     
     private func showSearchResult(forKey key: String) {
+        
+        print("Genres - \(Genres.shared.moviesGenres)")
+        print("TV ge - \(Genres.shared.tvGenres)")
         
         var movies = [DatabaseObject]()
         var tvShows = [DatabaseObject]()
@@ -129,6 +134,14 @@ class SearchViewController: UIViewController {
             self.view.addSubview(childVC.view)
             childVC.didMove(toParent: self)
         }
+    }
+    
+    public func pushController(_ controller: UIViewController) {
+        print("public func pushController(_ controller: UIViewController)")
+        let navigator = self.navigationController 
+            print("navigation enabled")
+        navigator!.pushViewController(controller, animated: true)
+        
     }
     
 }
