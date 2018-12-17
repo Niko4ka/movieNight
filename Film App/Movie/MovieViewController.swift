@@ -18,32 +18,25 @@ class MovieViewController: UIViewController {
     @IBOutlet weak var releasedLabel: UILabel!
     @IBOutlet weak var addToWishlistButton: UIButton!
     @IBOutlet weak var movieDetailsSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var descriptionHeight: NSLayoutConstraint!
-    @IBOutlet weak var showMoreButton: UIButton!
-    @IBOutlet weak var castStackView: UIStackView!
-    @IBOutlet weak var crewStackView: UIStackView!
-    @IBOutlet weak var directorLabel: UILabel!
-    @IBOutlet weak var writerTitleLabel: UILabel!
-    @IBOutlet weak var writerLabel: UILabel!
-    @IBOutlet weak var informationTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var movieDetailsContainerView: UIView!
+    @IBOutlet weak var containerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var reviewsContainerView: UIView!
+    @IBOutlet weak var reviewsContainerViewHeight: NSLayoutConstraint!
     
     
-    // Information
-    @IBOutlet weak var title1: UILabel!
-    @IBOutlet weak var title2: UILabel!
-    @IBOutlet weak var title3: UILabel!
-    @IBOutlet weak var text1: UILabel!
-    @IBOutlet weak var text2: UILabel!
-    @IBOutlet weak var text3: UILabel!
+    
 
-    
     public var mediaType: String!
     public var movieId: Int!
     public var genres: String!
+    
+    private var movieDetailsController: MovieDetailsTableViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.reviewsContainerView.isHidden = true
+        self.movieDetailsContainerView.isHidden = false
         
         guard let id = movieId else { return }
         
@@ -61,12 +54,19 @@ class MovieViewController: UIViewController {
         
     }
     
-    @IBAction func showMoreButtonPressed(_ sender: UIButton) {
-        let height = getTextViewHeight(fromText: descriptionTextView.text)
-        descriptionHeight.constant = height
-        self.view.layoutIfNeeded()
-        showMoreButton.isHidden = true
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            self.reviewsContainerView.isHidden = true
+            self.movieDetailsContainerView.isHidden = false
+        } else {
+            self.reviewsContainerView.isHidden = false
+            self.movieDetailsContainerView.isHidden = true
+            reviewsContainerViewHeight.constant = 2000
+        }
     }
+    
+    
+
     
     // Private
     
@@ -88,45 +88,47 @@ class MovieViewController: UIViewController {
                 self.movieTitleLabel.text = title
             }
             
-            if let description = json["overview"] as? String {
-                self.descriptionTextView.text = description
-                self.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-                self.descriptionTextView.textContainerInset = .zero
-                self.descriptionTextView.textContainer.lineFragmentPadding = 0
-                let height = self.getTextViewHeight(fromText: self.descriptionTextView.text)
-                if height <= self.descriptionHeight.constant {
-                    self.descriptionHeight.constant = height
-                    self.showMoreButton.isHidden = true
-                }
-            }
-            
             if let releaseDate = json["release_date"] as? String {
                 self.releasedLabel.text?.append(releaseDate)
             }
             
+            
+
+            if let description = json["overview"] as? String {
+                self.movieDetailsController.descriptionTextView.text = description
+                self.movieDetailsController.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
+                self.movieDetailsController.descriptionTextView.textContainerInset = .zero
+                self.movieDetailsController.descriptionTextView.textContainer.lineFragmentPadding = 0
+                let height = self.movieDetailsController.getTextViewHeight(fromText: self.movieDetailsController.descriptionTextView.text)
+                if height <= self.movieDetailsController.descriptionHeight.constant {
+                    self.movieDetailsController.descriptionHeight.constant = height
+                    self.movieDetailsController.showMoreButton.isHidden = true
+                }
+            }
+            
             if let countries = json["production_countries"] as? [Dictionary<String, String>] {
-                self.title1.text = "Country"
-                self.text1.text?.removeAll()
+                self.movieDetailsController.title1.text = "Country"
+                self.movieDetailsController.text1.text?.removeAll()
                 for country in countries {
                     if let countryName = country["name"] {
-                        if (self.text1.text?.isEmpty)! {
-                            self.text1.text = countryName + " "
+                        if (self.movieDetailsController.text1.text?.isEmpty)! {
+                            self.movieDetailsController.text1.text = countryName + " "
                         } else {
-                            self.text1.text?.append(countryName + " ")
+                            self.movieDetailsController.text1.text?.append(countryName + " ")
                         }
-                        
+
                     }
                 }
             }
             
             if let status = json["status"] as? String {
-                self.title2.text = "Status"
-                self.text2.text = status
+                self.movieDetailsController.title2.text = "Status"
+                self.movieDetailsController.text2.text = status
             }
             
             if let runtime = json["runtime"] as? Int {
-                self.title3.text = "Runtime"
-                self.text3.text = "\(runtime) min."
+                self.movieDetailsController.title3.text = "Runtime"
+                self.movieDetailsController.text3.text = "\(runtime) min."
             }
             
             self.genresLable.text = self.genres
@@ -140,12 +142,6 @@ class MovieViewController: UIViewController {
                     print("error")
                     return
             }
-            //
-            //            cast.sort(by: { (person1, person2) -> Bool in
-            //                let order1 = person1["order"] as! Int
-            //                let order2 = person2["order"] as! Int
-            //                return order1 < order2
-            //            })
             
             var castQuantity: Int!
             if cast.count >= 10 {
@@ -161,47 +157,49 @@ class MovieViewController: UIViewController {
                     actorLabel.font = UIFont.systemFont(ofSize: 13.0)
                     actorLabel.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
                     actorLabel.text = name
-                    self.castStackView.addArrangedSubview(actorLabel)
+                    self.movieDetailsController.castStackView.addArrangedSubview(actorLabel)
                 }
             }
             
             for member in crew {
                 guard let job = member["job"] as? String,
                     let name = member["name"] as? String else { return }
-                
+
                 switch job {
                 case "Director":
-                    self.directorLabel.text = name + "\n"
+                    self.movieDetailsController.directorLabel.text = name + "\n"
                 case "Writer":
-                    self.writerLabel.text = name + "\n"
+                    self.movieDetailsController.writerLabel.text = name + "\n"
                 case "Producer":
                     let producerLabel = UILabel()
                     producerLabel.font = UIFont.systemFont(ofSize: 13.0)
                     producerLabel.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
                     producerLabel.text = name
-                    self.crewStackView.addArrangedSubview(producerLabel)
+                    self.movieDetailsController.crewStackView.addArrangedSubview(producerLabel)
                 default:
                     ()
                 }
             }
             
-            if (self.writerLabel.text?.isEmpty)! {
+            if (self.movieDetailsController.writerLabel.text?.isEmpty)! {
                 print("Writer text empty")
-                self.writerTitleLabel.removeFromSuperview()
-                self.writerLabel.removeFromSuperview()
+                self.movieDetailsController.writerTitleLabel.removeFromSuperview()
+                self.movieDetailsController.writerLabel.removeFromSuperview()
             }
-            
-            if let lastCrewElement = self.crewStackView.arrangedSubviews.last as? UILabel {
+
+            if let lastCrewElement = self.movieDetailsController.crewStackView.arrangedSubviews.last as? UILabel {
                 if lastCrewElement.text == "Producers" {
                     lastCrewElement.removeFromSuperview()
                 }
             }
             
-            if (self.directorLabel.text?.isEmpty)! {
-                guard let firstCrewElement = self.crewStackView.arrangedSubviews.first as? UILabel else { return }
+            if (self.movieDetailsController.directorLabel.text?.isEmpty)! {
+                guard let firstCrewElement = self.movieDetailsController.crewStackView.arrangedSubviews.first as? UILabel else { return }
                 firstCrewElement.removeFromSuperview()
             }
             
+            self.movieDetailsController.tableView.reloadData()
+            self.containerViewHeight.constant = self.movieDetailsController.getHeightOfLastCell()            
         }
     }
     
@@ -227,14 +225,14 @@ class MovieViewController: UIViewController {
             }
             
             if let description = json["overview"] as? String {
-                self.descriptionTextView.text = description
-                self.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-                self.descriptionTextView.textContainerInset = .zero
-                self.descriptionTextView.textContainer.lineFragmentPadding = 0
-                let height = self.getTextViewHeight(fromText: self.descriptionTextView.text)
-                if height <= self.descriptionHeight.constant {
-                    self.descriptionHeight.constant = height
-                    self.showMoreButton.isHidden = true
+                self.movieDetailsController.descriptionTextView.text = description
+                self.movieDetailsController.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
+                self.movieDetailsController.descriptionTextView.textContainerInset = .zero
+                self.movieDetailsController.descriptionTextView.textContainer.lineFragmentPadding = 0
+                let height = self.movieDetailsController.getTextViewHeight(fromText: self.movieDetailsController.descriptionTextView.text)
+                if height <= self.movieDetailsController.descriptionHeight.constant {
+                    self.movieDetailsController.descriptionHeight.constant = height
+                    self.movieDetailsController.showMoreButton.isHidden = true
                 }
             }
             
@@ -244,32 +242,28 @@ class MovieViewController: UIViewController {
             
             self.genresLable.text = self.genres
             
-            // TODO: Add information
-            
             if let seasons = json["number_of_seasons"] as? Int {
-                self.title1.text = "Seasons"
-                self.text1.text = "\(seasons)"
-                
+                self.movieDetailsController.title1.text = "Seasons"
+                self.movieDetailsController.text1.text = "\(seasons)"
+
             }
             
             if let countries = json["origin_country"] as? [String] {
-                self.title2.text = "Country"
-                self.text2.text?.removeAll()
+                self.movieDetailsController.title2.text = "Country"
+                self.movieDetailsController.text2.text?.removeAll()
                 for country in countries {
-                        if (self.text2.text?.isEmpty)! {
-                            self.text2.text = country + " "
+                        if (self.movieDetailsController.text2.text?.isEmpty)! {
+                            self.movieDetailsController.text2.text = country + " "
                         } else {
-                            self.text2.text?.append(country + " ")
+                            self.movieDetailsController.text2.text?.append(country + " ")
                         }
                 }
             }
             
             if let status = json["status"] as? String {
-                self.title3.text = "Status"
-                self.text3.text = status
+                self.movieDetailsController.title3.text = "Status"
+                self.movieDetailsController.text3.text = status
             }
-            
-            
             
         }
         
@@ -305,44 +299,44 @@ class MovieViewController: UIViewController {
                     actorLabel.font = UIFont.systemFont(ofSize: 13.0)
                     actorLabel.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
                     actorLabel.text = name
-                    self.castStackView.addArrangedSubview(actorLabel)
+                    self.movieDetailsController.castStackView.addArrangedSubview(actorLabel)
                 }
             }
             
             for member in crew {
                 guard let job = member["job"] as? String,
                     let name = member["name"] as? String else { return }
-                
+
                 switch job {
                 case "Director":
-                    self.directorLabel.text = name + "\n"
+                    self.movieDetailsController.directorLabel.text = name + "\n"
                 case "Novel":
-                    self.writerLabel.text = name + "\n"
+                    self.movieDetailsController.writerLabel.text = name + "\n"
                 case "Executive Producer":
                     let producerLabel = UILabel()
                     producerLabel.font = UIFont.systemFont(ofSize: 13.0)
                     producerLabel.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
                     producerLabel.text = name
-                    self.crewStackView.addArrangedSubview(producerLabel)
+                    self.movieDetailsController.crewStackView.addArrangedSubview(producerLabel)
                 default:
                     ()
                 }
             }
             
-            if (self.writerLabel.text?.isEmpty)! {
+            if (self.movieDetailsController.writerLabel.text?.isEmpty)! {
                 print("Writer text empty")
-                self.writerTitleLabel.removeFromSuperview()
-                self.writerLabel.removeFromSuperview()
+                self.movieDetailsController.writerTitleLabel.removeFromSuperview()
+                self.movieDetailsController.writerLabel.removeFromSuperview()
             }
-            
-            if let lastCrewElement = self.crewStackView.arrangedSubviews.last as? UILabel {
+
+            if let lastCrewElement = self.movieDetailsController.crewStackView.arrangedSubviews.last as? UILabel {
                 if lastCrewElement.text == "Producers" {
                     lastCrewElement.removeFromSuperview()
                 }
             }
-            
-            if (self.directorLabel.text?.isEmpty)! {
-                guard let firstCrewElement = self.crewStackView.arrangedSubviews.first as? UILabel else { return }
+
+            if (self.movieDetailsController.directorLabel.text?.isEmpty)! {
+                guard let firstCrewElement = self.movieDetailsController.crewStackView.arrangedSubviews.first as? UILabel else { return }
                 firstCrewElement.removeFromSuperview()
             }
             
@@ -351,24 +345,15 @@ class MovieViewController: UIViewController {
     }
     
     
-    private func getTextViewHeight(fromText text: String) -> CGFloat {
-        
-        let frame = CGRect(x: self.descriptionTextView.frame.origin.x, y: 0, width: self.descriptionTextView.frame.size.width, height: 0)
-        let textView = UITextView(frame: frame)
-        textView.text = text
-        textView.font = UIFont.systemFont(ofSize: 14.0)
-        textView.textContainerInset = .zero
-        textView.textContainer.lineFragmentPadding = 0
-        textView.sizeToFit()
-        
-        var textFrame = CGRect()
-        textFrame = textView.frame
-        
-        var size = CGSize()
-        size = textFrame.size
-        
-        size.height = textFrame.size.height
-        return size.height
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "movieDetailsSegue" {
+            guard let controller = segue.destination as? MovieDetailsTableViewController else {
+                return
+            }
+            movieDetailsContainerView.translatesAutoresizingMaskIntoConstraints = false
+            movieDetailsController = controller
+        }
     }
 
 
