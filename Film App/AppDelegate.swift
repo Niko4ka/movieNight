@@ -47,12 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.makeKeyAndVisible()
         }
         
-        Genres.shared.getMoviesGenres { (genres) in
-            Genres.shared.moviesGenres = genres
+        ConfigurationService.shared.getMoviesGenres { (genres) in
+            ConfigurationService.shared.moviesGenres = genres
         }
         
-        Genres.shared.getTvGenres { (genres) in
-            Genres.shared.tvGenres = genres
+        ConfigurationService.shared.getTvGenres { (genres) in
+            ConfigurationService.shared.tvGenres = genres
+        }
+        
+        ConfigurationService.shared.getCountries { (countries) in
+            ConfigurationService.shared.countries = countries
         }
 
         return true

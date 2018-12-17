@@ -15,7 +15,7 @@ struct DatabaseObject {
 //        case tv = "tv"
 //    }
     
-    var mediaType: String
+    var mediaType: MediaType
     var image: String
     var genres: String = ""
     var title: String
@@ -50,22 +50,20 @@ struct DatabaseObject {
                 switch mediaType {
                 case "movie":
                     
-                    if let genre = Genres.shared.moviesGenres[genreIds[i]] {
-                        if i == genreIds.count - 1 {
+                    if let genre = ConfigurationService.shared.moviesGenres[genreIds[i]] {
+                        if self.genres.isEmpty {
                             self.genres.append(genre)
                         } else {
-                            let comma = ", "
-                            self.genres.append(genre + comma)
+                            self.genres.append(", " + genre)
                         }
                     }
                 case "tv":
                     
-                    if let genre = Genres.shared.tvGenres[genreIds[i]] {
-                        if i == genreIds.count - 1 {
+                    if let genre = ConfigurationService.shared.tvGenres[genreIds[i]] {
+                        if self.genres.isEmpty {
                             self.genres.append(genre)
                         } else {
-                            let comma = ", "
-                            self.genres.append(genre + comma)
+                            self.genres.append(", " + genre)
                         }
                     }
                     
@@ -75,7 +73,17 @@ struct DatabaseObject {
             }
         }
         
-        self.mediaType = mediaType
+        switch mediaType {
+        case "movie":
+            self.mediaType = MediaType.movie
+        case "tv":
+            self.mediaType = MediaType.tvShow
+        case "person":
+            self.mediaType = MediaType.person
+        default:
+            return nil
+        }
+        
         self.id = id
     }
     

@@ -70,10 +70,7 @@ class SearchViewController: UIViewController {
     }
     
     private func showSearchResult(forKey key: String) {
-        
-        print("Genres - \(Genres.shared.moviesGenres)")
-        print("TV ge - \(Genres.shared.tvGenres)")
-        
+
         var movies = [DatabaseObject]()
         var tvShows = [DatabaseObject]()
         var persons = [DatabaseObject]()
@@ -94,14 +91,12 @@ class SearchViewController: UIViewController {
                 if let databaseObject = DatabaseObject(fromJson: object) {
                     
                     switch databaseObject.mediaType {
-                    case "movie":
+                    case .movie:
                         movies.append(databaseObject)
-                    case "tv":
+                    case .tvShow:
                         tvShows.append(databaseObject)
-                    case "person":
+                    case .person:
                         persons.append(databaseObject)
-                    default:
-                        ()
                     }
                 }
             }
@@ -117,9 +112,7 @@ class SearchViewController: UIViewController {
             if !persons.isEmpty {
                 self.databaseResults["Persons"] = persons
             }
-            
-            print("Keys - \(self.databaseResults.keys)")
-            
+
             guard !self.databaseResults.isEmpty else {
                 self.hintLabel.isHidden = false
                 self.hintLabel.text = "No matching results"
@@ -171,7 +164,7 @@ extension SearchViewController: UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath)
             guard let selectedKeyword = cell?.textLabel?.text else { return }
             showSearchResult(forKey: selectedKeyword)
-
+            searchController.searchBar.resignFirstResponder()
     }
 }
 

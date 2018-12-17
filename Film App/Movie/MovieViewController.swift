@@ -79,57 +79,24 @@ class MovieViewController: UIViewController {
                 return
             }
             
-            if let imageString = json["poster_path"] as? String {
-                let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500/\(imageString)")
-                self.movieImageView.kf.setImage(with: imageUrl)
-            }
+//            if let imageString = json["poster_path"] as? String {
+//                let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500/\(imageString)")
+//                self.movieImageView.kf.setImage(with: imageUrl)
+//            }
             
-            if let title = json["title"] as? String {
-                self.movieTitleLabel.text = title
-            }
+//            if let title = json["title"] as? String {
+//                self.movieTitleLabel.text = title
+//            }
             
-            if let releaseDate = json["release_date"] as? String {
-                self.releasedLabel.text?.append(releaseDate)
-            }
+//            if let releaseDate = json["release_date"] as? String {
+//                self.releasedLabel.text?.append(releaseDate)
+//            }
             
             
 
-            if let description = json["overview"] as? String {
-                self.movieDetailsController.descriptionTextView.text = description
-                self.movieDetailsController.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-                self.movieDetailsController.descriptionTextView.textContainerInset = .zero
-                self.movieDetailsController.descriptionTextView.textContainer.lineFragmentPadding = 0
-                let height = self.movieDetailsController.getTextViewHeight(fromText: self.movieDetailsController.descriptionTextView.text)
-                if height <= self.movieDetailsController.descriptionHeight.constant {
-                    self.movieDetailsController.descriptionHeight.constant = height
-                    self.movieDetailsController.showMoreButton.isHidden = true
-                }
-            }
-            
-            if let countries = json["production_countries"] as? [Dictionary<String, String>] {
-                self.movieDetailsController.title1.text = "Country"
-                self.movieDetailsController.text1.text?.removeAll()
-                for country in countries {
-                    if let countryName = country["name"] {
-                        if (self.movieDetailsController.text1.text?.isEmpty)! {
-                            self.movieDetailsController.text1.text = countryName + " "
-                        } else {
-                            self.movieDetailsController.text1.text?.append(countryName + " ")
-                        }
 
-                    }
-                }
-            }
             
-            if let status = json["status"] as? String {
-                self.movieDetailsController.title2.text = "Status"
-                self.movieDetailsController.text2.text = status
-            }
-            
-            if let runtime = json["runtime"] as? Int {
-                self.movieDetailsController.title3.text = "Runtime"
-                self.movieDetailsController.text3.text = "\(runtime) min."
-            }
+
             
             self.genresLable.text = self.genres
         }
@@ -212,58 +179,52 @@ class MovieViewController: UIViewController {
                 return
             }
             
-            if let imageString = json["poster_path"] as? String {
-                let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500/\(imageString)")
-                
-                self.movieImageView.kf.indicatorType = .activity
-                self.movieImageView.contentMode = .scaleAspectFit
-                self.movieImageView.kf.setImage(with: imageUrl)
-            }
+//            if let imageString = json["poster_path"] as? String {
+//                let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500/\(imageString)")
+//
+//                self.movieImageView.kf.indicatorType = .activity
+//                self.movieImageView.contentMode = .scaleAspectFit
+//                self.movieImageView.kf.setImage(with: imageUrl)
+//            }
             
-            if let title = json["name"] as? String {
-                self.movieTitleLabel.text = title
-            }
+//            if let title = json["name"] as? String {
+//                self.movieTitleLabel.text = title
+//            }
             
-            if let description = json["overview"] as? String {
-                self.movieDetailsController.descriptionTextView.text = description
-                self.movieDetailsController.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-                self.movieDetailsController.descriptionTextView.textContainerInset = .zero
-                self.movieDetailsController.descriptionTextView.textContainer.lineFragmentPadding = 0
-                let height = self.movieDetailsController.getTextViewHeight(fromText: self.movieDetailsController.descriptionTextView.text)
-                if height <= self.movieDetailsController.descriptionHeight.constant {
-                    self.movieDetailsController.descriptionHeight.constant = height
-                    self.movieDetailsController.showMoreButton.isHidden = true
-                }
-            }
+//            if let description = json["overview"] as? String {
+//                self.movieDetailsController.descriptionTextView.text = description
+//                self.movieDetailsController.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
+//                self.movieDetailsController.descriptionTextView.textContainerInset = .zero
+//                self.movieDetailsController.descriptionTextView.textContainer.lineFragmentPadding = 0
+//                let height = self.movieDetailsController.getTextViewHeight(fromText: self.movieDetailsController.descriptionTextView.text)
+//                if height <= self.movieDetailsController.descriptionHeight.constant {
+//                    self.movieDetailsController.descriptionHeight.constant = height
+//                    self.movieDetailsController.showMoreButton.isHidden = true
+//                }
+//            }
             
-            if let releaseDate = json["first_air_date"] as? String {
-                self.releasedLabel.text?.append(releaseDate)
-            }
+//            if let releaseDate = json["first_air_date"] as? String {
+//                self.releasedLabel.text?.append(releaseDate)
+//            }
             
-            self.genresLable.text = self.genres
+//            self.genresLable.text = self.genres
             
-            if let seasons = json["number_of_seasons"] as? Int {
-                self.movieDetailsController.title1.text = "Seasons"
-                self.movieDetailsController.text1.text = "\(seasons)"
-
-            }
+//            if let seasons = json["number_of_seasons"] as? Int {
+//                self.movieDetailsController.title1.text = "Seasons"
+//                self.movieDetailsController.text1.text = "\(seasons)"
+//
+//            }
             
-            if let countries = json["origin_country"] as? [String] {
-                self.movieDetailsController.title2.text = "Country"
-                self.movieDetailsController.text2.text?.removeAll()
-                for country in countries {
-                        if (self.movieDetailsController.text2.text?.isEmpty)! {
-                            self.movieDetailsController.text2.text = country + " "
-                        } else {
-                            self.movieDetailsController.text2.text?.append(country + " ")
-                        }
-                }
-            }
+//            if let countries = json["origin_country"] as? [String] {
+//                self.movieDetailsController.title2.text = "Country"
+//                self.movieDetailsController.text2.text?.removeAll()
+//
+//            }
             
-            if let status = json["status"] as? String {
-                self.movieDetailsController.title3.text = "Status"
-                self.movieDetailsController.text3.text = status
-            }
+//            if let status = json["status"] as? String {
+//                self.movieDetailsController.title3.text = "Status"
+//                self.movieDetailsController.text3.text = status
+//            }
             
         }
         
@@ -279,82 +240,11 @@ class MovieViewController: UIViewController {
                     print("error")
                     return
             }
-            //
-            //            cast.sort(by: { (person1, person2) -> Bool in
-            //                let order1 = person1["order"] as! Int
-            //                let order2 = person2["order"] as! Int
-            //                return order1 < order2
-            //            })
-            
-            var castQuantity: Int!
-            if cast.count >= 10 {
-                castQuantity = 10
-            } else {
-                castQuantity = cast.count
-            }
-            for i in 0..<castQuantity {
-                let actor = cast[i]
-                if let name = actor["name"] as? String {
-                    let actorLabel = UILabel()
-                    actorLabel.font = UIFont.systemFont(ofSize: 13.0)
-                    actorLabel.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
-                    actorLabel.text = name
-                    self.movieDetailsController.castStackView.addArrangedSubview(actorLabel)
-                }
-            }
-            
-            for member in crew {
-                guard let job = member["job"] as? String,
-                    let name = member["name"] as? String else { return }
 
-                switch job {
-                case "Director":
-                    self.movieDetailsController.directorLabel.text = name + "\n"
-                case "Novel":
-                    self.movieDetailsController.writerLabel.text = name + "\n"
-                case "Executive Producer":
-                    let producerLabel = UILabel()
-                    producerLabel.font = UIFont.systemFont(ofSize: 13.0)
-                    producerLabel.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
-                    producerLabel.text = name
-                    self.movieDetailsController.crewStackView.addArrangedSubview(producerLabel)
-                default:
-                    ()
-                }
-            }
-            
-            if (self.movieDetailsController.writerLabel.text?.isEmpty)! {
-                print("Writer text empty")
-                self.movieDetailsController.writerTitleLabel.removeFromSuperview()
-                self.movieDetailsController.writerLabel.removeFromSuperview()
-            }
 
-            if let lastCrewElement = self.movieDetailsController.crewStackView.arrangedSubviews.last as? UILabel {
-                if lastCrewElement.text == "Producers" {
-                    lastCrewElement.removeFromSuperview()
-                }
-            }
-
-            if (self.movieDetailsController.directorLabel.text?.isEmpty)! {
-                guard let firstCrewElement = self.movieDetailsController.crewStackView.arrangedSubviews.first as? UILabel else { return }
-                firstCrewElement.removeFromSuperview()
-            }
-            
         }
         
     }
     
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "movieDetailsSegue" {
-            guard let controller = segue.destination as? MovieDetailsTableViewController else {
-                return
-            }
-            movieDetailsContainerView.translatesAutoresizingMaskIntoConstraints = false
-            movieDetailsController = controller
-        }
-    }
-
 
 }

@@ -14,7 +14,7 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var itemsCollectionView: UICollectionView!
     
     public var data = [DatabaseObject]()
-    var pushController: ((Int, String, String)->())?
+    var pushController: ((Int, MediaType, String)->())?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,7 +54,7 @@ extension ResultTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
         print("Select item")
         let item = collectionView.cellForItem(at: indexPath) as! ItemCollectionViewCell
         
-        if item.mediaType != "person" {
+        if item.mediaType != MediaType.person {
             pushController!(item.objectID, item.mediaType, item.movieGenre.text!)
         }
     }

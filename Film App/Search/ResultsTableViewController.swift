@@ -43,13 +43,12 @@ class ResultsTableViewController: UITableViewController {
         cell.pushController = { id, type, genres in
          
             let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-            guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieViewController") as? MovieViewController else {
+            guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
                 return
             }
 
             controller.movieId = id
             controller.mediaType = type
-            controller.genres = genres
             
             let parentController = self.parent
             parentController?.navigationController?.pushViewController(controller, animated: true)

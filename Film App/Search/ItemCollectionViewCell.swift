@@ -14,7 +14,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieGenre: UILabel!
     public var objectID: Int!
-    public var mediaType: String!
+    public var mediaType: MediaType!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -1,5 +1,5 @@
 //
-//  GenresService.swift
+//  ConfigurationService.swift
 //  Film App
 //
 //  Created by Вероника Данилова on 14/12/2018.
@@ -9,12 +9,13 @@
 import Foundation
 import Alamofire
 
-class Genres {
+class ConfigurationService {
     
-    static let shared = Genres()
+    static let shared = ConfigurationService()
     
     public var moviesGenres: [Int: String]!
     public var tvGenres: [Int: String]!
+    public var countries: [String: String]!
     
     public func getMoviesGenres(completion: @escaping ([Int: String]) -> ()) {
         
@@ -22,7 +23,6 @@ class Genres {
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["genres"] as? [Dictionary<String, Any>] else {
-                    print(" --- genres ---- error")
                     return
             }
             
@@ -41,7 +41,7 @@ class Genres {
     
     public func getTvGenres(completion: @escaping ([Int: String]) -> ()) {
         
-        AF.request("https://api.themoviedb.org/3/genre/tv/list?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en-US").responseJSON(completionHandler: { (response) in
+        AF.request("https://api.themoviedb.org/3/genre/tv/list?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en-US").responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["genres"] as? [Dictionary<String, Any>] else {
@@ -58,8 +58,27 @@ class Genres {
                 }
             }
             completion(genres)
-        })
+        }
         
+    }
+    
+    public func getCountries(completion: @escaping ([String: String]) -> ()) {
+        
+        AF.request("https://api.themoviedb.org/3/configuration/countries?api_key=81c0943d1596e1cc2b1c8de9e9ba8945").responseJSON { (response) in
+            
+            guard let json = response.result.value as? [Dictionary<String, String>] else { return }
+            
+            var countries = [String: String]()
+            
+            for country in json {
+                if let index = country["iso_3166_1"],
+                    let name = country["english_name"] {
+                    countries[index] = name
+                }
+            }
+            
+            completion(countries)
+        }
     }
     
 }
