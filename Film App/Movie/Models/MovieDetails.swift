@@ -19,14 +19,22 @@ struct MovieDetails {
     var runtime: Int?
     var genres: String
     var tvShowSeasons: Int?
+    var rating: Double
+    var voteCount: Int
     
     init?(ofType type: MediaType, from json: [String: Any]) {
         
+        print("Vote average - \(json["vote_average"])")
+        
         guard let status = json["status"] as? String,
-            let genres = json["genres"] as? [Dictionary<String, Any>]
+            let genres = json["genres"] as? [Dictionary<String, Any>],
+            let rating = json["vote_average"] as? Double,
+            let voteCount = json["vote_count"] as? Int
             else { return nil }
         
         self.status = status
+        self.rating = rating
+        self.voteCount = voteCount
         
         if type == .movie {
             guard let title = json["title"] as? String,

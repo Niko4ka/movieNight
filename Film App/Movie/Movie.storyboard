@@ -27,10 +27,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJG-XH-c9g">
-                                            <rect key="frame" x="0.0" y="173" width="375" height="38"/>
+                                            <rect key="frame" x="0.0" y="131" width="375" height="80"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="38" id="CXG-Pt-rEM"/>
+                                                <constraint firstAttribute="height" constant="80" id="CXG-Pt-rEM"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -70,12 +70,15 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Released" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDS-eH-Q7A">
                                     <rect key="frame" x="8" y="376" width="59" height="19"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <nil key="textColor"/>
+                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4nY-ia-F68">
                                     <rect key="frame" x="254" y="338" width="113" height="30"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="oy8-DS-QE6"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                                     <state key="normal" title="Add to wishlist"/>
@@ -92,12 +95,16 @@
                                     </segments>
                                     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </segmentedControl>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="n3c-em-ocQ" customClass="RatingControl" customModule="Film_App" customModuleProvider="target">
+                                    <rect key="frame" x="116" y="356" width="73" height="12"/>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="IJ4-88-A2B" firstAttribute="top" secondItem="GDS-eH-Q7A" secondAttribute="bottom" constant="8" id="6ym-IT-VWi"/>
                                 <constraint firstItem="IJ4-88-A2B" firstAttribute="leading" secondItem="MgA-Pd-xVi" secondAttribute="leading" constant="8" id="7rd-a4-vAy"/>
                                 <constraint firstAttribute="trailing" secondItem="z9B-cy-KUh" secondAttribute="trailing" id="BWa-vq-JNj"/>
+                                <constraint firstItem="n3c-em-ocQ" firstAttribute="height" secondItem="4nY-ia-F68" secondAttribute="height" multiplier="0.4" id="DUj-ro-0eO"/>
                                 <constraint firstItem="z9B-cy-KUh" firstAttribute="leading" secondItem="MgA-Pd-xVi" secondAttribute="leading" id="E4M-Xl-S2X"/>
                                 <constraint firstItem="d8j-gf-KL2" firstAttribute="top" secondItem="dLx-cR-kJJ" secondAttribute="top" id="ISK-Lg-Sn7"/>
                                 <constraint firstAttribute="bottom" secondItem="IJ4-88-A2B" secondAttribute="bottom" constant="8" id="RHy-wL-1VG"/>
@@ -109,6 +116,8 @@
                                 <constraint firstItem="dLx-cR-kJJ" firstAttribute="leading" secondItem="MgA-Pd-xVi" secondAttribute="leading" constant="8" id="cP9-U3-TkX"/>
                                 <constraint firstItem="GDS-eH-Q7A" firstAttribute="leading" secondItem="MgA-Pd-xVi" secondAttribute="leading" constant="8" id="dje-Et-RVy"/>
                                 <constraint firstItem="4nY-ia-F68" firstAttribute="bottom" secondItem="dLx-cR-kJJ" secondAttribute="bottom" id="fHj-im-mhx"/>
+                                <constraint firstItem="n3c-em-ocQ" firstAttribute="bottom" secondItem="dLx-cR-kJJ" secondAttribute="bottom" id="h0D-vy-SYN"/>
+                                <constraint firstItem="n3c-em-ocQ" firstAttribute="leading" secondItem="dLx-cR-kJJ" secondAttribute="trailing" constant="8" id="jrY-IE-ZKf"/>
                                 <constraint firstItem="z9B-cy-KUh" firstAttribute="top" secondItem="MgA-Pd-xVi" secondAttribute="top" id="mNX-8j-Oc1"/>
                                 <constraint firstAttribute="trailing" secondItem="4nY-ia-F68" secondAttribute="trailing" constant="8" id="nT3-9D-Tpa"/>
                                 <constraint firstAttribute="trailing" secondItem="IJ4-88-A2B" secondAttribute="trailing" constant="8" id="pzp-uH-ZYl"/>
@@ -315,10 +324,13 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="actorsTitleLabel" destination="ctb-NU-U3R" id="Imq-J2-nXt"/>
                                     <outlet property="castStackView" destination="uSC-jY-hxl" id="9jn-jE-4H0"/>
                                     <outlet property="castStackViewBottom" destination="R5e-FC-jso" id="H9B-Cw-KFm"/>
                                     <outlet property="crewStackView" destination="1uE-aC-JPq" id="CXD-Xk-ydZ"/>
                                     <outlet property="directorLabel" destination="6M1-hZ-D8z" id="JK5-fr-cgU"/>
+                                    <outlet property="directorTitleLabel" destination="uqb-m8-BuB" id="cr2-RN-CcC"/>
+                                    <outlet property="producersTitleLabel" destination="guX-yh-NXU" id="yNb-TV-xWf"/>
                                     <outlet property="writerLabel" destination="Zs3-s0-ftQ" id="gQg-mR-pmh"/>
                                     <outlet property="writerTitleLabel" destination="US9-iT-v0f" id="Kdy-4Y-yAD"/>
                                 </connections>
@@ -380,6 +392,7 @@
                         <outlet property="headerView" destination="MgA-Pd-xVi" id="Wo0-E5-zCW"/>
                         <outlet property="moviePoster" destination="dLx-cR-kJJ" id="CJ6-TX-e2H"/>
                         <outlet property="movieSegmentedControl" destination="IJ4-88-A2B" id="vE2-pg-O8X"/>
+                        <outlet property="ratingStackView" destination="n3c-em-ocQ" id="SWx-Uv-1lW"/>
                         <outlet property="releasedLabel" destination="GDS-eH-Q7A" id="Q1W-3O-zRG"/>
                         <outlet property="titleLabel" destination="d8j-gf-KL2" id="3cQ-Qh-CvH"/>
                     </connections>

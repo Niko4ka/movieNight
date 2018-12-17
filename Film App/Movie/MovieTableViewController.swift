@@ -18,6 +18,7 @@ class MovieTableViewController: UITableViewController {
     @IBOutlet weak var moviePoster: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var genresLabel: UILabel!
+    @IBOutlet weak var ratingStackView: RatingControl!
     @IBOutlet weak var releasedLabel: UILabel!
     @IBOutlet weak var addToWishlistButton: UIButton!
     @IBOutlet weak var movieSegmentedControl: UISegmentedControl!
@@ -47,8 +48,14 @@ class MovieTableViewController: UITableViewController {
         default:
             ()
         }
-        
-
+    
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !backdropGradientView.isHidden {
+            self.setGradientView()
+        }
     }
     
     private func loadData(forMovieId id: Int, andType type: MediaType) {
@@ -73,6 +80,9 @@ class MovieTableViewController: UITableViewController {
             
             if let backdropUrl = details.backdropUrl {
                 self.backdropImageView.kf.setImage(with: backdropUrl)
+            } else {
+                self.backdropImageView.isHidden = true
+                self.backdropGradientView.isHidden = true
             }
             
             if let posterUrl = details.posterUrl {
@@ -81,6 +91,8 @@ class MovieTableViewController: UITableViewController {
             
             self.titleLabel.text = details.title
             self.genresLabel.text = details.genres
+            
+            self.ratingStackView.setRating(details.rating, from: details.voteCount)
             
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
@@ -105,6 +117,16 @@ class MovieTableViewController: UITableViewController {
             self.movieCast = cast
             self.tableView.reloadData()
         }
+    }
+    
+    private func setGradientView() {
+        let gradientLayer = CAGradientLayer()
+        let transparent = UIColor.init(white: 1, alpha: 0)
+        let white = UIColor.white
+        gradientLayer.frame = self.backdropGradientView.bounds
+        gradientLayer.colors =
+            [transparent.cgColor, white.cgColor]
+        self.backdropGradientView.layer.mask = gradientLayer
     }
 
     // MARK: - Table view data source
@@ -137,6 +159,7 @@ class MovieTableViewController: UITableViewController {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cast", for: indexPath) as! CastTableViewCell
             if movieCast != nil {
+                print("Configure")
                 cell.configure(with: movieCast!)
             }
             
