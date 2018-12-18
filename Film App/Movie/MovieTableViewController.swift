@@ -9,6 +9,11 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import AVFoundation
+import AVKit
+import MediaPlayer
+import AudioToolbox
+//import XCDYouTubeKit
 
 class MovieTableViewController: UITableViewController {
     
@@ -28,6 +33,7 @@ class MovieTableViewController: UITableViewController {
     public var movieId: Int!
     private var movieDetails: MovieDetails?
     private var movieCast: MovieCast?
+    private var movieTrailers: [MovieTrailer] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,13 +68,16 @@ class MovieTableViewController: UITableViewController {
         
         var detailsUrl: String!
         var castUrl: String!
+        var trailersUrl: String!
         
         if type == .movie {
-            detailsUrl = "https://api.themoviedb.org/3/movie/\(id)?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en-US"
-            castUrl = "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=81c0943d1596e1cc2b1c8de9e9ba8945"
+            detailsUrl = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
+            castUrl = "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
+            trailersUrl = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
         } else {
-            detailsUrl = "https://api.themoviedb.org/3/tv/\(id)?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en-US"
-            castUrl = "https://api.themoviedb.org/3/tv/\(id)/credits?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en-US"
+            detailsUrl = "https://api.themoviedb.org/3/tv/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
+            castUrl = "https://api.themoviedb.org/3/tv/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
+            trailersUrl = "https://api.themoviedb.org/3/tv/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
         }
         
         AF.request(detailsUrl).responseJSON { (response) in
@@ -117,6 +126,45 @@ class MovieTableViewController: UITableViewController {
             self.movieCast = cast
             self.tableView.reloadData()
         }
+        
+        AF.request(trailersUrl).responseJSON { (response) in
+            
+            guard let json = response.result.value as? [String: Any],
+                let results = json["results"] as? [Dictionary<String, Any>] else {
+                    print("trailers error")
+                    return
+            }
+            
+            let trailersLoadingGroup = DispatchGroup()
+            
+            for video in results {
+                
+                trailersLoadingGroup.enter()
+                
+                    if let youtubeId = video["key"] as? String {
+                        AF.request("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=\(youtubeId)&key=\(ConfigurationService.googleKey)").responseJSON(completionHandler: { (response) in
+                            
+                            if let json = response.result.value as? [String: Any],
+                                let items = json["items"] as? [[String: Any]] {
+                                
+                                if !items.isEmpty {
+                                    if let trailer = MovieTrailer(from: items[0]) {
+                                        self.movieTrailers.append(trailer)
+                                    }
+                                }
+
+                                trailersLoadingGroup.leave()
+                            }
+                        })
+                        
+                    }
+            }
+            
+            trailersLoadingGroup.notify(queue: .main) {
+                print("Trailers count - \(self.movieTrailers.count)")
+                self.tableView.reloadData()
+            }
+        }
     }
     
     private func setGradientView() {
@@ -138,17 +186,48 @@ class MovieTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        if movieTrailers.isEmpty {
+           return 3
+        } else {
+            return 4
+        }
+        
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var rowIndex: Int!
+        if movieTrailers.isEmpty {
+            rowIndex = indexPath.row + 1
+        } else {
+            rowIndex = indexPath.row
+        }
         
-        
-        switch indexPath.row {
+        switch rowIndex {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Trailers", for: indexPath) as! TrailersTableViewCell
+            
+            cell.playVideo = { id in
+
+//                let playerViewController = AVPlayerViewController()
+//                self.present(playerViewController, animated: true)
+//                XCDYouTubeClient.default().getVideoWithIdentifier(id, completionHandler: {
+//                    [weak playerViewController] (video, error) in
+//                    if let streamURLs = video?.streamURLs,
+//                        let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[XCDYouTubeVideoQuality.HD720] ?? streamURLs[XCDYouTubeVideoQuality.medium360] ?? streamURLs[XCDYouTubeVideoQuality.small240]) {
+//                        playerViewController?.player = AVPlayer(url: streamURL)
+//                    } else {
+//                        playerViewController?.dismiss(animated: true, completion: nil)
+//                    }
+//                })
+                
+            }
+            
+            if !movieTrailers.isEmpty {
+                cell.trailers = movieTrailers
+                cell.trailersCollectionView.reloadData()
+            }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Overview", for: indexPath) as! OverviewTableViewCell
@@ -159,7 +238,6 @@ class MovieTableViewController: UITableViewController {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cast", for: indexPath) as! CastTableViewCell
             if movieCast != nil {
-                print("Configure")
                 cell.configure(with: movieCast!)
             }
             

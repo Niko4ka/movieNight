@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let apiKey = "81c0943d1596e1cc2b1c8de9e9ba8945"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         // VK SDK
         let vkSDK = VKSdk.initialize(withAppId: VKHandler.VK_APP_ID)
         vkSDK?.register(VKHandler.shared)

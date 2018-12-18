@@ -16,10 +16,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
     public var objectID: Int!
     public var mediaType: MediaType!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-    }
 
     func configure(with object: DatabaseObject) {
         

@@ -45,11 +45,10 @@ class SearchViewController: UIViewController {
         
         guard let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         
-        AF.request("https://api.themoviedb.org/3/search/keyword?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&query=\(encodedKey)&page=1").responseJSON { (response) in
+        AF.request("https://api.themoviedb.org/3/search/keyword?api_key=\(ConfigurationService.themoviedbKey)&query=\(encodedKey)&page=1").responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    print(" --- 1 ---- error")
                     return
             }
             
@@ -79,7 +78,7 @@ class SearchViewController: UIViewController {
         hintLabel.isHidden = true
 
         guard let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        AF.request("https://api.themoviedb.org/3/search/multi?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en&query=\(encodedKey)&page=1&include_adult=false").responseJSON { (response) in
+        AF.request("https://api.themoviedb.org/3/search/multi?api_key=\(ConfigurationService.themoviedbKey)&language=en&query=\(encodedKey)&page=1&include_adult=false").responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
