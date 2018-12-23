@@ -38,10 +38,6 @@ class CastTableViewCell: UITableViewCell {
     
     public func configure(with castData: MovieCast) {
         
-        guard !actorsTitleLabel.isHidden && !directorTitleLabel.isHidden && !writerTitleLabel.isHidden && !producersTitleLabel.isHidden else {
-            return
-        }
-        
         if castData.actors.isEmpty {
             self.actorsTitleLabel.isHidden = true
         } else {

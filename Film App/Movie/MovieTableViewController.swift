@@ -7,17 +7,19 @@
 //
 
 import UIKit
-import Alamofire
-import Kingfisher
-import AVFoundation
-import AVKit
-import MediaPlayer
-import AudioToolbox
-//import XCDYouTubeKit
+
+protocol MovieTableViewPresenter: class {
+
+    func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType)
+
+    func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell
+}
 
 class MovieTableViewController: UITableViewController {
     
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var backdropContentView: UIView!
+    
     @IBOutlet weak var backdropImageView: UIImageView!
     @IBOutlet weak var backdropGradientView: UIView!
     @IBOutlet weak var moviePoster: UIImageView!
@@ -28,144 +30,60 @@ class MovieTableViewController: UITableViewController {
     @IBOutlet weak var addToWishlistButton: UIButton!
     @IBOutlet weak var movieSegmentedControl: UISegmentedControl!
     
-    
     public var mediaType: MediaType!
     public var movieId: Int!
-    private var movieDetails: MovieDetails?
-    private var movieCast: MovieCast?
-    private var movieTrailers: [MovieTrailer] = []
+    private var presenter: MovieTableViewPresenter!
+    public var movieDetails: MovieDetails?
+    public var movieCast: MovieCast?
+    public var movieTrailers: [MovieTrailer] = []
+    public var movieReviews: [MovieReview] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = MoviePresenter()
         Spinner.start(from: (self.navigationController?.view)!)
         
         self.tableView.tableHeaderView = headerView
+        self.tableView.tableFooterView = UIView()
+        self.tableView.tag = 0
         
         guard let id = movieId, let type = mediaType else { return }
+        print("ID - \(id)")
         
         switch type {
         case .movie:
-            print("Movie")
-            loadData(forMovieId: id, andType: .movie)
+            presenter.loadData(self, forMovieId: id, andType: .movie)
         case .tvShow:
-            print("TV")
-            loadData(forMovieId: id, andType: .tvShow)
+            presenter.loadData(self, forMovieId: id, andType: .tvShow)
         default:
             ()
         }
-    
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if !backdropGradientView.isHidden {
+        if backdropGradientView != nil && !backdropGradientView.isHidden {
             self.setGradientView()
         }
     }
     
-    private func loadData(forMovieId id: Int, andType type: MediaType) {
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         
-        var detailsUrl: String!
-        var castUrl: String!
-        var trailersUrl: String!
-        
-        if type == .movie {
-            detailsUrl = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
-            castUrl = "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
-            trailersUrl = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
-        } else {
-            detailsUrl = "https://api.themoviedb.org/3/tv/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
-            castUrl = "https://api.themoviedb.org/3/tv/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
-            trailersUrl = "https://api.themoviedb.org/3/tv/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
+        switch sender.selectedSegmentIndex {
+        case 1:
+            tableView.tag = 1
+            tableView.reloadData()
+        case 2:
+            tableView.tag = 2
+            tableView.reloadData()
+        default:
+            tableView.tag = 0
+            tableView.reloadData()
         }
         
-        AF.request(detailsUrl).responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any] else { return }
-            guard let details = MovieDetails(ofType: type, from: json) else { return }
-            
-            self.movieDetails = details
-            
-            if let backdropUrl = details.backdropUrl {
-                self.backdropImageView.kf.setImage(with: backdropUrl)
-            } else {
-                self.backdropImageView.isHidden = true
-                self.backdropGradientView.isHidden = true
-            }
-            
-            if let posterUrl = details.posterUrl {
-                self.moviePoster.kf.setImage(with: posterUrl)
-            }
-            
-            self.titleLabel.text = details.title
-            self.genresLabel.text = details.genres
-            
-            self.ratingStackView.setRating(details.rating, from: details.voteCount)
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            if let date = formatter.date(from: details.releaseDate) {
-                formatter.timeStyle = .none
-                formatter.dateStyle = .medium
-                self.releasedLabel.text = "Released: \(formatter.string(from: date))"
-            } else {
-                self.releasedLabel.text = "Released: \(details.releaseDate)"
-            }
-            
-            self.tableView.reloadData()
-            
-            Spinner.stop()
-        }
-        
-        AF.request(castUrl).responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any] else { return }
-            guard let cast = MovieCast(ofType: type, from: json) else { return }
-            
-            self.movieCast = cast
-            self.tableView.reloadData()
-        }
-        
-        AF.request(trailersUrl).responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any],
-                let results = json["results"] as? [Dictionary<String, Any>] else {
-                    print("trailers error")
-                    return
-            }
-            
-            let trailersLoadingGroup = DispatchGroup()
-            
-            for video in results {
-                
-                trailersLoadingGroup.enter()
-                
-                    if let youtubeId = video["key"] as? String {
-                        AF.request("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=\(youtubeId)&key=\(ConfigurationService.googleKey)").responseJSON(completionHandler: { (response) in
-                            
-                            if let json = response.result.value as? [String: Any],
-                                let items = json["items"] as? [[String: Any]] {
-                                
-                                if !items.isEmpty {
-                                    if let trailer = MovieTrailer(from: items[0]) {
-                                        self.movieTrailers.append(trailer)
-                                    }
-                                }
-
-                                trailersLoadingGroup.leave()
-                            }
-                        })
-                        
-                    }
-            }
-            
-            trailersLoadingGroup.notify(queue: .main) {
-                print("Trailers count - \(self.movieTrailers.count)")
-                self.tableView.reloadData()
-            }
-        }
     }
+    
     
     private func setGradientView() {
         let gradientLayer = CAGradientLayer()
@@ -186,79 +104,56 @@ class MovieTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if movieTrailers.isEmpty {
-           return 3
+        
+        if tableView.tag == 0 {
+            
+            if movieTrailers.isEmpty {
+                return 3
+            } else {
+                return 4
+            }
+            
         } else {
-            return 4
+            if movieReviews.isEmpty {
+                return 1
+            } else {
+                return movieReviews.count
+            }
         }
+        
         
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var rowIndex: Int!
-        if movieTrailers.isEmpty {
-            rowIndex = indexPath.row + 1
+        if tableView.tag == 0 {
+            
+            var rowIndex: Int!
+            if movieTrailers.isEmpty {
+                rowIndex = indexPath.row + 1
+            } else {
+                rowIndex = indexPath.row
+            }
+            
+            switch rowIndex {
+            case 0:
+                return presenter.createCell(self, withIdentifier: .trailers, in: tableView, forRowAt: indexPath)
+            case 1:
+                return presenter.createCell(self, withIdentifier: .overview, in: tableView, forRowAt: indexPath)
+            case 2:
+                return presenter.createCell(self, withIdentifier: .cast, in: tableView, forRowAt: indexPath)
+            case 3:
+                return presenter.createCell(self, withIdentifier: .information, in: tableView, forRowAt: indexPath)
+            default:
+                let cell = UITableViewCell()
+                return cell
+            }
+            
         } else {
-            rowIndex = indexPath.row
+            return presenter.createCell(self, withIdentifier: .review, in: tableView, forRowAt: indexPath)
         }
         
-        switch rowIndex {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Trailers", for: indexPath) as! TrailersTableViewCell
-            
-            cell.playVideo = { id in
 
-//                let playerViewController = AVPlayerViewController()
-//                self.present(playerViewController, animated: true)
-//                XCDYouTubeClient.default().getVideoWithIdentifier(id, completionHandler: {
-//                    [weak playerViewController] (video, error) in
-//                    if let streamURLs = video?.streamURLs,
-//                        let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[XCDYouTubeVideoQuality.HD720] ?? streamURLs[XCDYouTubeVideoQuality.medium360] ?? streamURLs[XCDYouTubeVideoQuality.small240]) {
-//                        playerViewController?.player = AVPlayer(url: streamURL)
-//                    } else {
-//                        playerViewController?.dismiss(animated: true, completion: nil)
-//                    }
-//                })
-                
-            }
-            
-            if !movieTrailers.isEmpty {
-                cell.trailers = movieTrailers
-                cell.trailersCollectionView.reloadData()
-            }
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Overview", for: indexPath) as! OverviewTableViewCell
-            if movieDetails != nil {
-                cell.configure(with: movieDetails!)
-            }
-            return cell
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cast", for: indexPath) as! CastTableViewCell
-            if movieCast != nil {
-                cell.configure(with: movieCast!)
-            }
-            
-            return cell
-        case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Information", for: indexPath) as! InformationTableViewCell
-            if movieDetails != nil {
-                cell.configure(with: movieDetails!)
-            }
-            return cell
-        default:
-            let cell = UITableViewCell()
-            return cell
-        }
-        
- 
     }
     
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.tableHeaderView as!
-//    }
-    
-
 }

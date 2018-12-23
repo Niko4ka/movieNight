@@ -46,7 +46,8 @@ class ResultsTableViewController: UITableViewController {
             guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
                 return
             }
-
+            
+            
             controller.movieId = id
             controller.mediaType = type
             

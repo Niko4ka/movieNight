@@ -8,14 +8,24 @@
 
 import UIKit
 import VKSdkFramework
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let apiKey = "81c0943d1596e1cc2b1c8de9e9ba8945"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.ambient, mode: .default, options: [])
+            try session.setActive(true, options: [])
+        } catch {
+            print("Session error")
+        }
+        
+        
 
         // VK SDK
         let vkSDK = VKSdk.initialize(withAppId: VKHandler.VK_APP_ID)
