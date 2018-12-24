@@ -60,14 +60,11 @@ extension VKHandler: VKSdkDelegate, VKSdkUIDelegate {
                 self.userEmail = email
                 self.token = token
                 self.userID = id
-                print("Token - \(self.token), email - \(self.userEmail), id - \(self.userID)")
-                
+ 
                 KeychainService.shared.saveToken(account: KeychainService.Accounts.vkontakte.rawValue, token: token)
-                
-                
-                
-                let mainController = AuthViewController()
-                mainController.authorizeUser()
+
+                let authController = AuthViewController()
+                authController.authorizeUser()
             }
                         
         } else if ((result.error) != nil) {

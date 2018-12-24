@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ugd-A0-GqQ">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="MU0-Dm-8zY">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                <viewController id="Ugd-A0-GqQ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rgx-AE-Sna">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startScreen" translatesAutoresizingMaskIntoConstraints="NO" id="qqp-FM-BOR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="startScreen" translatesAutoresizingMaskIntoConstraints="NO" id="45b-bA-763">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pV6-v6-l8L">
-                                <rect key="frame" x="94.666666666666686" y="184" width="186" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcz-ob-yzm">
-                                <rect key="frame" x="42" y="235" width="291" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="r4Z-vy-clF"/>
-                                </constraints>
-                                <string key="text">For you to decide 
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddt-YH-D2b">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="GjN-HI-1ep">
+                                        <rect key="frame" x="84.666666666666686" y="140" width="206" height="96"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4v-eh-7II">
+                                                <rect key="frame" x="0.0" y="0.0" width="206" height="43"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpE-9m-NDO">
+                                                <rect key="frame" x="0.0" y="48" width="206" height="48"/>
+                                                <string key="text">For you to decide 
 what to watch this night</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GjN-HI-1ep" firstAttribute="top" secondItem="ddt-YH-D2b" secondAttribute="top" constant="140" id="gZK-Nt-gjh"/>
+                                    <constraint firstItem="GjN-HI-1ep" firstAttribute="centerX" secondItem="ddt-YH-D2b" secondAttribute="centerX" id="ua0-s9-jtb"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qqp-FM-BOR" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="34" id="5Oc-My-9XJ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="qqp-FM-BOR" secondAttribute="top" constant="44" id="BlJ-ed-lQP"/>
-                            <constraint firstItem="Gcz-ob-yzm" firstAttribute="centerX" secondItem="qqp-FM-BOR" secondAttribute="centerX" id="Ll0-Q1-JHU"/>
-                            <constraint firstItem="qqp-FM-BOR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="R0Y-eQ-hmv"/>
-                            <constraint firstItem="Gcz-ob-yzm" firstAttribute="top" secondItem="pV6-v6-l8L" secondAttribute="bottom" constant="8" id="Url-cW-g5S"/>
-                            <constraint firstItem="pV6-v6-l8L" firstAttribute="centerX" secondItem="qqp-FM-BOR" secondAttribute="centerX" id="esT-k4-9xy"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qqp-FM-BOR" secondAttribute="trailing" id="hpH-Za-jm6"/>
-                            <constraint firstItem="pV6-v6-l8L" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="140" id="iUS-Tq-hTe"/>
-                            <constraint firstItem="qqp-FM-BOR" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="mZr-vj-YT9"/>
-                            <constraint firstItem="qqp-FM-BOR" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="zZ8-6J-S0N"/>
+                            <constraint firstItem="ddt-YH-D2b" firstAttribute="trailing" secondItem="6xG-7y-Bd4" secondAttribute="trailing" id="ABR-Js-NM5"/>
+                            <constraint firstItem="ddt-YH-D2b" firstAttribute="top" secondItem="6xG-7y-Bd4" secondAttribute="top" id="QYI-e7-Ndj"/>
+                            <constraint firstItem="6xG-7y-Bd4" firstAttribute="bottom" secondItem="ddt-YH-D2b" secondAttribute="bottom" id="UKa-uB-w2q"/>
+                            <constraint firstItem="ddt-YH-D2b" firstAttribute="leading" secondItem="6xG-7y-Bd4" secondAttribute="leading" id="s4p-dX-KVI"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="6xG-7y-Bd4"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L63-5R-Vef" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.6305418719212"/>
+            <point key="canvasLocation" x="193" y="284"/>
         </scene>
     </scenes>
     <resources>
-        <image name="startScreen" width="1189" height="1386"/>
+        <image name="startScreen" width="3567" height="4160"/>
     </resources>
 </document>

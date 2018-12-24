@@ -68,6 +68,7 @@ class MovieTableViewController: UITableViewController {
         if backdropGradientView != nil && !backdropGradientView.isHidden {
             self.setGradientView()
         }
+        self.setAddToWishlistButton()
     }
     
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
@@ -98,6 +99,12 @@ class MovieTableViewController: UITableViewController {
         gradientLayer.colors =
             [transparent.cgColor, white.cgColor]
         self.backdropGradientView.layer.mask = gradientLayer
+    }
+    
+    private func setAddToWishlistButton() {
+        addToWishlistButton.layer.cornerRadius = 5.0
+        addToWishlistButton.layer.borderWidth = 1.0
+        addToWishlistButton.layer.borderColor = addToWishlistButton.tintColor.cgColor
     }
 
     // MARK: - Table view data source

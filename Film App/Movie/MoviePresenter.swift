@@ -13,6 +13,7 @@ import Kingfisher
 class MoviePresenter: MovieTableViewPresenter {
     
     var castCellConfigured = false
+    var mediaType: MediaType!
     
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType) {
         
@@ -28,12 +29,14 @@ class MoviePresenter: MovieTableViewPresenter {
             trailersUrl = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
             reviewsUrl = "https://api.themoviedb.org/3/movie/\(id)/reviews?api_key=\(ConfigurationService.themoviedbKey)"
             similarUrl = "https://api.themoviedb.org/3/movie/\(id)/similar?api_key=\(ConfigurationService.themoviedbKey)"
+            mediaType = .movie
         } else {
             detailsUrl = "https://api.themoviedb.org/3/tv/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
             castUrl = "https://api.themoviedb.org/3/tv/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
             trailersUrl = "https://api.themoviedb.org/3/tv/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
             reviewsUrl = "https://api.themoviedb.org/3/tv/\(id)/reviews?api_key=\(ConfigurationService.themoviedbKey)"
             similarUrl = "https://api.themoviedb.org/3/tv/\(id)/similar?api_key=\(ConfigurationService.themoviedbKey)"
+            mediaType = .tvShow
         }
         
         AF.request(detailsUrl).responseJSON { (response) in
@@ -91,7 +94,6 @@ class MoviePresenter: MovieTableViewPresenter {
             }
             
             trailersLoadingGroup.notify(queue: .main) {
-                print("Trailers count - \(controller.movieTrailers.count)")
                 controller.tableView.reloadData()
             }
         }
@@ -177,34 +179,43 @@ class MoviePresenter: MovieTableViewPresenter {
             
         case .review:
             if controller.movieReviews.isEmpty {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Empty")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
+                cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(mediaType.rawValue)")\" hasn't any reviews yet"
                 controller.tableView.separatorStyle = .none
-                return cell!
+                return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! ReviewTableViewCell
                 cell.configure(with: controller.movieReviews[indexPath.row])
                 return cell
             }
-        
+            
         case .similar:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell") as! CollectionTableViewCell
-            
-            cell.headerTitle.text = "Similar"
-            cell.data = controller.similarMovies
-            
-            cell.pushController = { id, type, genres in
+            if controller.similarMovies.isEmpty {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
+                cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(mediaType.rawValue)")\" has no similar movies"
+                controller.tableView.separatorStyle = .none
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell") as! CollectionTableViewCell
                 
-                let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-                guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
-                    return
+                cell.headerTitle.text = "Similar"
+                cell.data = controller.similarMovies
+                
+                cell.pushController = { id, type, genres in
+                    
+                    let storyboard = UIStoryboard(name: "Movie", bundle: nil)
+                    guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
+                        return
+                    }
+                    
+                    movieController.movieId = id
+                    movieController.mediaType = type
+                    controller.navigationController?.pushViewController(movieController, animated: true)
                 }
-                
-                movieController.movieId = id
-                movieController.mediaType = type
-                controller.navigationController?.pushViewController(controller, animated: true)
+                return cell
+            }
         }
-        return cell
-        }
+        
     }
     
     
@@ -223,6 +234,7 @@ class MoviePresenter: MovieTableViewPresenter {
         }
         
         controller.titleLabel.text = details.title
+        controller.navigationItem.title = details.title
         controller.genresLabel.text = details.genres
         
         controller.ratingStackView.setRating(details.rating, from: details.voteCount)

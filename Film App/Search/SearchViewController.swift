@@ -118,7 +118,7 @@ class SearchViewController: UIViewController {
                 return
             }
             
-            let childVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsTableViewController
+            let childVC = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsTableViewController
             childVC.data = self.databaseResults
 
             childVC.view.frame.size = CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
@@ -126,14 +126,6 @@ class SearchViewController: UIViewController {
             self.view.addSubview(childVC.view)
             childVC.didMove(toParent: self)
         }
-    }
-    
-    public func pushController(_ controller: UIViewController) {
-        print("public func pushController(_ controller: UIViewController)")
-        let navigator = self.navigationController 
-            print("navigation enabled")
-        navigator!.pushViewController(controller, animated: true)
-        
     }
     
 }
@@ -196,18 +188,12 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         print("Begin editing")
-        if let searchText = searchBar.text, !searchText.isEmpty {
-            print("child")
-            
-            if let childVC = self.children.first {
-                print("Child vc exists")
+        
+            if let childVC = self.children.first as? ResultsTableViewController {
                 childVC.view.removeFromSuperview()
                 childVC.removeFromParent()
                 keywordsTableView.isHidden = false
             }
-            
-            
-        }
     }
 }
 

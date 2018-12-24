@@ -78,7 +78,7 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4nY-ia-F68">
                                     <rect key="frame" x="254" y="338" width="113" height="30"/>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="oy8-DS-QE6"/>
                                     </constraints>
@@ -439,7 +439,7 @@
                                     <outlet property="userNameLabel" destination="8NR-9t-SAm" id="Ii5-fM-4F5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Empty" rowHeight="75" id="Uo8-kg-nkN">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Empty" rowHeight="75" id="Uo8-kg-nkN" customClass="EmptyTableViewCell" customModule="Film_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1145" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uo8-kg-nkN" id="mEX-KL-TjO">
@@ -463,6 +463,9 @@
                                         <constraint firstItem="RcU-Q1-xgI" firstAttribute="trailing" secondItem="mEX-KL-TjO" secondAttribute="trailingMargin" id="tCR-zG-ThQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="infoLabel" destination="RcU-Q1-xgI" id="g3Q-cI-sby"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
