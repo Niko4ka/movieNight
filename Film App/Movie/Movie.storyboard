@@ -82,9 +82,11 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="oy8-DS-QE6"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                                     <state key="normal" title="Add to wishlist"/>
+                                    <connections>
+                                        <action selector="addToWishlistButtonPressed:" destination="gRi-Xy-wi0" eventType="touchUpInside" id="vf3-pL-fNU"/>
+                                    </connections>
                                 </button>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IJ4-88-A2B">
                                     <rect key="frame" x="8" y="401" width="359" height="28"/>

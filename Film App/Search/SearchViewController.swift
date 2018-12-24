@@ -118,7 +118,7 @@ class SearchViewController: UIViewController {
                 return
             }
             
-            let childVC = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsTableViewController
+            let childVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsTableViewController
             childVC.data = self.databaseResults
 
             childVC.view.frame.size = CGSize(width: self.view.bounds.width, height: self.view.bounds.height)

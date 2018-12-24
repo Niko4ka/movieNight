@@ -49,7 +49,7 @@ class AuthViewController: UIViewController {
         
         print("Authorize user")
         
-        let storyboard = UIStoryboard(name: "Search", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         UIApplication.shared.keyWindow?.rootViewController = tabBarController
         print("Root controller - \(UIApplication.shared.keyWindow?.rootViewController)")

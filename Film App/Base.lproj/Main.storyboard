@@ -109,6 +109,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="KKL-OW-byu" kind="relationship" relationship="viewControllers" id="Icv-he-aNe"/>
+                        <segue destination="yhp-3s-BjJ" kind="relationship" relationship="viewControllers" id="Rah-B2-JPe"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sfa-3X-r8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -134,5 +135,64 @@
             </objects>
             <point key="canvasLocation" x="3210.4000000000001" y="23.645320197044335"/>
         </scene>
+        <!--Wishlist Table View Controller-->
+        <scene sceneID="ruI-iz-wKM">
+            <objects>
+                <tableViewController id="kcy-My-88M" customClass="WishlistTableViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DAa-yd-rCj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Scu-HF-vc2">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2uc-54-5aD">
+                                    <rect key="frame" x="8" y="51" width="359" height="29"/>
+                                    <segments>
+                                        <segment title="Movies"/>
+                                        <segment title="TV Shows"/>
+                                    </segments>
+                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" red="0.91372549020000005" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="2uc-54-5aD" firstAttribute="leading" secondItem="Scu-HF-vc2" secondAttribute="leading" constant="8" id="Ul2-C4-jBV"/>
+                                <constraint firstAttribute="trailing" secondItem="2uc-54-5aD" secondAttribute="trailing" constant="8" id="hSQ-m4-xbU"/>
+                                <constraint firstAttribute="bottom" secondItem="2uc-54-5aD" secondAttribute="bottom" constant="8" id="hWN-yt-Mpx"/>
+                            </constraints>
+                        </view>
+                        <connections>
+                            <outlet property="dataSource" destination="kcy-My-88M" id="oSX-k9-XaA"/>
+                            <outlet property="delegate" destination="kcy-My-88M" id="4W2-g1-EM4"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="PVf-9O-Phv"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GA9-05-NfD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3221.5999999999999" y="880.78817733990149"/>
+        </scene>
+        <!--Wishlist-->
+        <scene sceneID="mRT-C9-SYO">
+            <objects>
+                <navigationController id="yhp-3s-BjJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Wishlist" image="wishlist" id="SKt-cp-lTT"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ooy-33-9qb">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="kcy-My-88M" kind="relationship" relationship="rootViewController" id="HcZ-qf-4iu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GCg-Y7-f9h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2268" y="881"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="wishlist" width="56.25" height="56.25"/>
+    </resources>
 </document>

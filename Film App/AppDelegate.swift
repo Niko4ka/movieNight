@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let token = KeychainService.shared.readToken(account: KeychainService.Accounts.vkontakte.rawValue) {
 
-            let storyboard = UIStoryboard(name: "Search", bundle: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {
                 return false
             }

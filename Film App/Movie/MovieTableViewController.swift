@@ -90,6 +90,33 @@ class MovieTableViewController: UITableViewController {
         
     }
     
+    @IBAction func addToWishlistButtonPressed(_ sender: Any) {
+        
+        if addToWishlistButton.isSelected {
+            if let index = Wishlist.movies.index(where: {$0.id == movieId}) {
+                Wishlist.movies.remove(at: index)
+                print("Wishlist movies - \(Wishlist.movies)")
+                self.addToWishlistButton.isSelected = false
+                setAddToWishlistButton()
+            }
+            
+        } else {
+            guard let id = movieId, let title = titleLabel.text, let genres = genresLabel.text, let releasedDateString = releasedLabel.text, let poster = moviePoster.image, let rating = movieDetails?.rating, let voteCount = movieDetails?.voteCount else {
+                return
+            }
+            
+            let releasedDate = releasedDateString.deletedPrefix("Released: ")
+            
+            let movie = WishlistMovie.init(id: id, mediaType: mediaType, title: title, genres: genres, releasedDate: releasedDate, poster: poster, rating: rating, voteCount: voteCount)
+            Wishlist.movies.append(movie)
+            print("Wishlist - \(Wishlist.movies)")
+            self.addToWishlistButton.isSelected = true
+            setAddToWishlistButton()
+        }
+
+    }
+    
+    
     
     private func setGradientView() {
         let gradientLayer = CAGradientLayer()
@@ -102,9 +129,21 @@ class MovieTableViewController: UITableViewController {
     }
     
     private func setAddToWishlistButton() {
-        addToWishlistButton.layer.cornerRadius = 5.0
-        addToWishlistButton.layer.borderWidth = 1.0
-        addToWishlistButton.layer.borderColor = addToWishlistButton.tintColor.cgColor
+        if addToWishlistButton.isSelected {
+            addToWishlistButton.tintColor = UIColor.clear
+            addToWishlistButton.setTitleColor(UIColor.lightGray, for: .selected)
+            addToWishlistButton.titleLabel?.font = UIFont.systemFont(ofSize: 11.0)
+            addToWishlistButton.setTitle("Remove from wishlist", for: .selected)
+            addToWishlistButton.layer.borderColor = UIColor.lightGray.cgColor
+            addToWishlistButton.layer.borderWidth = 1.0
+        } else {
+            addToWishlistButton.layer.cornerRadius = 5.0
+            addToWishlistButton.layer.borderWidth = 1.0
+            addToWishlistButton.layer.borderColor = #colorLiteral(red: 0.2039215686, green: 0.4745098039, blue: 0.9647058824, alpha: 1)
+            addToWishlistButton.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
+            addToWishlistButton.setTitleColor(#colorLiteral(red: 0.2039215686, green: 0.4745098039, blue: 0.9647058824, alpha: 1), for: .normal)
+            addToWishlistButton.setTitle("Add to wishlist", for: .normal)
+        }
     }
 
     // MARK: - Table view data source
