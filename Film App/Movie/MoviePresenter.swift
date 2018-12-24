@@ -20,17 +20,20 @@ class MoviePresenter: MovieTableViewPresenter {
         var castUrl: String!
         var trailersUrl: String!
         var reviewsUrl: String!
+        var similarUrl: String!
         
         if type == .movie {
             detailsUrl = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
             castUrl = "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
             trailersUrl = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
             reviewsUrl = "https://api.themoviedb.org/3/movie/\(id)/reviews?api_key=\(ConfigurationService.themoviedbKey)"
+            similarUrl = "https://api.themoviedb.org/3/movie/\(id)/similar?api_key=\(ConfigurationService.themoviedbKey)"
         } else {
             detailsUrl = "https://api.themoviedb.org/3/tv/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
             castUrl = "https://api.themoviedb.org/3/tv/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
             trailersUrl = "https://api.themoviedb.org/3/tv/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
             reviewsUrl = "https://api.themoviedb.org/3/tv/\(id)/reviews?api_key=\(ConfigurationService.themoviedbKey)"
+            similarUrl = "https://api.themoviedb.org/3/tv/\(id)/similar?api_key=\(ConfigurationService.themoviedbKey)"
         }
         
         AF.request(detailsUrl).responseJSON { (response) in
@@ -107,9 +110,23 @@ class MoviePresenter: MovieTableViewPresenter {
                     }
                 }
             }
+        }
+        
+        AF.request(similarUrl).responseJSON { (response) in
+            guard let json = response.result.value as? [String: Any],
+                let results = json["results"] as? [Dictionary<String, Any>] else {
+                    print("similar error")
+                    return
+            }
             
+            for result in results {
+                if let item = DatabaseObject(ofType: type, fromJson: result) {
+                    controller.similarMovies.append(item)
+                }
+            }
             
         }
+        
     }
 
     func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -135,12 +152,14 @@ class MoviePresenter: MovieTableViewPresenter {
                 cell.trailersCollectionView.reloadData()
             }
             return cell
+            
         case .overview:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! OverviewTableViewCell
             if controller.movieDetails != nil {
                 cell.configure(with: controller.movieDetails!)
             }
             return cell
+            
         case .cast:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! CastTableViewCell
             if controller.movieCast != nil && !castCellConfigured {
@@ -148,26 +167,43 @@ class MoviePresenter: MovieTableViewPresenter {
                 castCellConfigured = true
             }
             return cell
+            
         case .information:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! InformationTableViewCell
             if controller.movieDetails != nil {
                 cell.configure(with: controller.movieDetails!)
             }
             return cell
-        case .review:
             
+        case .review:
             if controller.movieReviews.isEmpty {
-                let cell = 
-                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Empty")
+                controller.tableView.separatorStyle = .none
+                return cell!
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! ReviewTableViewCell
                 cell.configure(with: controller.movieReviews[indexPath.row])
                 return cell
             }
+        
+        case .similar:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell") as! CollectionTableViewCell
             
+            cell.headerTitle.text = "Similar"
+            cell.data = controller.similarMovies
             
-            
-            
+            cell.pushController = { id, type, genres in
+                
+                let storyboard = UIStoryboard(name: "Movie", bundle: nil)
+                guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
+                    return
+                }
+                
+                movieController.movieId = id
+                movieController.mediaType = type
+                controller.navigationController?.pushViewController(controller, animated: true)
+        }
+        return cell
         }
     }
     

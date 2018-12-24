@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E16AB4A21D124B900CB0EFD /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB4821D124B900CB0EFD /* CollectionTableViewCell.swift */; };
+		4E16AB4B21D124B900CB0EFD /* CollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E16AB4921D124B900CB0EFD /* CollectionTableViewCell.xib */; };
 		4E32CDA821C73352000A15D8 /* MovieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E32CDA721C73352000A15D8 /* MovieTableViewController.swift */; };
 		4E32CDAB21C7343A000A15D8 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E78BE4121C445930054FC5B /* Movie.storyboard */; };
 		4E32CDAD21C7378B000A15D8 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E32CDAC21C7378B000A15D8 /* OverviewTableViewCell.swift */; };
@@ -67,6 +69,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E16AB4821D124B900CB0EFD /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
+		4E16AB4921D124B900CB0EFD /* CollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionTableViewCell.xib; sourceTree = "<group>"; };
 		4E32CDA721C73352000A15D8 /* MovieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewController.swift; sourceTree = "<group>"; };
 		4E32CDAC21C7378B000A15D8 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
 		4E32CDAE21C73914000A15D8 /* TrailersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailersTableViewCell.swift; sourceTree = "<group>"; };
@@ -123,6 +127,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E16AB4C21D12CEC00CB0EFD /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				4E16AB4821D124B900CB0EFD /* CollectionTableViewCell.swift */,
+				4E16AB4921D124B900CB0EFD /* CollectionTableViewCell.xib */,
+				4E78BE2D21C020A70054FC5B /* ItemCollectionViewCell.swift */,
+				4E78BE2E21C020A70054FC5B /* ItemCollectionViewCell.xib */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
 		4E32CDB421C73DAC000A15D8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +199,7 @@
 				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
 				4ED0286321BDADB600094EAF /* Authorization */,
 				4E78BE3121C045820054FC5B /* Search */,
+				4E16AB4C21D12CEC00CB0EFD /* Collection */,
 				4E78BE4321C4503E0054FC5B /* Movie */,
 				4E6C11A02183A84700C914BD /* AppDelegate.swift */,
 				4E6C11A72183A84900C914BD /* Assets.xcassets */,
@@ -200,8 +216,6 @@
 				4ED0286C21BFE58100094EAF /* SearchViewController.swift */,
 				4E78BE3821C061E00054FC5B /* ResultsTableViewController.swift */,
 				4E78BE3D21C2F1670054FC5B /* ResultTableViewCell.swift */,
-				4E78BE2D21C020A70054FC5B /* ItemCollectionViewCell.swift */,
-				4E78BE2E21C020A70054FC5B /* ItemCollectionViewCell.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -294,6 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E16AB4B21D124B900CB0EFD /* CollectionTableViewCell.xib in Resources */,
 				4E78BE3B21C063390054FC5B /* ItemCollectionViewCell.xib in Resources */,
 				4E32CDAB21C7343A000A15D8 /* Movie.storyboard in Resources */,
 				4E6C11AB2183A84900C914BD /* LaunchScreen.storyboard in Resources */,
@@ -357,6 +372,7 @@
 				4EABAE7921CC567E00189FA6 /* MoviePresenter.swift in Sources */,
 				4E6C11B32183BAAB00C914BD /* authButton.swift in Sources */,
 				4ED0286B21BF2AC900094EAF /* KeychainService.swift in Sources */,
+				4E16AB4A21D124B900CB0EFD /* CollectionTableViewCell.swift in Sources */,
 				4E32CDC521C96E9C000A15D8 /* TrailerCollectionViewCell.swift in Sources */,
 				4E4C2A2D21C989C4000399CE /* String+Extension.swift in Sources */,
 				4E32CDBF21C823A3000A15D8 /* MediaType.swift in Sources */,

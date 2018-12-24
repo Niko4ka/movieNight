@@ -14,4 +14,5 @@ enum CellIdentifiers: String {
     case cast = "Cast"
     case information = "Information"
     case review = "Review"
+    case similar = "CollectionCell"
 }

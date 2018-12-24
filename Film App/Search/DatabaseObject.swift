@@ -16,7 +16,7 @@ struct DatabaseObject {
 //    }
     
     var mediaType: MediaType
-    var image: String
+    var image: String?
     var genres: String = ""
     var title: String
     var id: Int
@@ -31,8 +31,7 @@ struct DatabaseObject {
         
         if let posterImage = json["poster_path"] as? String {
             self.image = posterImage
-        } else {
-            guard let personImage = json["profile_path"] as? String else { return nil }
+        } else if let personImage = json["profile_path"] as? String {
             self.image = personImage
         }
         
@@ -85,6 +84,58 @@ struct DatabaseObject {
         }
         
         self.id = id
+    }
+    
+    init?(ofType type: MediaType, fromJson json: [String: Any]) {
+        
+        guard let id = json["id"] as? Int else {
+                return nil
+        }
+        
+        self.id = id
+        self.mediaType = type
+        
+        if let posterImage = json["poster_path"] as? String {
+            self.image = posterImage
+        }
+        
+        if let title = json["title"] as? String {
+            self.title = title
+        } else {
+            guard let name = json["name"] as? String else { return nil }
+            self.title = name
+        }
+        
+        if let genreIds = json["genre_ids"] as? Array<Int> {
+            
+            for i in 0..<genreIds.count {
+                
+                switch type {
+                case .movie:
+                    
+                    if let genre = ConfigurationService.shared.moviesGenres[genreIds[i]] {
+                        if self.genres.isEmpty {
+                            self.genres.append(genre)
+                        } else {
+                            self.genres.append(", " + genre)
+                        }
+                    }
+                case .tvShow:
+                    
+                    if let genre = ConfigurationService.shared.tvGenres[genreIds[i]] {
+                        if self.genres.isEmpty {
+                            self.genres.append(genre)
+                        } else {
+                            self.genres.append(", " + genre)
+                        }
+                    }
+                    
+                default:
+                    break
+                }
+            }
+        }
+
     }
     
 }

@@ -14,8 +14,9 @@ class ResultsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.tableView.tableFooterView = UIView()
+        self.tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
     }
 
@@ -36,7 +37,7 @@ class ResultsTableViewController: UITableViewController {
         let title = Array(data)[indexPath.row].key
         let items = Array(data)[indexPath.row].value
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! ResultTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
         cell.headerTitle.text = title
         cell.data = items
         

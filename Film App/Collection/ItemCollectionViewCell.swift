@@ -24,12 +24,13 @@ class ItemCollectionViewCell: UICollectionViewCell {
         movieTitle.text = object.title
         movieGenre.text = object.genres
         
-        let url = URL(string: "https://image.tmdb.org/t/p/w500/\(object.image)")
-        movieImage.kf.indicatorType = .activity
-        movieImage.contentMode = .scaleAspectFit
-        movieImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (result) in
-            self.setNeedsLayout()
-        })
+        if let imagePath = object.image, let url = URL(string: "https://image.tmdb.org/t/p/w500/\(imagePath)") {
+            movieImage.kf.indicatorType = .activity
+            movieImage.contentMode = .scaleAspectFit
+            movieImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (result) in
+                self.setNeedsLayout()
+            })
+        }
         
     }
 

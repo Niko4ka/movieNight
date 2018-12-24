@@ -11,7 +11,7 @@ import UIKit
 protocol MovieTableViewPresenter: class {
 
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType)
-
+    
     func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell
 }
 
@@ -37,6 +37,7 @@ class MovieTableViewController: UITableViewController {
     public var movieCast: MovieCast?
     public var movieTrailers: [MovieTrailer] = []
     public var movieReviews: [MovieReview] = []
+    public var similarMovies: [DatabaseObject] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class MovieTableViewController: UITableViewController {
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = UIView()
         self.tableView.tag = 0
+        self.tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         guard let id = movieId, let type = mediaType else { return }
         print("ID - \(id)")
@@ -73,12 +75,15 @@ class MovieTableViewController: UITableViewController {
         switch sender.selectedSegmentIndex {
         case 1:
             tableView.tag = 1
+            tableView.separatorStyle = .singleLine
             tableView.reloadData()
         case 2:
             tableView.tag = 2
+            tableView.separatorStyle = .singleLine
             tableView.reloadData()
         default:
             tableView.tag = 0
+            tableView.separatorStyle = .singleLine
             tableView.reloadData()
         }
         
@@ -113,12 +118,14 @@ class MovieTableViewController: UITableViewController {
                 return 4
             }
             
-        } else {
+        } else if tableView.tag == 1 {
             if movieReviews.isEmpty {
                 return 1
             } else {
                 return movieReviews.count
             }
+        } else {
+            return 1
         }
         
         
@@ -149,11 +156,11 @@ class MovieTableViewController: UITableViewController {
                 return cell
             }
             
-        } else {
+        } else if tableView.tag == 1 {
             return presenter.createCell(self, withIdentifier: .review, in: tableView, forRowAt: indexPath)
+        } else {
+            return presenter.createCell(self, withIdentifier: .similar, in: tableView, forRowAt: indexPath)
         }
-        
-
     }
     
 }

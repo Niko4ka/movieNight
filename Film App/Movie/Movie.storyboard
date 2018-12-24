@@ -439,23 +439,28 @@
                                     <outlet property="userNameLabel" destination="8NR-9t-SAm" id="Ii5-fM-4F5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Empty" rowHeight="60" id="Uo8-kg-nkN">
-                                <rect key="frame" x="0.0" y="1145" width="375" height="60"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Empty" rowHeight="75" id="Uo8-kg-nkN">
+                                <rect key="frame" x="0.0" y="1145" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uo8-kg-nkN" id="mEX-KL-TjO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uo8-kg-nkN" id="mEX-KL-TjO">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcU-Q1-xgI">
-                                            <rect key="frame" x="161" y="20" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reviews" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcU-Q1-xgI">
+                                            <rect key="frame" x="16" y="11" width="343" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="XRm-go-JnN"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="RcU-Q1-xgI" firstAttribute="centerY" secondItem="mEX-KL-TjO" secondAttribute="centerY" id="inh-vE-5iQ"/>
-                                        <constraint firstItem="RcU-Q1-xgI" firstAttribute="centerX" secondItem="mEX-KL-TjO" secondAttribute="centerX" id="o6X-ua-xBR"/>
+                                        <constraint firstItem="RcU-Q1-xgI" firstAttribute="bottom" secondItem="mEX-KL-TjO" secondAttribute="bottomMargin" id="EM7-q5-bNb"/>
+                                        <constraint firstItem="RcU-Q1-xgI" firstAttribute="leading" secondItem="mEX-KL-TjO" secondAttribute="leadingMargin" id="fCn-kB-RmP"/>
+                                        <constraint firstItem="RcU-Q1-xgI" firstAttribute="top" secondItem="mEX-KL-TjO" secondAttribute="topMargin" id="jtZ-pT-Onu"/>
+                                        <constraint firstItem="RcU-Q1-xgI" firstAttribute="trailing" secondItem="mEX-KL-TjO" secondAttribute="trailingMargin" id="tCR-zG-ThQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
