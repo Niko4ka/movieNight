@@ -20,7 +20,6 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("videoID - \(videoID)")
         playerView.configuration.mediaTypesRequiringUserActionForPlayback = []
         activityIndicator.startAnimating()
     }
@@ -29,7 +28,7 @@ class VideoPlayerViewController: UIViewController {
         super.viewDidLayoutSubviews()
 
         if !didLoadVideo {
-            playerView.loadHTMLString(embedVideoHtml, baseURL: nil)
+            playerView.loadHTMLString(embedVideoHtml, baseURL: URL(string: "http://www.youtube.com"))
             didLoadVideo = true
         }
     }
@@ -55,7 +54,7 @@ class VideoPlayerViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    private var embedVideoHtml:String {
+    private var embedVideoHtml: String {
         return """
         <!DOCTYPE html>
         <html>
@@ -66,7 +65,7 @@ class VideoPlayerViewController: UIViewController {
         <script>
         var tag = document.createElement('script');
         
-        tag.src = "https://www.youtube.com/iframe_api";
+        tag.src = "https://youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         

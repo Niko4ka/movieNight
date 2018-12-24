@@ -39,6 +39,7 @@ extension TrailersTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! TrailerCollectionViewCell
+        print("Video id - \(cell.id)")
         playVideo!(cell.id)
     }
 

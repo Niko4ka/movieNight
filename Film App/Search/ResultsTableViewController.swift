@@ -17,7 +17,6 @@ class ResultsTableViewController: UITableViewController {
 
         self.tableView.tableFooterView = UIView()
         self.tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
-        
     }
 
     // MARK: - Table view data source
