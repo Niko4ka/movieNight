@@ -53,4 +53,25 @@ extension String {
         }
     }
     
+    func getYear() -> String {
+        let components = self.components(separatedBy: "-")
+        
+        if let year = components.first, year.count == 4 {
+            return year
+        } else {
+            return ""
+        }
+    }
+    
+    func calculateCurrentAge() -> String {
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "YYYY-MM-DD"
+        let birthdayDate = dateFormater.date(from: self)
+        let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
+        let now = Date()
+        let calcAge = calendar.components(.year, from: birthdayDate!, to: now, options: [])
+        let age = calcAge.year
+        return String(describing: age!)
+    }
+    
 }

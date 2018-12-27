@@ -14,7 +14,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WishlistCell" rowHeight="137" id="KGk-i7-Jjw" customClass="WishlistTableViewCell" customModule="Film_App" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="380" height="137"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="346" height="136.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -46,10 +46,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-ji-ugr" customClass="RatingControl" customModule="Film_App" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="66" width="243" height="11"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-ji-ugr" customClass="RatingControl" customModule="Film_App" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="66" width="73" height="11"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="11" id="Hot-JD-aDN"/>
+                                    <constraint firstAttribute="width" constant="73" identifier="ratingControlWidth" id="MLT-ii-qij"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -74,7 +75,7 @@
                     <constraint firstItem="Nv9-13-PmY" firstAttribute="centerY" secondItem="7er-X5-isQ" secondAttribute="centerY" id="21i-Bm-PO1"/>
                     <constraint firstItem="7er-X5-isQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Dto-Jq-MU2"/>
                     <constraint firstItem="Nv9-13-PmY" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="8" id="RYE-FE-gHt"/>
-                    <constraint firstAttribute="bottom" secondItem="7er-X5-isQ" secondAttribute="bottom" constant="8" id="bWn-hH-kv9"/>
+                    <constraint firstAttribute="bottom" secondItem="7er-X5-isQ" secondAttribute="bottom" priority="750" constant="8" id="bWn-hH-kv9"/>
                     <constraint firstItem="7er-X5-isQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="sOW-th-fIa"/>
                     <constraint firstItem="Nv9-13-PmY" firstAttribute="leading" secondItem="7er-X5-isQ" secondAttribute="trailing" constant="8" id="y2N-cW-f2w"/>
                 </constraints>

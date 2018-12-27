@@ -10,7 +10,7 @@ import Foundation
 
 struct MovieCast {
     
-    var actors: [String] = []
+    var actors: [CastPerson] = []
     var director: String?
     var writer: String?
     var producers: [String] = []
@@ -32,8 +32,10 @@ struct MovieCast {
         
         for i in 0..<castQuantity {
             let actor = cast[i]
-            if let name = actor["name"] as? String {
-                self.actors.append(name)
+            if let name = actor["name"] as? String,
+                let personId = actor["id"] as? Int {
+                let castPerson = CastPerson(name: name, id: personId)
+                self.actors.append(castPerson)
             }
         }
         
@@ -77,4 +79,9 @@ struct MovieCast {
         
     }
     
+}
+
+struct CastPerson {
+    var name: String
+    var id: Int
 }

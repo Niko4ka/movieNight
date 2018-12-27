@@ -32,7 +32,6 @@ final class CoreDataManager {
     }()
     
     public func getContext() -> NSManagedObjectContext {
-//        return NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         return persistentContainer.viewContext
     }
     
@@ -71,7 +70,7 @@ final class CoreDataManager {
             request = NSFetchRequest(entityName: entityName)
         }
         
-        let dateSortDescriptor = NSSortDescriptor(key: "saveDate", ascending: false, selector: #selector(NSString.localizedStandardCompare(_:)))
+        let dateSortDescriptor = NSSortDescriptor(key: "saveDate", ascending: false)
         
         request.predicate = predicate
         request.sortDescriptors = [dateSortDescriptor]

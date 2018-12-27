@@ -19,7 +19,6 @@ class RatingControl: UIStackView {
     public func setRating(_ rate: Double, from numberOfVotes: Int) {
         let roundedRate = rate.rounded()
         self.rating = Int(roundedRate)
-        print("Rating - \(rating)")
         self.numberOfVotes = numberOfVotes
         
         for i in stride(from: 2, to: 11, by: 2) {
@@ -43,16 +42,8 @@ class RatingControl: UIStackView {
         
         if let index = constraints.index(where: { $0.identifier == "ratingControlWidth" }), let widthConstraint = [constraints[index]].first {
             widthConstraint.constant = viewWidth
-            
-//
-//            NSLayoutConstraint.deactivate([constraints[index]])
         }
-        
-//
-//
-//        let widthConstraint = widthAnchor.constraint(equalToConstant: viewWidth)
-//        widthConstraint.identifier = "widthConstraint"
-//        widthConstraint.isActive = true
+
     }
     
     public func removeArrangedViews() {
@@ -60,10 +51,6 @@ class RatingControl: UIStackView {
             self.removeArrangedSubview(subview)
             return allSubviews + [subview]
         }
-
-//        if let index = constraints.index(where: { $0.identifier == "widthConstraint" }) {
-//            NSLayoutConstraint.deactivate([constraints[index]])
-//        }
 
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }

@@ -20,6 +20,8 @@ class CastTableViewCell: UITableViewCell {
     @IBOutlet weak var producersTitleLabel: UILabel!
     @IBOutlet weak var castStackViewBottom: NSLayoutConstraint!
     
+    public var showPersonProfile: ((Int)->())?
+    
     enum JobTypes {
         case actor
         case producer
@@ -41,8 +43,8 @@ class CastTableViewCell: UITableViewCell {
         if castData.actors.isEmpty {
             self.actorsTitleLabel.isHidden = true
         } else {
-            for actorName in castData.actors {
-                createStackViewLabel(ofType: .actor, withText: actorName)
+            for actor in castData.actors {
+                createStackViewLabel(ofType: .actor, withText: actor.name, id: actor.id)
             }
         }
         
@@ -81,22 +83,39 @@ class CastTableViewCell: UITableViewCell {
         
     }
     
-    private func createStackViewLabel(ofType type: JobTypes, withText text: String? = nil) {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13.0)
-        label.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
-        if let actorName = text {
-            label.text = actorName
-        }
+    private func createStackViewLabel(ofType type: JobTypes, withText text: String? = nil, id: Int? = nil) {
         
         switch type {
         case .actor:
-            self.castStackView.addArrangedSubview(label)
+            let button = UIButton(type: .system)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
+            button.contentHorizontalAlignment = .leading
+            button.setTitleColor(#colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1), for: .normal)
+            if let actorName = text {
+                button.setTitle(actorName + " \u{232A}", for: .normal)
+            }
+            button.heightAnchor.constraint(equalToConstant: 17.0).isActive = true
+            if let personId = id {
+                button.tag = personId
+                button.addTarget(self, action: #selector(showPersonProfile(sender:)), for: .touchUpInside)
+            }
+            
+            self.castStackView.addArrangedSubview(button)
         case .producer:
+            let label = UILabel()
+            label.font = UIFont.systemFont(ofSize: 13.0)
+            label.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
+            if let actorName = text {
+                label.text = actorName
+            }
             self.crewStackView.addArrangedSubview(label)
         }
 
     }
     
+    @objc private func showPersonProfile(sender: UIButton) {
+        print("Tag - \(sender.tag)")
+        showPersonProfile!(sender.tag)
+    }
 
 }

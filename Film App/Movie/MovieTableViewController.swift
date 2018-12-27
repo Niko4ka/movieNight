@@ -45,7 +45,6 @@ class MovieTableViewController: UITableViewController {
         presenter = MoviePresenter()
         Spinner.start(from: (self.navigationController?.view)!)
         
-//        tableView.tableHeaderView = headerView
         tableView.tableFooterView = UIView()
         tableView.tag = 0
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")

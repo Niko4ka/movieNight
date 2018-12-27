@@ -168,6 +168,15 @@ class MoviePresenter: MovieTableViewPresenter {
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! CastTableViewCell
             if controller.movieCast != nil && !castCellConfigured {
                 cell.configure(with: controller.movieCast!)
+                cell.showPersonProfile = { id in
+                    
+                    let storyboard = UIStoryboard(name: "Person", bundle: nil)
+                    let personController = storyboard.instantiateViewController(withIdentifier: "PersonTableViewController") as! PersonTableViewController
+                    personController.personId = id
+                    
+                    controller.navigationController?.pushViewController(personController, animated: true)
+                    
+                }
                 castCellConfigured = true
             }
             return cell

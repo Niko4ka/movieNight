@@ -47,7 +47,6 @@ class ResultsTableViewController: UITableViewController {
                 return
             }
             
-            
             controller.movieId = id
             controller.mediaType = type
             
