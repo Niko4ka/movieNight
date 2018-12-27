@@ -30,6 +30,8 @@ class ItemCollectionViewCell: UICollectionViewCell {
             movieImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (result) in
                 self.setNeedsLayout()
             })
+        } else {
+            movieImage.image = UIImage(named: "noPoster")
         }
         
     }

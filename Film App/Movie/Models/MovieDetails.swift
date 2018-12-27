@@ -9,11 +9,12 @@
 import Foundation
 
 struct MovieDetails {
+    var id: Int
     var posterUrl: URL?
     var backdropUrl: URL?
     var title: String
-    var releaseDate: String
-    var description: String?
+    var releaseDate: String = "-"
+    var description: String = ""
     var countries: String
     var status: String
     var runtime: Int?
@@ -24,15 +25,15 @@ struct MovieDetails {
     
     init?(ofType type: MediaType, from json: [String: Any]) {
         
-        print("Vote average - \(json["vote_average"])")
-        
         guard let status = json["status"] as? String,
+            let id = json["id"] as? Int,
             let genres = json["genres"] as? [Dictionary<String, Any>],
             let rating = json["vote_average"] as? Double,
             let voteCount = json["vote_count"] as? Int
             else { return nil }
-        
+
         self.status = status
+        self.id = id
         self.rating = rating
         self.voteCount = voteCount
         
@@ -43,7 +44,7 @@ struct MovieDetails {
                 else { return nil }
             
             self.title = title
-            self.releaseDate = releaseDate
+            self.releaseDate = releaseDate.formattedDate()
             
             var countriesString = ""
             for country in countries {
@@ -60,12 +61,15 @@ struct MovieDetails {
             
         } else {
             guard let title = json["name"] as? String,
-                let releaseDate = json["first_air_date"] as? String,
                 let countries = json["origin_country"] as? [String]
                 else { return nil }
             
             self.title = title
-            self.releaseDate = releaseDate
+            
+            
+            if let releaseDate = json["first_air_date"] as? String {
+                self.releaseDate = releaseDate.formattedDate()
+            }
             
             var countriesString = ""
             for countryIndex in countries {

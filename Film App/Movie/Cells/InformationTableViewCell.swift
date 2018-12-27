@@ -23,11 +23,15 @@ class InformationTableViewCell: UITableViewCell {
         
         if keysStackView.subviews.isEmpty && valuesStackView.subviews.isEmpty {
             
-            let countries = (key: "Country", value: movie.countries)
-            createInfo(from: countries)
+            if !movie.countries.isEmpty {
+                let countries = (key: "Country", value: movie.countries)
+                createInfo(from: countries)
+            }
             
-            let status = (key: "Status", value: movie.status)
-            createInfo(from: status)
+            if !movie.status.isEmpty {
+                let status = (key: "Status", value: movie.status)
+                createInfo(from: status)
+            }
             
             if let runtimeValue = movie.runtime {
                 let runtime = (key: "Runtime", value: "\(runtimeValue) min.")

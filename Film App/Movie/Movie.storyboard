@@ -48,7 +48,7 @@
                                         <constraint firstItem="ZJG-XH-c9g" firstAttribute="leading" secondItem="z9B-cy-KUh" secondAttribute="leading" id="uVd-YF-IMz"/>
                                     </constraints>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dLx-cR-kJJ">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dLx-cR-kJJ">
                                     <rect key="frame" x="8" y="218" width="100" height="150"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="150" id="v8x-mn-BqZ"/>
@@ -103,8 +103,12 @@
                                         <action selector="segmentedControlValueChanged:" destination="gRi-Xy-wi0" eventType="valueChanged" id="D0g-vd-Ncz"/>
                                     </connections>
                                 </segmentedControl>
-                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="n3c-em-ocQ" customClass="RatingControl" customModule="Film_App" customModuleProvider="target">
-                                    <rect key="frame" x="116" y="356" width="73" height="12"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="n3c-em-ocQ" customClass="RatingControl" customModule="Film_App" customModuleProvider="target">
+                                    <rect key="frame" x="116" y="357" width="73" height="11"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="73" identifier="ratingControlWidth" id="CNF-M1-ybK"/>
+                                        <constraint firstAttribute="height" constant="11" id="DS5-M0-NwM"/>
+                                    </constraints>
                                 </stackView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -112,7 +116,6 @@
                                 <constraint firstItem="IJ4-88-A2B" firstAttribute="top" secondItem="GDS-eH-Q7A" secondAttribute="bottom" constant="8" id="6ym-IT-VWi"/>
                                 <constraint firstItem="IJ4-88-A2B" firstAttribute="leading" secondItem="MgA-Pd-xVi" secondAttribute="leading" constant="8" id="7rd-a4-vAy"/>
                                 <constraint firstAttribute="trailing" secondItem="z9B-cy-KUh" secondAttribute="trailing" id="BWa-vq-JNj"/>
-                                <constraint firstItem="n3c-em-ocQ" firstAttribute="height" secondItem="4nY-ia-F68" secondAttribute="height" multiplier="0.4" id="DUj-ro-0eO"/>
                                 <constraint firstItem="z9B-cy-KUh" firstAttribute="leading" secondItem="MgA-Pd-xVi" secondAttribute="leading" id="E4M-Xl-S2X"/>
                                 <constraint firstItem="d8j-gf-KL2" firstAttribute="top" secondItem="dLx-cR-kJJ" secondAttribute="top" id="ISK-Lg-Sn7"/>
                                 <constraint firstAttribute="trailing" secondItem="GDS-eH-Q7A" secondAttribute="trailing" constant="8" id="LoN-RU-kXs"/>
@@ -382,7 +385,7 @@
                                             <rect key="frame" x="16" y="36.5" width="80" height="57"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="evl-07-Opm"/>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="qR0-d2-sUE"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="12" id="qR0-d2-sUE"/>
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Yb8-Sa-OnW">
@@ -444,15 +447,12 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Empty" rowHeight="75" id="Uo8-kg-nkN" customClass="EmptyTableViewCell" customModule="Film_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1145" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uo8-kg-nkN" id="mEX-KL-TjO">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uo8-kg-nkN" id="mEX-KL-TjO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reviews" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcU-Q1-xgI">
-                                            <rect key="frame" x="16" y="11" width="343" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="XRm-go-JnN"/>
-                                            </constraints>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reviews" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcU-Q1-xgI">
+                                            <rect key="frame" x="16" y="11" width="343" height="53"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                             <nil key="highlightedColor"/>
@@ -561,45 +561,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiU-zV-az7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="866.39999999999998" y="653.52323838080963"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="TIH-7U-sIH">
-            <objects>
-                <viewController storyboardIdentifier="YTViewController" id="ijf-Lv-01r" customClass="YTViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bA-xA-mFM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="wT6-KP-T9h">
-                                <rect key="frame" x="169" y="325" width="37" height="37"/>
-                            </activityIndicatorView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-yi-5Qs" customClass="YTPlayerView">
-                                <rect key="frame" x="0.0" y="238" width="375" height="211"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="W9b-yi-5Qs" secondAttribute="height" multiplier="16:9" id="8jl-qE-D4d"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="W9b-yi-5Qs" firstAttribute="centerY" secondItem="1FT-19-zEl" secondAttribute="centerY" id="MRW-Hd-4Ds"/>
-                            <constraint firstItem="wT6-KP-T9h" firstAttribute="centerX" secondItem="1FT-19-zEl" secondAttribute="centerX" id="RA3-b0-z7J"/>
-                            <constraint firstItem="W9b-yi-5Qs" firstAttribute="trailing" secondItem="1FT-19-zEl" secondAttribute="trailing" id="RD1-UT-Tiw"/>
-                            <constraint firstItem="W9b-yi-5Qs" firstAttribute="leading" secondItem="1FT-19-zEl" secondAttribute="leading" id="gEa-Wv-jSe"/>
-                            <constraint firstItem="wT6-KP-T9h" firstAttribute="centerY" secondItem="1FT-19-zEl" secondAttribute="centerY" id="ugM-eE-SlE"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="1FT-19-zEl"/>
-                    </view>
-                    <connections>
-                        <outlet property="YTPlayer" destination="W9b-yi-5Qs" id="sfn-VK-9Xx"/>
-                        <outlet property="activityIndicator" destination="wT6-KP-T9h" id="oIM-Bd-Liz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qvy-Mx-u6F" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1614" y="884"/>
+            <point key="canvasLocation" x="894" y="577"/>
         </scene>
     </scenes>
     <resources>

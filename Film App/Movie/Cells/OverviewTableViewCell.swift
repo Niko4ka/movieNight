@@ -39,14 +39,17 @@ class OverviewTableViewCell: UITableViewCell {
     
     public func configure(with movie: MovieDetails) {
         
-        if let description = movie.description {
-            self.descriptionTextView.text = description
-            let height = self.getTextViewHeight(fromText: self.descriptionTextView.text)
-            if height <= self.descriptionHeight.constant {
-                self.descriptionHeight.constant = height
-                self.showMoreButton.isHidden = true
-                self.descriptionBottomConstraint.constant = 8.0
-            }
+        if !movie.description.isEmpty {
+            self.descriptionTextView.text = movie.description
+        } else {
+            self.descriptionTextView.text = "No overview"
+        }
+        
+        let height = self.getTextViewHeight(fromText: self.descriptionTextView.text)
+        if height <= self.descriptionHeight.constant {
+            self.descriptionHeight.constant = height
+            self.showMoreButton.isHidden = true
+            self.descriptionBottomConstraint.constant = 8.0
         }
 
     }

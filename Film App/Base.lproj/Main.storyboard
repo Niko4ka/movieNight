@@ -135,44 +135,58 @@
             </objects>
             <point key="canvasLocation" x="3210.4000000000001" y="23.645320197044335"/>
         </scene>
-        <!--Wishlist Table View Controller-->
-        <scene sceneID="ruI-iz-wKM">
+        <!--Wishlist-->
+        <scene sceneID="Lqr-JR-zXY">
             <objects>
-                <tableViewController id="kcy-My-88M" customClass="WishlistTableViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DAa-yd-rCj">
+                <viewController id="BoP-4r-zg9" customClass="WishlistViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XlA-Mf-VUq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ria-Go-R2t">
+                                <rect key="frame" x="8" y="96" width="359" height="29"/>
+                                <segments>
+                                    <segment title="Movies"/>
+                                    <segment title="TV Shows"/>
+                                </segments>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="sectionSegmentedControlValueChanged:" destination="BoP-4r-zg9" eventType="valueChanged" id="763-TF-kHp"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No movies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3o-UY-tt6">
+                                <rect key="frame" x="147.33333333333334" y="398.33333333333331" width="80.666666666666657" height="20.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gyw-My-kes">
+                                <rect key="frame" x="0.0" y="132" width="375" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="Scu-HF-vc2">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2uc-54-5aD">
-                                    <rect key="frame" x="8" y="51" width="359" height="29"/>
-                                    <segments>
-                                        <segment title="Movies"/>
-                                        <segment title="TV Shows"/>
-                                    </segments>
-                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </segmentedControl>
-                            </subviews>
-                            <color key="backgroundColor" red="0.91372549020000005" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstItem="2uc-54-5aD" firstAttribute="leading" secondItem="Scu-HF-vc2" secondAttribute="leading" constant="8" id="Ul2-C4-jBV"/>
-                                <constraint firstAttribute="trailing" secondItem="2uc-54-5aD" secondAttribute="trailing" constant="8" id="hSQ-m4-xbU"/>
-                                <constraint firstAttribute="bottom" secondItem="2uc-54-5aD" secondAttribute="bottom" constant="8" id="hWN-yt-Mpx"/>
-                            </constraints>
-                        </view>
-                        <connections>
-                            <outlet property="dataSource" destination="kcy-My-88M" id="oSX-k9-XaA"/>
-                            <outlet property="delegate" destination="kcy-My-88M" id="4W2-g1-EM4"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="PVf-9O-Phv"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GA9-05-NfD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstItem="ria-Go-R2t" firstAttribute="top" secondItem="5rF-d1-kKV" secondAttribute="top" constant="8" id="3Pg-ja-uN1"/>
+                            <constraint firstItem="5rF-d1-kKV" firstAttribute="trailing" secondItem="ria-Go-R2t" secondAttribute="trailing" constant="8" id="3VZ-cK-wkz"/>
+                            <constraint firstItem="ria-Go-R2t" firstAttribute="leading" secondItem="5rF-d1-kKV" secondAttribute="leading" constant="8" id="9sS-UB-9Ef"/>
+                            <constraint firstItem="d3o-UY-tt6" firstAttribute="centerY" secondItem="5rF-d1-kKV" secondAttribute="centerY" id="FVX-Ia-Z0R"/>
+                            <constraint firstItem="gyw-My-kes" firstAttribute="top" secondItem="ria-Go-R2t" secondAttribute="bottom" constant="8" id="Ffm-0F-OB5"/>
+                            <constraint firstItem="5rF-d1-kKV" firstAttribute="trailing" secondItem="gyw-My-kes" secondAttribute="trailing" id="R2Y-p9-953"/>
+                            <constraint firstItem="d3o-UY-tt6" firstAttribute="centerX" secondItem="5rF-d1-kKV" secondAttribute="centerX" id="TeE-Xh-nGL"/>
+                            <constraint firstItem="5rF-d1-kKV" firstAttribute="bottom" secondItem="gyw-My-kes" secondAttribute="bottom" id="jpF-TE-iuR"/>
+                            <constraint firstItem="gyw-My-kes" firstAttribute="leading" secondItem="5rF-d1-kKV" secondAttribute="leading" id="m5Q-rq-3QU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5rF-d1-kKV"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Wishlist" id="Xyk-xY-96g"/>
+                    <connections>
+                        <outlet property="wishlistTableView" destination="gyw-My-kes" id="MXw-Qx-7EE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wOC-zW-kBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3221.5999999999999" y="880.78817733990149"/>
+            <point key="canvasLocation" x="3210" y="881"/>
         </scene>
         <!--Wishlist-->
         <scene sceneID="mRT-C9-SYO">
@@ -184,7 +198,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="kcy-My-88M" kind="relationship" relationship="rootViewController" id="HcZ-qf-4iu"/>
+                        <segue destination="BoP-4r-zg9" kind="relationship" relationship="rootViewController" id="hZ1-QK-Srl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GCg-Y7-f9h" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -40,4 +40,17 @@ extension String {
         return String(self.dropFirst(prefix.count))
     }
     
+    func formattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if let date = formatter.date(from: self) {
+            formatter.timeStyle = .none
+            formatter.dateStyle = .medium
+            let formattedString = formatter.string(from: date)
+            return formattedString
+        } else {
+            return self
+        }
+    }
+    
 }

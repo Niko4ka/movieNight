@@ -33,14 +33,39 @@ class RatingControl: UIStackView {
         }
         
         let label = UILabel()
-        label.text = "(\(numberOfVotes))"
+        label.text = " (\(numberOfVotes))"
         label.font = UIFont.systemFont(ofSize: 11.0)
         label.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
         label.sizeToFit()
         addArrangedSubview(label)
         
         let viewWidth = (self.frame.height * 5) + 10.0 + label.frame.width
-        self.widthAnchor.constraint(equalToConstant: viewWidth).isActive = true
+        
+        if let index = constraints.index(where: { $0.identifier == "ratingControlWidth" }), let widthConstraint = [constraints[index]].first {
+            widthConstraint.constant = viewWidth
+            
+//
+//            NSLayoutConstraint.deactivate([constraints[index]])
+        }
+        
+//
+//
+//        let widthConstraint = widthAnchor.constraint(equalToConstant: viewWidth)
+//        widthConstraint.identifier = "widthConstraint"
+//        widthConstraint.isActive = true
+    }
+    
+    public func removeArrangedViews() {
+        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
+            self.removeArrangedSubview(subview)
+            return allSubviews + [subview]
+        }
+
+//        if let index = constraints.index(where: { $0.identifier == "widthConstraint" }) {
+//            NSLayoutConstraint.deactivate([constraints[index]])
+//        }
+
+        removedSubviews.forEach({ $0.removeFromSuperview() })
     }
     
     private func createStar(withImage image: UIImage) {

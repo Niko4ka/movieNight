@@ -1,5 +1,5 @@
 //
-//  WishlistMovieTableViewCell.swift
+//  WishlistTableViewCell.swift
 //  Film App
 //
 //  Created by Вероника Данилова on 24/12/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WishlistMovieTableViewCell: UITableViewCell {
+class WishlistTableViewCell: UITableViewCell {
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -16,7 +16,7 @@ class WishlistMovieTableViewCell: UITableViewCell {
     @IBOutlet weak var releasedDateLabel: UILabel!
     @IBOutlet weak var ratingStackView: RatingControl!
     var id: Int!
-    var mediaType: MediaType!
+    var mediaType: MediaType?
     
     
     override func awakeFromNib() {
@@ -24,14 +24,19 @@ class WishlistMovieTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    public func configure(with movie: WishlistMovie) {
-        id = movie.id
-        mediaType = movie.mediaType
-        posterImageView.image = movie.poster
+    public func configure(with movie: Movie) {
+        id = Int(movie.id)
+        if let value = movie.mediaType?.name {
+            mediaType = MediaType(rawValue: value)
+        }
+        posterImageView.image = movie.poster as? UIImage
         titleLabel.text = movie.title
         genresLabel.text = movie.genres
         releasedDateLabel.text = movie.releasedDate
-        ratingStackView.setRating(movie.rating, from: movie.voteCount)
+        if !ratingStackView.subviews.isEmpty {
+            ratingStackView.removeArrangedViews()
+        }
+        ratingStackView.setRating(movie.rating, from: Int(movie.voteCount))
     }
 
     

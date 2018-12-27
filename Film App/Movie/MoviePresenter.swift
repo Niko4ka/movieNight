@@ -42,10 +42,12 @@ class MoviePresenter: MovieTableViewPresenter {
         AF.request(detailsUrl).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any] else { return }
-            guard let details = MovieDetails(ofType: type, from: json) else { return }
+            guard let details = MovieDetails(ofType: type, from: json) else {
+                print("details error")
+                return }
             
             controller.movieDetails = details
-            
+
             self.configureHeaderView(controller, with: details)
 
             Spinner.stop()
@@ -224,13 +226,17 @@ class MoviePresenter: MovieTableViewPresenter {
         if let backdropUrl = details.backdropUrl {
             controller.backdropImageView.kf.setImage(with: backdropUrl)
         } else {
+
             controller.backdropContentView.removeFromSuperview()
             controller.headerView.translatesAutoresizingMaskIntoConstraints = false
+            controller.headerView.widthAnchor.constraint(equalToConstant: controller.tableView.frame.width).isActive = true
             controller.moviePoster.topAnchor.constraint(equalTo: controller.headerView.topAnchor, constant: 8.0).isActive = true
         }
         
         if let posterUrl = details.posterUrl {
             controller.moviePoster.kf.setImage(with: posterUrl)
+        } else {
+            controller.moviePoster.image = UIImage(named: "noPoster")
         }
         
         controller.titleLabel.text = details.title
@@ -238,17 +244,16 @@ class MoviePresenter: MovieTableViewPresenter {
         controller.genresLabel.text = details.genres
         
         controller.ratingStackView.setRating(details.rating, from: details.voteCount)
+        controller.releasedLabel.text = "Released: \(details.releaseDate)"
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        if let date = formatter.date(from: details.releaseDate) {
-            formatter.timeStyle = .none
-            formatter.dateStyle = .medium
-            controller.releasedLabel.text = "Released: \(formatter.string(from: date))"
-        } else {
-            controller.releasedLabel.text = "Released: \(details.releaseDate)"
+        let existingMovie = CoreDataManager.shared.findMovie(withID: Int32(details.id))
+        if !existingMovie.isEmpty {
+            controller.addToWishlistButton.isSelected = true
+            controller.viewDidLayoutSubviews()
         }
         
+
+        controller.tableView.tableHeaderView = controller.headerView
         controller.tableView.reloadData()
     }
     

@@ -45,10 +45,10 @@ class MovieTableViewController: UITableViewController {
         presenter = MoviePresenter()
         Spinner.start(from: (self.navigationController?.view)!)
         
-        self.tableView.tableHeaderView = headerView
-        self.tableView.tableFooterView = UIView()
-        self.tableView.tag = 0
-        self.tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
+//        tableView.tableHeaderView = headerView
+        tableView.tableFooterView = UIView()
+        tableView.tag = 0
+        tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         guard let id = movieId, let type = mediaType else { return }
         print("ID - \(id)")
@@ -93,30 +93,21 @@ class MovieTableViewController: UITableViewController {
     @IBAction func addToWishlistButtonPressed(_ sender: Any) {
         
         if addToWishlistButton.isSelected {
-            if let index = Wishlist.movies.index(where: {$0.id == movieId}) {
-                Wishlist.movies.remove(at: index)
-                print("Wishlist movies - \(Wishlist.movies)")
+            if let selectedMovie = CoreDataManager.shared.findMovie(withID: Int32(movieId)).first {
+                CoreDataManager.shared.delete(object: selectedMovie)
                 self.addToWishlistButton.isSelected = false
                 setAddToWishlistButton()
             }
-            
         } else {
-            guard let id = movieId, let title = titleLabel.text, let genres = genresLabel.text, let releasedDateString = releasedLabel.text, let poster = moviePoster.image, let rating = movieDetails?.rating, let voteCount = movieDetails?.voteCount else {
-                return
-            }
+            guard let details = movieDetails, let poster = moviePoster.image else { return }
             
-            let releasedDate = releasedDateString.deletedPrefix("Released: ")
-            
-            let movie = WishlistMovie.init(id: id, mediaType: mediaType, title: title, genres: genres, releasedDate: releasedDate, poster: poster, rating: rating, voteCount: voteCount)
-            Wishlist.movies.append(movie)
-            print("Wishlist - \(Wishlist.movies)")
+            let currentDateTime = Date()
+            CoreDataManager.shared.saveItemToWishlist(mediaType: mediaType.rawValue, data: details, poster: poster, saveDate: currentDateTime)
             self.addToWishlistButton.isSelected = true
             setAddToWishlistButton()
         }
 
     }
-    
-    
     
     private func setGradientView() {
         let gradientLayer = CAGradientLayer()
@@ -149,13 +140,11 @@ class MovieTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
+
         if tableView.tag == 0 {
             
             if movieTrailers.isEmpty {
@@ -173,8 +162,6 @@ class MovieTableViewController: UITableViewController {
         } else {
             return 1
         }
-        
-        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
