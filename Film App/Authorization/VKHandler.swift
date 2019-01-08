@@ -1,11 +1,3 @@
-//
-//  VKHandler.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 12.11.2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import UIKit
 import VKSdkFramework
 
@@ -46,9 +38,7 @@ class VKHandler: NSObject {
 }
 
 extension VKHandler: VKSdkDelegate, VKSdkUIDelegate {
-    
-    
-    
+
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         if ((result.token) != nil) {
             print("Пользователь успешно авторизован")

@@ -1,11 +1,3 @@
-//
-//  MovieCast.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 17/12/2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import Foundation
 
 struct MovieCast {
@@ -54,7 +46,7 @@ struct MovieCast {
                     case "Producer":
                         self.producers.append(name)
                     default:
-                        ()
+                        break
                     }
                     
                 } else {
@@ -67,18 +59,12 @@ struct MovieCast {
                     case "Executive Producer":
                         self.producers.append(name)
                     default:
-                        ()
+                        break
                     }
-                    
                 }
-                
-                
             }
-            
         }
-        
     }
-    
 }
 
 struct CastPerson {

@@ -1,11 +1,3 @@
-//
-//  MovieReview.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 23/12/2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import Foundation
 
 struct MovieReview {

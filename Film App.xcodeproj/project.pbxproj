@@ -292,10 +292,8 @@
 			isa = PBXGroup;
 			children = (
 				4ED9ED6421E4112300ADF05F /* Client */,
-				4E4C2A2C21C989C4000399CE /* String+Extension.swift */,
-				4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */,
+				4ED9ED7121E542DA00ADF05F /* Extensions */,
 				4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */,
-				4E78BE3F21C3EEA00054FC5B /* ConfigurationService.swift */,
 				4E32CDBC21C81AA5000A15D8 /* Spinner.swift */,
 				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
 				4E6C11A42183A84700C914BD /* Main.storyboard */,
@@ -356,11 +354,21 @@
 		4ED9ED6421E4112300ADF05F /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				4E78BE3F21C3EEA00054FC5B /* ConfigurationService.swift */,
 				4ED9ED6521E4112F00ADF05F /* Client.swift */,
 				4ED9ED6721E4115300ADF05F /* Client+loadKeywords.swift */,
 				4ED9ED6921E411AC00ADF05F /* Client+searchResults.swift */,
 			);
 			path = Client;
+			sourceTree = "<group>";
+		};
+		4ED9ED7121E542DA00ADF05F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4E4C2A2C21C989C4000399CE /* String+Extension.swift */,
+				4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

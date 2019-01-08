@@ -1,20 +1,7 @@
-//
-//  DatabaseObject.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 11/12/2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import Foundation
 
 struct DatabaseObject {
-    
-//    enum MediaTypes: String {
-//        case movie = "movie"
-//        case tv = "tv"
-//    }
-    
+
     var mediaType: MediaType
     var image: String?
     var genres: String = ""

@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 26.10.2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import UIKit
 import VKSdkFramework
 import AVFoundation
@@ -17,16 +9,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        let session = AVAudioSession.sharedInstance()
-//        do {
-//            try session.setCategory(.ambient, mode: .default, options: [])
-//            try session.setActive(true, options: [])
-//        } catch {
-//            print("Session error")
-//        }
-//
-        
-
         // VK SDK
         let vkSDK = VKSdk.initialize(withAppId: VKHandler.VK_APP_ID)
         vkSDK?.register(VKHandler.shared)
@@ -34,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Root Controller
         
-        if let token = KeychainService.shared.readToken(account: KeychainService.Accounts.vkontakte.rawValue) {
+        if KeychainService.shared.readToken(account: KeychainService.Accounts.vkontakte.rawValue) != nil {
 
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {

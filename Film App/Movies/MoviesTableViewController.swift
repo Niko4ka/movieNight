@@ -1,16 +1,6 @@
-//
-//  MoviesTableViewController.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 28/12/2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import UIKit
 
 class MoviesTableViewController: UITableViewController {
-
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,8 +8,6 @@ class MoviesTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "SliderTableViewCell", bundle: nil), forCellReuseIdentifier: "SlideCell")
     }
     
-    
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

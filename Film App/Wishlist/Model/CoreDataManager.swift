@@ -1,11 +1,3 @@
-//
-//  CoreDataManager.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 25/12/2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import CoreData
 import UIKit
 

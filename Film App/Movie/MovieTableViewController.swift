@@ -1,11 +1,3 @@
-//
-//  MovieTableViewController.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 17/12/2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-//
-
 import UIKit
 
 protocol MovieTableViewPresenter: class {
@@ -38,7 +30,13 @@ class MovieTableViewController: UITableViewController {
     public var movieTrailers: [MovieTrailer] = []
     public var movieReviews: [MovieReview] = []
     public var similarMovies: [DatabaseObject] = []
+    private var currentState: tableStates = .details
 
+    enum tableStates {
+        case details
+        case reviews
+        case similar
+    }
     
     var isLoading: Bool = false {
         didSet {
@@ -69,7 +67,6 @@ class MovieTableViewController: UITableViewController {
         presenter = MoviePresenter()
         
         tableView.tableFooterView = UIView()
-        tableView.tag = 0
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         guard let id = movieId, let type = mediaType else { return }
@@ -97,15 +94,15 @@ class MovieTableViewController: UITableViewController {
         
         switch sender.selectedSegmentIndex {
         case 1:
-            tableView.tag = 1
+            currentState = .reviews
             tableView.separatorStyle = .singleLine
             tableView.reloadData()
         case 2:
-            tableView.tag = 2
+            currentState = .similar
             tableView.separatorStyle = .singleLine
             tableView.reloadData()
         default:
-            tableView.tag = 0
+            currentState = .details
             tableView.separatorStyle = .singleLine
             tableView.reloadData()
         }
@@ -171,7 +168,8 @@ class MovieTableViewController: UITableViewController {
             return 0
         }
 
-        if tableView.tag == 0 {
+        switch currentState {
+        case .details:
             
             if movieTrailers.isEmpty {
                 return 3
@@ -179,20 +177,24 @@ class MovieTableViewController: UITableViewController {
                 return 4
             }
             
-        } else if tableView.tag == 1 {
+        case .reviews:
+            
             if movieReviews.isEmpty {
                 return 1
             } else {
                 return movieReviews.count
             }
-        } else {
+            
+        case .similar:
+            
             return 1
         }
     }
-
+        
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView.tag == 0 {
+        switch currentState {
+        case .details:
             
             var rowIndex: Int!
             if movieTrailers.isEmpty {
@@ -215,11 +217,16 @@ class MovieTableViewController: UITableViewController {
                 return cell
             }
             
-        } else if tableView.tag == 1 {
+        case .reviews:
+            
             return presenter.createCell(self, withIdentifier: .review, in: tableView, forRowAt: indexPath)
-        } else {
+            
+        case .similar:
+            
             return presenter.createCell(self, withIdentifier: .similar, in: tableView, forRowAt: indexPath)
+            
         }
+
     }
     
 }

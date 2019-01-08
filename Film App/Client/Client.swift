@@ -7,7 +7,7 @@ class Client {
         self.apiKey = apiKey
     }
     
-    func injectParams(_ params: Parameters) -> Parameters {
+    private func injectParams(_ params: Parameters) -> Parameters {
         var res = params
         res["api_key"] = apiKey
         

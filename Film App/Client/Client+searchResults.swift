@@ -25,9 +25,21 @@ extension Client {
             var results = SearchResults()
             
             let objects = dictionary.compactMap { DatabaseObject(fromJson: $0) }
-            results.movies = objects.filter { $0.mediaType == .movie }
-            results.tvShows = objects.filter { $0.mediaType == .tvShow }
-            results.persons = objects.filter { $0.mediaType == .person }
+            
+            for object in objects {
+                switch object.mediaType {
+                case .movie:
+                    results.movies.append(object)
+                case .tvShow:
+                    results.tvShows.append(object)
+                case .person:
+                    results.persons.append(object)
+                }
+            }
+//            
+//            results.movies = objects.filter { $0.mediaType == .movie }
+//            results.tvShows = objects.filter { $0.mediaType == .tvShow }
+//            results.persons = objects.filter { $0.mediaType == .person }
             
             completion(results)
         }

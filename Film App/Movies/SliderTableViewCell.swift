@@ -1,11 +1,3 @@
-//
-//  SliderTableViewCell.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 05/01/2019.
-//  Copyright © 2019 Veronika Danilova. All rights reserved.
-//
-
 import UIKit
 
 class SliderTableViewCell: UITableViewCell {

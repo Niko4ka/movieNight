@@ -1,16 +1,8 @@
-//
-//  MovieTrailer.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 18/12/2018.
-//  Copyright © 2018 Veronika Danilova. All rights reserved.
-
 import Foundation
 
 struct MovieTrailer {
     var title: String
     var id: String
-//    var url: URL
     var duration: String
     var thumbnailUrl: URL
 
@@ -20,7 +12,6 @@ struct MovieTrailer {
             let videoUrl = URL(string: "https://www.youtube.com/watch?v=\(trailerId)") else { return nil }
         
         self.id = trailerId
-//        self.url = videoUrl
         
         guard let snippet = json["snippet"] as? [String: Any],
             let trailerTitle = snippet["title"] as? String,
