@@ -10,7 +10,11 @@ import UIKit
 
 class ResultsTableViewController: UITableViewController {
     
-    public var data = [String: [DatabaseObject]]()
+    public var data = [(title: String, objects: [DatabaseObject])]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +37,8 @@ class ResultsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let title = Array(data)[indexPath.row].key
-        let items = Array(data)[indexPath.row].value
+        let title = data[indexPath.row].title
+        let items = data[indexPath.row].objects
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
         cell.headerTitle.text = title

@@ -39,6 +39,8 @@ class MoviePresenter: MovieTableViewPresenter {
             mediaType = .tvShow
         }
         
+        controller.isLoading = true
+        
         AF.request(detailsUrl).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any] else { return }
@@ -50,7 +52,7 @@ class MoviePresenter: MovieTableViewPresenter {
 
             self.configureHeaderView(controller, with: details)
 
-            Spinner.stop()
+            controller.isLoading = false
         }
         
         AF.request(castUrl).responseJSON { (response) in

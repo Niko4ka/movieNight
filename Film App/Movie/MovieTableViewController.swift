@@ -17,7 +17,7 @@ protocol MovieTableViewPresenter: class {
 
 class MovieTableViewController: UITableViewController {
     
-    @IBOutlet weak var headerView: UIView!
+    @IBOutlet var headerView: UIView!
     @IBOutlet weak var backdropContentView: UIView!
     
     @IBOutlet weak var backdropImageView: UIImageView!
@@ -39,11 +39,34 @@ class MovieTableViewController: UITableViewController {
     public var movieReviews: [MovieReview] = []
     public var similarMovies: [DatabaseObject] = []
 
+    
+    var isLoading: Bool = false {
+        didSet {
+            updateLoading()
+        }
+    }
+    
+    private func updateLoading() {
+        if isLoading {
+            let activity = UIActivityIndicatorView(style: .gray)
+            activity.startAnimating()
+            
+            tableView.backgroundView = activity
+            tableView.tableHeaderView = nil
+        } else {
+            tableView.backgroundView = nil
+            tableView.tableHeaderView = headerView
+        }
+        
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateLoading()
+        
         presenter = MoviePresenter()
-        Spinner.start(from: (self.navigationController?.view)!)
         
         tableView.tableFooterView = UIView()
         tableView.tag = 0
@@ -143,6 +166,10 @@ class MovieTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if isLoading {
+            return 0
+        }
 
         if tableView.tag == 0 {
             
