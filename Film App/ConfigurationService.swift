@@ -15,6 +15,8 @@ class ConfigurationService {
     static let themoviedbKey = "81c0943d1596e1cc2b1c8de9e9ba8945"
     static let googleKey = "AIzaSyAluG5wfH3vDhket7F2b2pFAzdgKH6F4mk"
     
+    static let client = Client(apiKey: themoviedbKey)
+    
     public var moviesGenres: [Int: String]!
     public var tvGenres: [Int: String]!
     public var countries: [String: String]!
