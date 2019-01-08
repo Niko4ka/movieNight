@@ -108,6 +108,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="bfD-n2-AVJ" kind="relationship" relationship="viewControllers" id="e7X-65-nbG"/>
                         <segue destination="KKL-OW-byu" kind="relationship" relationship="viewControllers" id="Icv-he-aNe"/>
                         <segue destination="yhp-3s-BjJ" kind="relationship" relationship="viewControllers" id="Rah-B2-JPe"/>
                     </connections>
@@ -115,6 +116,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sfa-3X-r8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2268" y="23.645320197044335"/>
+        </scene>
+        <!--Movies Table View Controller-->
+        <scene sceneID="Utt-qL-rhB">
+            <objects>
+                <tableViewController id="bSz-OV-OOv" customClass="MoviesTableViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="iWO-xJ-hCm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MbR-SU-oDz">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MbR-SU-oDz" id="wbN-Pq-Yo4">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bSz-OV-OOv" id="hDn-9P-5Uo"/>
+                            <outlet property="delegate" destination="bSz-OV-OOv" id="cPP-kL-pZM"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="d94-5H-9ri">
+                        <barButtonItem key="rightBarButtonItem" title="Genres" id="hKh-Dq-4eV"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZQ-Ao-l08" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4152.8000000000002" y="-781.0344827586207"/>
+        </scene>
+        <!--Movies-->
+        <scene sceneID="aoc-FJ-bzH">
+            <objects>
+                <navigationController id="bfD-n2-AVJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Movies" image="movies" id="2We-1E-KTH"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sc2-PZ-NQ3">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bSz-OV-OOv" kind="relationship" relationship="rootViewController" id="OQi-7V-u4l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MBl-Sf-mXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3209" y="-781"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6pF-wD-1sj">
@@ -207,6 +256,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="movies" width="56.25" height="56.25"/>
         <image name="wishlist" width="56.25" height="56.25"/>
     </resources>
 </document>

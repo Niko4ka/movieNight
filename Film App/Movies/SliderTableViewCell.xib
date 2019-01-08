@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SlideCell" rowHeight="131" id="KGk-i7-Jjw" customClass="SliderTableViewCell" customModule="Film_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="130.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AKP-RO-gf4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuU-F4-aWl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="RuU-F4-aWl" firstAttribute="centerY" secondItem="AKP-RO-gf4" secondAttribute="centerY" id="3fE-Jn-bol"/>
+                            <constraint firstItem="RuU-F4-aWl" firstAttribute="height" secondItem="AKP-RO-gf4" secondAttribute="height" id="ATq-jQ-f8Y"/>
+                            <constraint firstItem="RuU-F4-aWl" firstAttribute="width" secondItem="AKP-RO-gf4" secondAttribute="width" id="RhY-cM-YRX"/>
+                            <constraint firstItem="RuU-F4-aWl" firstAttribute="centerX" secondItem="AKP-RO-gf4" secondAttribute="centerX" id="Vws-Mo-r42"/>
+                            <constraint firstAttribute="width" secondItem="AKP-RO-gf4" secondAttribute="height" multiplier="25:10" id="afm-s9-eba"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="AKP-RO-gf4" secondAttribute="bottom" id="BFX-B5-7Vv"/>
+                    <constraint firstItem="AKP-RO-gf4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VaU-qj-Otn"/>
+                    <constraint firstItem="AKP-RO-gf4" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="YLp-bl-Cqr"/>
+                    <constraint firstAttribute="trailing" secondItem="AKP-RO-gf4" secondAttribute="trailing" id="dQG-o6-UXD"/>
+                    <constraint firstItem="AKP-RO-gf4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zUR-g4-gvu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="sliderContentView" destination="AKP-RO-gf4" id="onm-Tf-L48"/>
+                <outlet property="sliderScrollView" destination="RuU-F4-aWl" id="CRn-oT-Lxn"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="153.37331334332833"/>
+        </tableViewCell>
+    </objects>
+</document>
