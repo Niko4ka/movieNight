@@ -55,10 +55,11 @@ extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Select item")
-        let item = collectionView.cellForItem(at: indexPath) as! ItemCollectionViewCell
+        
+        let item = data[indexPath.item]
         
         if item.mediaType != MediaType.person {
-            pushController!(item.objectID, item.mediaType, item.movieGenre.text!)
+            pushController!(item.id, item.mediaType, item.genres)
         }
     }
     
