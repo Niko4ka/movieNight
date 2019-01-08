@@ -33,9 +33,6 @@ class VKHandler: NSObject {
                 print("vk initialized")
                 VKSdk.authorize(self.permissions)
             } else {
-                if error != nil {
-                    print("error - \(error)")
-                }
                 completion(false)
             }
         }
