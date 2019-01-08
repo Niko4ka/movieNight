@@ -50,8 +50,7 @@ class ResultsTableViewController: UITableViewController {
             controller.movieId = id
             controller.mediaType = type
             
-            let parentController = self.parent
-            parentController?.navigationController?.pushViewController(controller, animated: true)
+            self.navigationController?.pushViewController(controller, animated: true)
         }
         
         return cell
