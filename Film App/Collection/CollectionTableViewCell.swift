@@ -13,7 +13,11 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var headerTitle: UILabel!
     @IBOutlet weak var itemsCollectionView: UICollectionView!
     
-    public var data = [DatabaseObject]()
+    public var data = [DatabaseObject]() {
+        didSet {
+            itemsCollectionView.reloadData()
+        }
+    }
     var pushController: ((Int, MediaType, String)->())?
     
 
