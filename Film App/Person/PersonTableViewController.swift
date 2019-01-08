@@ -67,7 +67,7 @@ class PersonTableViewController: UITableViewController {
             }
             
             if let birthday = json["birthday"] as? String {
-                var deathday: String? = json["deathday"] as? String
+                let deathday: String? = json["deathday"] as? String
                 if deathday == nil {
                     let age = birthday.calculateCurrentAge()
                     self.ageLabel.text = age + " years old"
