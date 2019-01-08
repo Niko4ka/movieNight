@@ -9,128 +9,40 @@ class MoviePresenter: MovieTableViewPresenter {
     
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType) {
         
-        var detailsUrl: String!
-        var castUrl: String!
-        var trailersUrl: String!
-        var reviewsUrl: String!
-        var similarUrl: String!
-        
-        if type == .movie {
-            detailsUrl = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
-            castUrl = "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
-            trailersUrl = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
-            reviewsUrl = "https://api.themoviedb.org/3/movie/\(id)/reviews?api_key=\(ConfigurationService.themoviedbKey)"
-            similarUrl = "https://api.themoviedb.org/3/movie/\(id)/similar?api_key=\(ConfigurationService.themoviedbKey)"
-            mediaType = .movie
-        } else {
-            detailsUrl = "https://api.themoviedb.org/3/tv/\(id)?api_key=\(ConfigurationService.themoviedbKey)"
-            castUrl = "https://api.themoviedb.org/3/tv/\(id)/credits?api_key=\(ConfigurationService.themoviedbKey)"
-            trailersUrl = "https://api.themoviedb.org/3/tv/\(id)/videos?api_key=\(ConfigurationService.themoviedbKey)"
-            reviewsUrl = "https://api.themoviedb.org/3/tv/\(id)/reviews?api_key=\(ConfigurationService.themoviedbKey)"
-            similarUrl = "https://api.themoviedb.org/3/tv/\(id)/similar?api_key=\(ConfigurationService.themoviedbKey)"
-            mediaType = .tvShow
-        }
-        
+        mediaType = type
+
         controller.isLoading = true
         
-        AF.request(detailsUrl).responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any] else { return }
-            guard let details = MovieDetails(ofType: type, from: json) else {
-                print("details error")
-                return }
-            
+        ConfigurationService.client.loadMovieDetails(forId: id, andType: type) { (details) in
             controller.movieDetails = details
-
             self.configureHeaderView(controller, with: details)
-
             controller.isLoading = false
         }
         
-        AF.request(castUrl).responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any] else { return }
-            guard let cast = MovieCast(ofType: type, from: json) else { return }
-            
+        ConfigurationService.client.loadMovieCast(forId: id, andType: type) { (cast) in
             controller.movieCast = cast
             controller.tableView.reloadData()
         }
         
-        AF.request(trailersUrl).responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any],
-                let results = json["results"] as? [Dictionary<String, Any>] else {
-                    print("trailers error")
-                    return
-            }
-            
-            let trailersLoadingGroup = DispatchGroup()
-            
-            for video in results {
-                
-                trailersLoadingGroup.enter()
-                
-                if let youtubeId = video["key"] as? String {
-                    AF.request("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=\(youtubeId)&key=\(ConfigurationService.googleKey)").responseJSON(completionHandler: { (response) in
-                        
-                        if let json = response.result.value as? [String: Any],
-                            let items = json["items"] as? [[String: Any]] {
-                            
-                            if !items.isEmpty {
-                                if let trailer = MovieTrailer(from: items[0]) {
-                                    controller.movieTrailers.append(trailer)
-                                }
-                            }
-                            
-                            trailersLoadingGroup.leave()
-                        }
-                    })
-                    
-                }
-            }
-            
-            trailersLoadingGroup.notify(queue: .main) {
-                controller.tableView.reloadData()
-            }
+        ConfigurationService.client.loadMovieTrailers(forId: id, andType: type) { (trailers) in
+            controller.movieTrailers = trailers
+            controller.tableView.reloadData()
         }
         
-        AF.request(reviewsUrl).responseJSON { (response) in
-            guard let json = response.result.value as? [String: Any],
-                let results = json["results"] as? [Dictionary<String, Any>] else {
-                    print("reviews error")
-                    return
-            }
-            
-            if !results.isEmpty {
-                for result in results {
-                    if let review = MovieReview(from: result) {
-                        controller.movieReviews.append(review)
-                    }
-                }
-            }
+        ConfigurationService.client.loadMovieReviews(forId: id, andType: type) { (reviews) in
+            controller.movieReviews = reviews
         }
         
-        AF.request(similarUrl).responseJSON { (response) in
-            guard let json = response.result.value as? [String: Any],
-                let results = json["results"] as? [Dictionary<String, Any>] else {
-                    print("similar error")
-                    return
-            }
-            
-            for result in results {
-                if let item = DatabaseObject(ofType: type, fromJson: result) {
-                    controller.similarMovies.append(item)
-                }
-            }
-            
+        ConfigurationService.client.loadSimilarMovies(forId: id, andType: type) { (similar) in
+            controller.similarMovies = similar
         }
-        
+
     }
 
     func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        
         switch identifier {
+            
         case .trailers:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! TrailersTableViewCell
             
@@ -223,7 +135,6 @@ class MoviePresenter: MovieTableViewPresenter {
         
     }
     
-    
     private func configureHeaderView(_ controller: MovieTableViewController, with details: MovieDetails) {
         
         if let backdropUrl = details.backdropUrl {
@@ -254,7 +165,6 @@ class MoviePresenter: MovieTableViewPresenter {
             controller.addToWishlistButton.isSelected = true
             controller.viewDidLayoutSubviews()
         }
-        
 
         controller.tableView.tableHeaderView = controller.headerView
         controller.tableView.reloadData()

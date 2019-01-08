@@ -1,15 +1,10 @@
 import Alamofire
 
 class Client {
-    let apiKey: String
-    
-    init(apiKey: String) {
-        self.apiKey = apiKey
-    }
-    
+
     private func injectParams(_ params: Parameters) -> Parameters {
         var res = params
-        res["api_key"] = apiKey
+        res["api_key"] = ConfigurationService.themoviedbKey
         
         return res
     }

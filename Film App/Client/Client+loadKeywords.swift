@@ -1,6 +1,6 @@
 extension Client {
     
-    func loadKeyWords(key: String, completion: @escaping ([String])->Void) {
+    func loadKeywords(key: String, completion: @escaping ([String])->Void) {
         request(path: "/search/keyword", params: [
             "query": key,
             "page": 1

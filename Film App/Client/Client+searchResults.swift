@@ -17,10 +17,7 @@ extension Client {
         request(path: "/search/multi", params: params).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
-                let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    print(" --- 2 ---- error")
-                    return
-            }
+                let dictionary = json["results"] as? [Dictionary<String, Any>] else { return }
             
             var results = SearchResults()
             

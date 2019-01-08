@@ -12,7 +12,7 @@ class KeywordSearchUpdater: NSObject, UISearchResultsUpdating {
         if searchText.count < 3  {
             results.results = []
         } else {
-            ConfigurationService.client.loadKeyWords(key: searchText) { (keywords) in
+            ConfigurationService.client.loadKeywords(key: searchText) { (keywords) in
                 results.results = keywords
             }
         }
