@@ -6,7 +6,8 @@
 //  Copyright © 2018 Veronika Danilova. All rights reserved.
 //
 
-import UIKit
+import Security
+import Foundation
 
 final class KeychainService {
     
