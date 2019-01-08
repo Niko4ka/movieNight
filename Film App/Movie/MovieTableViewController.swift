@@ -58,7 +58,7 @@ class MovieTableViewController: UITableViewController {
         case .tvShow:
             presenter.loadData(self, forMovieId: id, andType: .tvShow)
         default:
-            ()
+            break
         }
     }
     
