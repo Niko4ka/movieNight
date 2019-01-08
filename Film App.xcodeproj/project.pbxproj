@@ -60,6 +60,7 @@
 		4ED0286F21BFFCE400094EAF /* DatabaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0286E21BFFCE400094EAF /* DatabaseObject.swift */; };
 		4ED0287121C0145700094EAF /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0287021C0145700094EAF /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4ED0287221C0147D00094EAF /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0287021C0145700094EAF /* Kingfisher.framework */; };
+		4ED9ED6121E40BCF00ADF05F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -131,6 +132,7 @@
 		4ED0286C21BFE58100094EAF /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4ED0286E21BFFCE400094EAF /* DatabaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseObject.swift; sourceTree = "<group>"; };
 		4ED0287021C0145700094EAF /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4C2A2C21C989C4000399CE /* String+Extension.swift */,
+				4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */,
 				4E78BE3F21C3EEA00054FC5B /* ConfigurationService.swift */,
 				4E32CDBC21C81AA5000A15D8 /* Spinner.swift */,
 				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
@@ -415,6 +418,7 @@
 				4E16AB4E21D14F2900CB0EFD /* EmptyTableViewCell.swift in Sources */,
 				4E16AB5621D1747900CB0EFD /* WishlistTableViewCell.swift in Sources */,
 				4E16AB5F21D2723C00CB0EFD /* Wishlist.xcdatamodeld in Sources */,
+				4ED9ED6121E40BCF00ADF05F /* UIView+Extension.swift in Sources */,
 				4ED0286F21BFFCE400094EAF /* DatabaseObject.swift in Sources */,
 				4EABAE7521CA9FF700189FA6 /* VideoPlayerViewController.swift in Sources */,
 				4E6C11A32183A84700C914BD /* AuthViewController.swift in Sources */,
