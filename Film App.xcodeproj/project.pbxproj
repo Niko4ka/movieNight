@@ -65,6 +65,9 @@
 		4ED9ED5F21E1314C00ADF05F /* SliderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ED9ED5D21E1314C00ADF05F /* SliderTableViewCell.xib */; };
 		4ED9ED6121E40BCF00ADF05F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */; };
 		4ED9ED6321E40BF400ADF05F /* UISearchBarNoCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */; };
+		4ED9ED6621E4112F00ADF05F /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6521E4112F00ADF05F /* Client.swift */; };
+		4ED9ED6821E4115300ADF05F /* Client+loadKeywords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6721E4115300ADF05F /* Client+loadKeywords.swift */; };
+		4ED9ED6A21E411AC00ADF05F /* Client+searchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6921E411AC00ADF05F /* Client+searchResults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -141,6 +144,9 @@
 		4ED9ED5D21E1314C00ADF05F /* SliderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderTableViewCell.xib; sourceTree = "<group>"; };
 		4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBarNoCancel.swift; sourceTree = "<group>"; };
+		4ED9ED6521E4112F00ADF05F /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		4ED9ED6721E4115300ADF05F /* Client+loadKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+loadKeywords.swift"; sourceTree = "<group>"; };
+		4ED9ED6921E411AC00ADF05F /* Client+searchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+searchResults.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +287,7 @@
 		4E6C119F2183A84700C914BD /* Film App */ = {
 			isa = PBXGroup;
 			children = (
+				4ED9ED6421E4112300ADF05F /* Client */,
 				4E4C2A2C21C989C4000399CE /* String+Extension.swift */,
 				4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */,
 				4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */,
@@ -338,6 +345,16 @@
 				4E6C11A22183A84700C914BD /* AuthViewController.swift */,
 			);
 			path = Authorization;
+			sourceTree = "<group>";
+		};
+		4ED9ED6421E4112300ADF05F /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				4ED9ED6521E4112F00ADF05F /* Client.swift */,
+				4ED9ED6721E4115300ADF05F /* Client+loadKeywords.swift */,
+				4ED9ED6921E411AC00ADF05F /* Client+searchResults.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -445,13 +462,16 @@
 			files = (
 				4E32CDB321C73D2D000A15D8 /* InformationTableViewCell.swift in Sources */,
 				4E78BE4021C3EEA00054FC5B /* ConfigurationService.swift in Sources */,
+				4ED9ED6A21E411AC00ADF05F /* Client+searchResults.swift in Sources */,
 				4E78BE3921C061E00054FC5B /* ResultsTableViewController.swift in Sources */,
+				4ED9ED6621E4112F00ADF05F /* Client.swift in Sources */,
 				4ED0286D21BFE58100094EAF /* SearchViewController.swift in Sources */,
 				4E32CDB121C73B7E000A15D8 /* CastTableViewCell.swift in Sources */,
 				4E16AB6D21D52B2500CB0EFD /* PersonMovie.swift in Sources */,
 				4EABAE7721CC544C00189FA6 /* ReviewTableViewCell.swift in Sources */,
 				4E32CDB821C7D155000A15D8 /* MovieCast.swift in Sources */,
 				4E32CDAD21C7378B000A15D8 /* OverviewTableViewCell.swift in Sources */,
+				4ED9ED6821E4115300ADF05F /* Client+loadKeywords.swift in Sources */,
 				4E16AB4E21D14F2900CB0EFD /* EmptyTableViewCell.swift in Sources */,
 				4E16AB5621D1747900CB0EFD /* WishlistTableViewCell.swift in Sources */,
 				4E16AB5F21D2723C00CB0EFD /* Wishlist.xcdatamodeld in Sources */,
