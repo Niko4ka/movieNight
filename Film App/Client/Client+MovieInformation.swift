@@ -138,7 +138,7 @@ extension Client {
         var trailer: MovieTrailer?
         let path = "https://www.googleapis.com/youtube/v3/videos"
         let params: [String : Any] = [
-            "part" : "snippet%2CcontentDetails",
+            "part" : "snippet,contentDetails",
             "id" : youtubeId,
             "key" : ConfigurationService.googleKey
         ]

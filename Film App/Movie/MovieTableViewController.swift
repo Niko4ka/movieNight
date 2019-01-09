@@ -7,6 +7,17 @@ protocol MovieTableViewPresenter: class {
     func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell
 }
 
+protocol MovieCoordinator: class {
+    func pushMovieController(id: Int, type: MediaType)
+    func playVideo(withId id: String)
+    func showPersonProfile(withId id: Int)
+}
+
+extension MovieCoordinator {
+    func playVideo(withId id: String) {}
+    func showPersonProfile(withId id: Int) {}
+}
+
 class MovieTableViewController: UITableViewController {
     
     @IBOutlet var headerView: UIView!
@@ -229,4 +240,40 @@ class MovieTableViewController: UITableViewController {
 
     }
     
+}
+
+extension MovieTableViewController: MovieCoordinator {
+    
+    func pushMovieController(id: Int, type: MediaType) {
+
+            let storyboard = UIStoryboard(name: "Movie", bundle: nil)
+            guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
+                return
+            }
+            
+            movieController.movieId = id
+            movieController.mediaType = type
+            navigationController?.pushViewController(movieController, animated: true)
+    
+    }
+    
+    func playVideo(withId id: String) {
+        
+        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
+        let videoController = storyboard.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
+        videoController.videoID = id
+        
+        videoController.modalTransitionStyle = .crossDissolve
+        videoController.modalPresentationStyle = .fullScreen
+        present(videoController, animated: true, completion: nil)
+        
+    }
+    
+    func showPersonProfile(withId id: Int) {
+        
+        let storyboard = UIStoryboard(name: "Person", bundle: nil)
+        let personController = storyboard.instantiateViewController(withIdentifier: "PersonTableViewController") as! PersonTableViewController
+        personController.personId = id
+        navigationController?.pushViewController(personController, animated: true)
+    }
 }

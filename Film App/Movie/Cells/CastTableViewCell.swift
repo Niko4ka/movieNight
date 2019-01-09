@@ -12,7 +12,7 @@ class CastTableViewCell: UITableViewCell {
     @IBOutlet weak var producersTitleLabel: UILabel!
     @IBOutlet weak var castStackViewBottom: NSLayoutConstraint!
     
-    public var showPersonProfile: ((Int)->())?
+    var coordinator: MovieCoordinator?
     
     enum JobTypes {
         case actor
@@ -106,8 +106,8 @@ class CastTableViewCell: UITableViewCell {
     }
     
     @objc private func showPersonProfile(sender: UIButton) {
-        print("Tag - \(sender.tag)")
-        showPersonProfile!(sender.tag)
+        let id = sender.tag
+        coordinator?.showPersonProfile(withId: id)
     }
 
 }

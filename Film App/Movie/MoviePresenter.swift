@@ -45,18 +45,8 @@ class MoviePresenter: MovieTableViewPresenter {
             
         case .trailers:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! TrailersTableViewCell
-            
-            cell.playVideo = { id in
-                
-                let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-                let videoController = storyboard.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
-                videoController.videoID = id
-                
-                videoController.modalTransitionStyle = .crossDissolve
-                videoController.modalPresentationStyle = .fullScreen
-                controller.present(videoController, animated: true, completion: nil)
-            }
-            
+            cell.coordinator = controller
+                        
             if !controller.movieTrailers.isEmpty {
                 cell.trailers = controller.movieTrailers
                 cell.trailersCollectionView.reloadData()
@@ -72,17 +62,9 @@ class MoviePresenter: MovieTableViewPresenter {
             
         case .cast:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! CastTableViewCell
+            cell.coordinator = controller
             if controller.movieCast != nil && !castCellConfigured {
                 cell.configure(with: controller.movieCast!)
-                cell.showPersonProfile = { id in
-                    
-                    let storyboard = UIStoryboard(name: "Person", bundle: nil)
-                    let personController = storyboard.instantiateViewController(withIdentifier: "PersonTableViewController") as! PersonTableViewController
-                    personController.personId = id
-                    
-                    controller.navigationController?.pushViewController(personController, animated: true)
-                    
-                }
                 castCellConfigured = true
             }
             return cell
@@ -114,21 +96,10 @@ class MoviePresenter: MovieTableViewPresenter {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell") as! CollectionTableViewCell
-                
+                cell.coordinator = controller
                 cell.headerTitle.text = "Similar"
                 cell.data = controller.similarMovies
-                
-                cell.pushController = { id, type, genres in
-                    
-                    let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-                    guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
-                        return
-                    }
-                    
-                    movieController.movieId = id
-                    movieController.mediaType = type
-                    controller.navigationController?.pushViewController(movieController, animated: true)
-                }
+    
                 return cell
             }
         }

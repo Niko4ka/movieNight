@@ -10,9 +10,8 @@ class CollectionTableViewCell: UITableViewCell {
             itemsCollectionView.reloadData()
         }
     }
-    var pushController: ((Int, MediaType, String)->())?
+    var coordinator: MovieCoordinator?
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -51,7 +50,7 @@ extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         let item = data[indexPath.item]
         
         if item.mediaType != MediaType.person {
-            pushController!(item.id, item.mediaType, item.genres)
+            coordinator?.pushMovieController(id: item.id, type: item.mediaType)
         }
     }
     

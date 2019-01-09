@@ -33,21 +33,9 @@ class ResultsTableViewController: UITableViewController {
         let items = data[indexPath.row].objects
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
+        cell.coordinator = self
         cell.headerTitle.text = title
         cell.data = items
-        
-        cell.pushController = { id, type, genres in
-         
-            let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-            guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
-                return
-            }
-            
-            controller.movieId = id
-            controller.mediaType = type
-            
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
         
         return cell
     }
@@ -61,6 +49,23 @@ class ResultsTableViewController: UITableViewController {
     }
 
 
+}
+
+extension ResultsTableViewController: MovieCoordinator {
+    func pushMovieController(id: Int, type: MediaType) {
+        
+        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
+        guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
+            return
+        }
+        
+        controller.movieId = id
+        controller.mediaType = type
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+    }
+    
 }
 
 
