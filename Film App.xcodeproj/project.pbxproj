@@ -298,7 +298,7 @@
 				4ED9ED6421E4112300ADF05F /* Client */,
 				4ED9ED7121E542DA00ADF05F /* Extensions */,
 				4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */,
-				4ED9ED8021E7A96600ADF05F /* TabBarController.swift */,
+				4ED9ED8B21E7D1A200ADF05F /* Navigation */,
 				4E32CDBC21C81AA5000A15D8 /* Spinner.swift */,
 				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
 				4E16AB7421D57DFA00CB0EFD /* Movies */,
@@ -375,6 +375,14 @@
 				4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4ED9ED8B21E7D1A200ADF05F /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				4ED9ED8021E7A96600ADF05F /* TabBarController.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

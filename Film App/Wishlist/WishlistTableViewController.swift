@@ -23,7 +23,8 @@ class WishlistTableViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.titleView = sectionSegmentedControl
-        
+        navigationItem.leftBarButtonItem = editButtonItem
+
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "WishlistTableViewCell", bundle: nil), forCellReuseIdentifier: "WishlistCell")
         
@@ -53,10 +54,32 @@ class WishlistTableViewController: UITableViewController {
         }
         
         if objects.count == 0 {
-            tableView.isHidden = true
+            let backgroundView = makeNoResultsView()
+            tableView.backgroundView = backgroundView
         } else {
-            tableView.isHidden = false
+          tableView.backgroundView = nil
         }
+    }
+    
+    private func makeNoResultsView() -> UIView {
+        
+        let backgroundView = UIView()
+        backgroundView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.height)
+        backgroundView.backgroundColor = UIColor.white
+        let label = UILabel()
+        backgroundView.addSubview(label)
+        label.text = "No movies in wishlidt yet"
+        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.textColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
+        label.textAlignment = .center
+        
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: -0.15 * backgroundView.frame.height).isActive = true
+        label.widthAnchor.constraint(equalToConstant: backgroundView.frame.width - 32).isActive = true
+        
+        return backgroundView
     }
 
     // MARK: - Table view data source

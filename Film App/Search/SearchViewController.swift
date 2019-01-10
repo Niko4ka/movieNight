@@ -31,7 +31,6 @@ class SearchViewController: UIViewController {
         view.backgroundColor = UIColor.white
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.titleView = searchController.searchBar
-        
         definesPresentationContext = true
     }
     
