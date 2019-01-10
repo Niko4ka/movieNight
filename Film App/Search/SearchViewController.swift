@@ -1,5 +1,4 @@
 import UIKit
-import Alamofire
 import ObjectiveC
 
 class SearchViewController: UIViewController {
@@ -23,19 +22,34 @@ class SearchViewController: UIViewController {
     }()
     
     lazy var resultsViewController: ResultsTableViewController = {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsTableViewController
+        return ResultsTableViewController()
     }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+
+    override func loadView() {
+        super.loadView()
         
+        view.backgroundColor = UIColor.white
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.titleView = searchController.searchBar
+        
         definesPresentationContext = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let hintLabel = UILabel()
+        hintLabel.text = "Start printing keyword to search particular movies, TV shows or persons"
+        hintLabel.font = UIFont.systemFont(ofSize: 15.0)
+        hintLabel.textColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
+        hintLabel.textAlignment = .center
+        view.addSubview(hintLabel)
+        hintLabel.numberOfLines = 0
+        hintLabel.translatesAutoresizingMaskIntoConstraints = false
+        hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        hintLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -0.15 * view.frame.height).isActive = true
+        hintLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 32).isActive = true
+        
         
         addChild(resultsViewController)
         resultsViewController.view.frame = view.bounds

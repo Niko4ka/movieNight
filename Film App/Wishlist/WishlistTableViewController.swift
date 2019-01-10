@@ -1,11 +1,18 @@
 import UIKit
 import CoreData
 
-class WishlistViewController: UIViewController {
-    
-    @IBOutlet weak var wishlistTableView: UITableView!
+class WishlistTableViewController: UITableViewController {
     
     var fetchedResultController: NSFetchedResultsController<Movie>!
+    
+    lazy var sectionSegmentedControl: UISegmentedControl = {
+       
+        let items = ["Movies", "TV Shows"]
+        var segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(sectionSegmentedControlValueChanged(_:)), for: .valueChanged)
+        return segmentedControl
+    }()
     
     struct Predicates {
         static let tvPredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'tv'")
@@ -14,23 +21,22 @@ class WishlistViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        wishlistTableView.delegate = self
-        wishlistTableView.dataSource = self
+
+        navigationItem.titleView = sectionSegmentedControl
         
-        wishlistTableView.tableFooterView = UIView()
-        wishlistTableView.register(UINib(nibName: "WishlistTableViewCell", bundle: nil), forCellReuseIdentifier: "WishlistCell")
+        tableView.tableFooterView = UIView()
+        tableView.register(UINib(nibName: "WishlistTableViewCell", bundle: nil), forCellReuseIdentifier: "WishlistCell")
         
         fetchData(predicate: Predicates.moviePredicate)
     }
     
-
-    @IBAction func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {
+    @objc private func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1 {
             fetchData(predicate: Predicates.tvPredicate)
         } else {
             fetchData(predicate: Predicates.moviePredicate)
         }
-        wishlistTableView.reloadData()
+        tableView.reloadData()
     }
     
     private func fetchData(predicate: NSPredicate? = nil) {
@@ -47,27 +53,24 @@ class WishlistViewController: UIViewController {
         }
         
         if objects.count == 0 {
-            wishlistTableView.isHidden = true
+            tableView.isHidden = true
         } else {
-            wishlistTableView.isHidden = false
+            tableView.isHidden = false
         }
     }
-    
-    
 
-}
+    // MARK: - Table view data source
 
-extension WishlistViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
         guard let frc = fetchedResultController, let sections = frc.sections else {
             return 0
         }
         
         return sections.count
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard let frc = fetchedResultController, let sections = frc.sections else {
             return 0
@@ -75,9 +78,8 @@ extension WishlistViewController: UITableViewDataSource {
         
         return sections[section].numberOfObjects
     }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WishlistCell", for: indexPath)
         
         if let cell = cell as? WishlistTableViewCell {
@@ -89,7 +91,7 @@ extension WishlistViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! WishlistTableViewCell
         let storyboard = UIStoryboard(name: "Movie", bundle: nil)
         let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as! MovieTableViewController
@@ -103,13 +105,8 @@ extension WishlistViewController: UITableViewDataSource {
         
         self.navigationController?.pushViewController(movieController, animated: true)
     }
-
-}
-
-
-extension WishlistViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let removeFromWishlist = UITableViewRowAction(style: .destructive, title: "Remove from wishlist") { (action, indexPath) in
             
@@ -119,22 +116,22 @@ extension WishlistViewController: UITableViewDelegate {
         
         return [removeFromWishlist]
     }
-    
+
 }
 
-extension WishlistViewController: NSFetchedResultsControllerDelegate {
+extension WishlistTableViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        wishlistTableView.beginUpdates()
+        tableView.beginUpdates()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         
         switch type {
         case .insert:
-            wishlistTableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         case .delete:
-            wishlistTableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         default:
             return
         }
@@ -145,26 +142,26 @@ extension WishlistViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .delete:
             if let indexPath = indexPath {
-                wishlistTableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
                 fetchedObjectsCheck()
             }
             
         case .insert:
             if let indexPath = newIndexPath {
-                wishlistTableView.insertRows(at: [indexPath], with: .fade)
+                tableView.insertRows(at: [indexPath], with: .fade)
                 fetchedObjectsCheck()
             }
             
         case .move:
             if let indexPath = indexPath {
-                let cell = wishlistTableView.cellForRow(at: indexPath) as! WishlistTableViewCell
+                let cell = tableView.cellForRow(at: indexPath) as! WishlistTableViewCell
                 let item = fetchedResultController.object(at: indexPath)
                 cell.configure(with: item)
             }
             
         case .update:
             if let indexPath = indexPath {
-                let cell = wishlistTableView.cellForRow(at: indexPath) as! WishlistTableViewCell
+                let cell = tableView.cellForRow(at: indexPath) as! WishlistTableViewCell
                 let item = fetchedResultController.object(at: indexPath)
                 cell.configure(with: item)
             }
@@ -173,7 +170,7 @@ extension WishlistViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        wishlistTableView.endUpdates()
+        tableView.endUpdates()
     }
     
 }

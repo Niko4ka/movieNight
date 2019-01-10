@@ -14,7 +14,6 @@
 		4E16AB5721D1747900CB0EFD /* WishlistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E16AB5521D1747900CB0EFD /* WishlistTableViewCell.xib */; };
 		4E16AB5F21D2723C00CB0EFD /* Wishlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB5D21D2723C00CB0EFD /* Wishlist.xcdatamodeld */; };
 		4E16AB6121D276F400CB0EFD /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB6021D276F400CB0EFD /* CoreDataManager.swift */; };
-		4E16AB6421D45D1E00CB0EFD /* WishlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB6321D45D1E00CB0EFD /* WishlistViewController.swift */; };
 		4E16AB6721D51E0B00CB0EFD /* Person.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16AB6621D51E0B00CB0EFD /* Person.storyboard */; };
 		4E16AB6921D51E5800CB0EFD /* PersonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB6821D51E5800CB0EFD /* PersonTableViewController.swift */; };
 		4E16AB6B21D52A2C00CB0EFD /* PersonMovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB6A21D52A2C00CB0EFD /* PersonMovieTableViewCell.swift */; };
@@ -40,7 +39,6 @@
 		4E5F38C32198F63C00AA3ECC /* VKHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F38C22198F63C00AA3ECC /* VKHandler.swift */; };
 		4E6C11A12183A84700C914BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C11A02183A84700C914BD /* AppDelegate.swift */; };
 		4E6C11A32183A84700C914BD /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C11A22183A84700C914BD /* AuthViewController.swift */; };
-		4E6C11A62183A84700C914BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6C11A42183A84700C914BD /* Main.storyboard */; };
 		4E6C11A82183A84900C914BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E6C11A72183A84900C914BD /* Assets.xcassets */; };
 		4E6C11AB2183A84900C914BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6C11A92183A84900C914BD /* LaunchScreen.storyboard */; };
 		4E6C11B32183BAAB00C914BD /* authButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C11B22183BAAB00C914BD /* authButton.swift */; };
@@ -72,6 +70,8 @@
 		4ED9ED6E21E4154900ADF05F /* KeywordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6D21E4154900ADF05F /* KeywordsViewController.swift */; };
 		4ED9ED7D21E5635C00ADF05F /* Client+MovieInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED7C21E5635C00ADF05F /* Client+MovieInformation.swift */; };
 		4ED9ED7F21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED7E21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift */; };
+		4ED9ED8121E7A96600ADF05F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8021E7A96600ADF05F /* TabBarController.swift */; };
+		4ED9ED8821E7BD5800ADF05F /* WishlistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -98,7 +98,6 @@
 		4E16AB5521D1747900CB0EFD /* WishlistTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishlistTableViewCell.xib; sourceTree = "<group>"; };
 		4E16AB5E21D2723C00CB0EFD /* MovieNight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieNight.xcdatamodel; sourceTree = "<group>"; };
 		4E16AB6021D276F400CB0EFD /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		4E16AB6321D45D1E00CB0EFD /* WishlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistViewController.swift; sourceTree = "<group>"; };
 		4E16AB6621D51E0B00CB0EFD /* Person.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Person.storyboard; sourceTree = "<group>"; };
 		4E16AB6821D51E5800CB0EFD /* PersonTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTableViewController.swift; sourceTree = "<group>"; };
 		4E16AB6A21D52A2C00CB0EFD /* PersonMovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonMovieTableViewCell.swift; sourceTree = "<group>"; };
@@ -123,7 +122,6 @@
 		4E6C119D2183A84700C914BD /* Film App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Film App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6C11A02183A84700C914BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E6C11A22183A84700C914BD /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
-		4E6C11A52183A84700C914BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4E6C11A72183A84900C914BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E6C11AA2183A84900C914BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E6C11AC2183A84900C914BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +153,8 @@
 		4ED9ED6D21E4154900ADF05F /* KeywordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsViewController.swift; sourceTree = "<group>"; };
 		4ED9ED7C21E5635C00ADF05F /* Client+MovieInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MovieInformation.swift"; sourceTree = "<group>"; };
 		4ED9ED7E21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		4ED9ED8021E7A96600ADF05F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +185,7 @@
 		4E16AB5121D173B600CB0EFD /* Wishlist */ = {
 			isa = PBXGroup;
 			children = (
-				4E16AB6321D45D1E00CB0EFD /* WishlistViewController.swift */,
+				4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */,
 				4E16AB5421D1747900CB0EFD /* WishlistTableViewCell.swift */,
 				4E16AB5521D1747900CB0EFD /* WishlistTableViewCell.xib */,
 				4E16AB6221D4312700CB0EFD /* Model */,
@@ -298,9 +298,9 @@
 				4ED9ED6421E4112300ADF05F /* Client */,
 				4ED9ED7121E542DA00ADF05F /* Extensions */,
 				4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */,
+				4ED9ED8021E7A96600ADF05F /* TabBarController.swift */,
 				4E32CDBC21C81AA5000A15D8 /* Spinner.swift */,
 				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
-				4E6C11A42183A84700C914BD /* Main.storyboard */,
 				4E16AB7421D57DFA00CB0EFD /* Movies */,
 				4ED0286321BDADB600094EAF /* Authorization */,
 				4E16AB5121D173B600CB0EFD /* Wishlist */,
@@ -447,7 +447,6 @@
 				4ED9ED5F21E1314C00ADF05F /* SliderTableViewCell.xib in Resources */,
 				4ED0286221BDA1D500094EAF /* Authorization.storyboard in Resources */,
 				4E6C11A82183A84900C914BD /* Assets.xcassets in Resources */,
-				4E6C11A62183A84700C914BD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +487,7 @@
 				4ED0286D21BFE58100094EAF /* SearchViewController.swift in Sources */,
 				4E32CDB121C73B7E000A15D8 /* CastTableViewCell.swift in Sources */,
 				4E16AB6D21D52B2500CB0EFD /* PersonMovie.swift in Sources */,
+				4ED9ED8821E7BD5800ADF05F /* WishlistTableViewController.swift in Sources */,
 				4ED9ED7D21E5635C00ADF05F /* Client+MovieInformation.swift in Sources */,
 				4ED9ED6E21E4154900ADF05F /* KeywordsViewController.swift in Sources */,
 				4EABAE7721CC544C00189FA6 /* ReviewTableViewCell.swift in Sources */,
@@ -504,7 +504,6 @@
 				4E16AB7321D57DE200CB0EFD /* MoviesTableViewController.swift in Sources */,
 				4E32CDBD21C81AA5000A15D8 /* Spinner.swift in Sources */,
 				4E32CDB621C73F25000A15D8 /* MovieDetails.swift in Sources */,
-				4E16AB6421D45D1E00CB0EFD /* WishlistViewController.swift in Sources */,
 				4E32CDC321C92C8B000A15D8 /* MovieTrailer.swift in Sources */,
 				4E32CDA821C73352000A15D8 /* MovieTableViewController.swift in Sources */,
 				4E5F38C32198F63C00AA3ECC /* VKHandler.swift in Sources */,
@@ -523,6 +522,7 @@
 				4ED0286B21BF2AC900094EAF /* KeychainService.swift in Sources */,
 				4E16AB4A21D124B900CB0EFD /* CollectionTableViewCell.swift in Sources */,
 				4ED9ED5E21E1314C00ADF05F /* SliderTableViewCell.swift in Sources */,
+				4ED9ED8121E7A96600ADF05F /* TabBarController.swift in Sources */,
 				4E32CDC521C96E9C000A15D8 /* TrailerCollectionViewCell.swift in Sources */,
 				4E4C2A2D21C989C4000399CE /* String+Extension.swift in Sources */,
 				4E32CDBF21C823A3000A15D8 /* MediaType.swift in Sources */,
@@ -535,14 +535,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4E6C11A42183A84700C914BD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4E6C11A52183A84700C914BD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4E6C11A92183A84900C914BD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -25,10 +25,11 @@ class AuthViewController: UIViewController {
     }
 
     public func authorizeUser() {
-
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-        UIApplication.shared.keyWindow?.rootViewController = tabBarController
+//
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+//        UIApplication.shared.keyWindow?.rootViewController = tabBarController
+        UIApplication.shared.keyWindow?.rootViewController = TabBarController()
     }
     
 }

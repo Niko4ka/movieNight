@@ -18,15 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if KeychainService.shared.readToken(account: KeychainService.Accounts.vkontakte.rawValue) != nil {
 
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {
-                return false
-            }
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {
+//                return false
+//            }
             
             window = UIWindow()
-            window?.rootViewController = tabBarController
+//            window?.rootViewController = tabBarController
+            window?.rootViewController = TabBarController()
             window?.makeKeyAndVisible()
-            
+
         } else {
             let storyboard = UIStoryboard(name: "Authorization", bundle: Bundle.main)
             
