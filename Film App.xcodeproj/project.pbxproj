@@ -71,6 +71,7 @@
 		4ED9ED6C21E4140B00ADF05F /* KeywordSearchUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6B21E4140B00ADF05F /* KeywordSearchUpdater.swift */; };
 		4ED9ED6E21E4154900ADF05F /* KeywordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED6D21E4154900ADF05F /* KeywordsViewController.swift */; };
 		4ED9ED7D21E5635C00ADF05F /* Client+MovieInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED7C21E5635C00ADF05F /* Client+MovieInformation.swift */; };
+		4ED9ED7F21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED7E21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -153,6 +154,7 @@
 		4ED9ED6B21E4140B00ADF05F /* KeywordSearchUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSearchUpdater.swift; sourceTree = "<group>"; };
 		4ED9ED6D21E4154900ADF05F /* KeywordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsViewController.swift; sourceTree = "<group>"; };
 		4ED9ED7C21E5635C00ADF05F /* Client+MovieInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MovieInformation.swift"; sourceTree = "<group>"; };
+		4ED9ED7E21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCoordinatorProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				4E78BE4121C445930054FC5B /* Movie.storyboard */,
+				4ED9ED7E21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift */,
 				4E32CDA721C73352000A15D8 /* MovieTableViewController.swift */,
 				4EABAE7A21CD319900189FA6 /* MovieCellIdentifiers.swift */,
 				4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */,
@@ -524,6 +527,7 @@
 				4E4C2A2D21C989C4000399CE /* String+Extension.swift in Sources */,
 				4E32CDBF21C823A3000A15D8 /* MediaType.swift in Sources */,
 				4E16AB6121D276F400CB0EFD /* CoreDataManager.swift in Sources */,
+				4ED9ED7F21E7A40B00ADF05F /* MovieCoordinatorProtocol.swift in Sources */,
 				4E32CDAF21C73914000A15D8 /* TrailersTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

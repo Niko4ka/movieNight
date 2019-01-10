@@ -50,7 +50,7 @@ extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         let item = data[indexPath.item]
         
         if item.mediaType != MediaType.person {
-            coordinator?.pushMovieController(id: item.id, type: item.mediaType)
+            coordinator?.showMovie(id: item.id, type: item.mediaType)
         }
     }
     

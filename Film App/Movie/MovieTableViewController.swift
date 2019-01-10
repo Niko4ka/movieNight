@@ -7,16 +7,7 @@ protocol MovieTableViewPresenter: class {
     func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell
 }
 
-protocol MovieCoordinator: class {
-    func pushMovieController(id: Int, type: MediaType)
-    func playVideo(withId id: String)
-    func showPersonProfile(withId id: Int)
-}
 
-extension MovieCoordinator {
-    func playVideo(withId id: String) {}
-    func showPersonProfile(withId id: Int) {}
-}
 
 class MovieTableViewController: UITableViewController {
     
@@ -244,7 +235,7 @@ class MovieTableViewController: UITableViewController {
 
 extension MovieTableViewController: MovieCoordinator {
     
-    func pushMovieController(id: Int, type: MediaType) {
+    func showMovie(id: Int, type: MediaType) {
 
             let storyboard = UIStoryboard(name: "Movie", bundle: nil)
             guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {

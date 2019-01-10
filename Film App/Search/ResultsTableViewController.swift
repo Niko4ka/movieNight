@@ -52,7 +52,7 @@ class ResultsTableViewController: UITableViewController {
 }
 
 extension ResultsTableViewController: MovieCoordinator {
-    func pushMovieController(id: Int, type: MediaType) {
+    func showMovie(id: Int, type: MediaType) {
         
         let storyboard = UIStoryboard(name: "Movie", bundle: nil)
         guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
