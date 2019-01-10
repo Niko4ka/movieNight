@@ -41,7 +41,7 @@
 		4E6C11A32183A84700C914BD /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C11A22183A84700C914BD /* AuthViewController.swift */; };
 		4E6C11A82183A84900C914BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E6C11A72183A84900C914BD /* Assets.xcassets */; };
 		4E6C11AB2183A84900C914BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6C11A92183A84900C914BD /* LaunchScreen.storyboard */; };
-		4E6C11B32183BAAB00C914BD /* authButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C11B22183BAAB00C914BD /* authButton.swift */; };
+		4E6C11B32183BAAB00C914BD /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C11B22183BAAB00C914BD /* AuthButton.swift */; };
 		4E78BE3921C061E00054FC5B /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E78BE3821C061E00054FC5B /* ResultsTableViewController.swift */; };
 		4E78BE3B21C063390054FC5B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E78BE2E21C020A70054FC5B /* ItemCollectionViewCell.xib */; };
 		4E78BE3C21C0633C0054FC5B /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E78BE2D21C020A70054FC5B /* ItemCollectionViewCell.swift */; };
@@ -125,7 +125,7 @@
 		4E6C11A72183A84900C914BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E6C11AA2183A84900C914BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E6C11AC2183A84900C914BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E6C11B22183BAAB00C914BD /* authButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = authButton.swift; sourceTree = "<group>"; };
+		4E6C11B22183BAAB00C914BD /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		4E78BE2D21C020A70054FC5B /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E78BE2E21C020A70054FC5B /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		4E78BE3821C061E00054FC5B /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 			children = (
 				4ED0286121BDA1D500094EAF /* Authorization.storyboard */,
 				4ED0286A21BF2AC900094EAF /* KeychainService.swift */,
-				4E6C11B22183BAAB00C914BD /* authButton.swift */,
+				4E6C11B22183BAAB00C914BD /* AuthButton.swift */,
 				4E5F38C22198F63C00AA3ECC /* VKHandler.swift */,
 				4E6C11A22183A84700C914BD /* AuthViewController.swift */,
 			);
@@ -526,7 +526,7 @@
 				4E16AB6921D51E5800CB0EFD /* PersonTableViewController.swift in Sources */,
 				4ED9ED6C21E4140B00ADF05F /* KeywordSearchUpdater.swift in Sources */,
 				4EABAE7921CC567E00189FA6 /* MoviePresenter.swift in Sources */,
-				4E6C11B32183BAAB00C914BD /* authButton.swift in Sources */,
+				4E6C11B32183BAAB00C914BD /* AuthButton.swift in Sources */,
 				4ED0286B21BF2AC900094EAF /* KeychainService.swift in Sources */,
 				4E16AB4A21D124B900CB0EFD /* CollectionTableViewCell.swift in Sources */,
 				4ED9ED5E21E1314C00ADF05F /* SliderTableViewCell.swift in Sources */,

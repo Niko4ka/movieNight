@@ -1,6 +1,6 @@
 import UIKit
 
-class authButton: UIButton {
+class AuthButton: UIButton {
     
     var image: UIImage?
 
