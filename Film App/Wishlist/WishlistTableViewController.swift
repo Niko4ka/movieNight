@@ -26,6 +26,7 @@ class WishlistTableViewController: UITableViewController {
         navigationItem.titleView = sectionSegmentedControl
         navigationItem.leftBarButtonItem = editButtonItem
 
+        tableView.bounces = false
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "WishlistTableViewCell", bundle: nil), forCellReuseIdentifier: "WishlistCell")
         

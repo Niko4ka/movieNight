@@ -10,6 +10,7 @@ class PersonTableViewController: UITableViewController {
     @IBOutlet weak var ageLabel: UILabel!
     
     let personLoadingGroup = DispatchGroup()
+    var navigator: ProjectNavigator?
     var personId: Int!
     var personMovies: [PersonMovie] = []
     var personTvShows: [PersonMovie] = []
@@ -162,16 +163,17 @@ class PersonTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let cell = tableView.cellForRow(at: indexPath) as! PersonMovieTableViewCell
-        
-        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-        guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
-            return
-        }
-        
-        controller.movieId = cell.id
-        controller.mediaType = cell.mediaType
-
-        self.navigationController?.pushViewController(controller, animated: true)
+        navigator?.navigate(to: .movie(id: cell.id, type: cell.mediaType))
+//        
+//        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
+//        guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
+//            return
+//        }
+//        
+//        controller.movieId = cell.id
+//        controller.mediaType = cell.mediaType
+//
+//        self.navigationController?.pushViewController(controller, animated: true)
         
     }
 

@@ -7,7 +7,18 @@ class ResultsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-
+    
+    var navigator: ProjectNavigator?
+    
+    init(navigator: ProjectNavigator) {
+        self.navigator = navigator
+        super.init(style: .plain)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,16 +65,7 @@ class ResultsTableViewController: UITableViewController {
 extension ResultsTableViewController: MovieCoordinator {
     func showMovie(id: Int, type: MediaType) {
         
-        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-        guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
-            return
-        }
-        
-        controller.movieId = id
-        controller.mediaType = type
-        
-        self.navigationController?.pushViewController(controller, animated: true)
-        
+        navigator?.navigate(to: .movie(id: id, type: type))
     }
     
 }

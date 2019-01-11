@@ -7,7 +7,7 @@ class VideoPlayerViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var closeButton: UIButton!
 
-    var videoID = "oB6vrhI5SCw"
+    var videoID = ""
     var didLoadVideo = false
 
     override func viewDidLoad() {

@@ -22,8 +22,10 @@ class SearchViewController: UIViewController {
     }()
     
     lazy var resultsViewController: ResultsTableViewController = {
-        return ResultsTableViewController()
+        return ResultsTableViewController(navigator: navigator)
     }()
+    
+    var navigator: ProjectNavigator!
 
     override func loadView() {
         super.loadView()

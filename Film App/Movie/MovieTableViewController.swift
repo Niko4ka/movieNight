@@ -8,7 +8,6 @@ protocol MovieTableViewPresenter: class {
 }
 
 
-
 class MovieTableViewController: UITableViewController {
     
     @IBOutlet var headerView: UIView!
@@ -45,6 +44,8 @@ class MovieTableViewController: UITableViewController {
             updateLoading()
         }
     }
+    
+    var navigator: ProjectNavigator?
     
     private func updateLoading() {
         if isLoading {
@@ -236,16 +237,8 @@ class MovieTableViewController: UITableViewController {
 extension MovieTableViewController: MovieCoordinator {
     
     func showMovie(id: Int, type: MediaType) {
-
-            let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-            guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
-                return
-            }
-            
-            movieController.movieId = id
-            movieController.mediaType = type
-            navigationController?.pushViewController(movieController, animated: true)
-    
+        
+        navigator?.navigate(to: .movie(id: id, type: type))
     }
     
     func playVideo(withId id: String) {
@@ -262,9 +255,6 @@ extension MovieTableViewController: MovieCoordinator {
     
     func showPersonProfile(withId id: Int) {
         
-        let storyboard = UIStoryboard(name: "Person", bundle: nil)
-        let personController = storyboard.instantiateViewController(withIdentifier: "PersonTableViewController") as! PersonTableViewController
-        personController.personId = id
-        navigationController?.pushViewController(personController, animated: true)
+        navigator?.navigate(to: .person(id: id))
     }
 }

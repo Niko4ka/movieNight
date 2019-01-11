@@ -5,10 +5,16 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let movies = MoviesTableViewController()
+        let moviesVC = MoviesTableViewController()
+        let movies = UINavigationController(rootViewController: moviesVC)
+        let moviesNavigator = ProjectNavigator(navigationController: movies)
+        moviesVC.navigator = moviesNavigator
         movies.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "movies"), tag: 0)
         
-        let search = UINavigationController(rootViewController: SearchViewController())
+        let searchVC = SearchViewController()
+        let search = UINavigationController(rootViewController: searchVC)
+        let searchNavigator = ProjectNavigator(navigationController: search)
+        searchVC.navigator = searchNavigator
         search.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         
         
@@ -16,7 +22,6 @@ class TabBarController: UITabBarController {
         let wishlist = UINavigationController(rootViewController: wishlistVC)
         let wishlistNavigator = ProjectNavigator(navigationController: wishlist)
         wishlistVC.navigator = wishlistNavigator
-        
         wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 2)
         
         viewControllers = [movies, search, wishlist]

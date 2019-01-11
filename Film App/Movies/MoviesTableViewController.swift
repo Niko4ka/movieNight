@@ -1,6 +1,8 @@
 import UIKit
 
 class MoviesTableViewController: UITableViewController {
+    
+    var navigator: ProjectNavigator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
