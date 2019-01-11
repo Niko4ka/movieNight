@@ -3,6 +3,7 @@ import CoreData
 
 class WishlistTableViewController: UITableViewController {
     
+    var navigator: ProjectNavigator?
     var fetchedResultController: NSFetchedResultsController<Movie>!
     
     lazy var sectionSegmentedControl: UISegmentedControl = {
@@ -18,7 +19,7 @@ class WishlistTableViewController: UITableViewController {
         static let tvPredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'tv'")
         static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -116,17 +117,9 @@ class WishlistTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! WishlistTableViewCell
-        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-        let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as! MovieTableViewController
-        movieController.movieId = cell.id
         if let type = cell.mediaType {
-            movieController.mediaType = type
-        } else {
-            print("Problems with type")
-            return
-        }
-        
-        self.navigationController?.pushViewController(movieController, animated: true)
+            navigator?.navigate(to: .movie(id: cell.id, type: type))
+        } else { return }
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
