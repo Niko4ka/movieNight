@@ -74,6 +74,7 @@
 		4ED9ED8821E7BD5800ADF05F /* WishlistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */; };
 		4ED9ED8D21E8071900ADF05F /* NavigatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8C21E8071900ADF05F /* NavigatorProtocol.swift */; };
 		4ED9ED8F21E8087F00ADF05F /* ProjectNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8E21E8087F00ADF05F /* ProjectNavigator.swift */; };
+		4ED9EE3F21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -159,6 +160,7 @@
 		4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistTableViewController.swift; sourceTree = "<group>"; };
 		4ED9ED8C21E8071900ADF05F /* NavigatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorProtocol.swift; sourceTree = "<group>"; };
 		4ED9ED8E21E8087F00ADF05F /* ProjectNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNavigator.swift; sourceTree = "<group>"; };
+		4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WishlistTableViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */,
+				4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */,
 				4E16AB5421D1747900CB0EFD /* WishlistTableViewCell.swift */,
 				4E16AB5521D1747900CB0EFD /* WishlistTableViewCell.xib */,
 				4E16AB6221D4312700CB0EFD /* Model */,
@@ -536,6 +539,7 @@
 				4EABAE7921CC567E00189FA6 /* MoviePresenter.swift in Sources */,
 				4E6C11B32183BAAB00C914BD /* AuthButton.swift in Sources */,
 				4ED0286B21BF2AC900094EAF /* KeychainService.swift in Sources */,
+				4ED9EE3F21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift in Sources */,
 				4E16AB4A21D124B900CB0EFD /* CollectionTableViewCell.swift in Sources */,
 				4ED9ED5E21E1314C00ADF05F /* SliderTableViewCell.swift in Sources */,
 				4ED9ED8121E7A96600ADF05F /* TabBarController.swift in Sources */,
