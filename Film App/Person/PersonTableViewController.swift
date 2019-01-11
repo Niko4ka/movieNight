@@ -20,7 +20,7 @@ class PersonTableViewController: UITableViewController {
         
         Spinner.start(from: (self.navigationController?.view)!)
         
-        getInfo(forPersonId: personId)
+        getInfo(personId: personId)
         getMovies(forPersonId: personId)
         getTvShows(forPersonId: personId)
         
@@ -31,44 +31,44 @@ class PersonTableViewController: UITableViewController {
 
     }
     
-    private func getInfo(forPersonId id: Int) {
+    private func getInfo(personId id: Int) {
         personLoadingGroup.enter()
         
-        AF.request("https://api.themoviedb.org/3/person/\(id)?api_key=\(ConfigurationService.themoviedbKey)").responseJSON { (response) in
+        ConfigurationService.client.loadPersonInfo(id: id) { (info) in
             
-            guard let json = response.result.value as? [String: Any] else { return }
-            
-            if let name = json["name"] as? String {
-                self.nameLabel.text = name
-                self.navigationItem.title = name
+            guard let info = info else {
+                self.personLoadingGroup.leave()
+                return
             }
             
-            if let department = json["known_for_department"] as? String,
-                let gender = json["gender"] as? Int {
-                if department == "Acting" && gender == 2 {
+            self.nameLabel.text = info.name
+            self.navigationItem.title = info.name
+            
+            if let department = info.department {
+                if department == "Acting" && info.gender == 2 {
                     self.jobLabel.text = "Actor"
                 }
                 
-                if department == "Acting" && gender == 1 {
+                if department == "Acting" && info.gender == 1 {
                     self.jobLabel.text = "Actress"
                 }
             }
             
-            if let profileUrl = json["profile_path"] as? String,
-                let url = URL(string: "https://image.tmdb.org/t/p/w185\(profileUrl)") {
+            if let profilePath = info.profilePath,
+                let url = URL(string: "https://image.tmdb.org/t/p/w185\(profilePath)") {
                 self.profileImageView.kf.setImage(with: url)
+            } else {
+                self.profileImageView.image = UIImage(named: "noPoster")
             }
             
-            if let birthday = json["birthday"] as? String {
-                let deathday: String? = json["deathday"] as? String
+            if let birthday = info.birthday {
+                let deathday: String? = info.deathday
                 if deathday == nil {
                     let age = birthday.calculateCurrentAge()
                     self.ageLabel.text = age + " years old"
                 }
             }
-            
             self.personLoadingGroup.leave()
-            
         }
     }
     
@@ -76,17 +76,8 @@ class PersonTableViewController: UITableViewController {
         
         personLoadingGroup.enter()
         
-        AF.request("https://api.themoviedb.org/3/person/\(id)/movie_credits?api_key=\(ConfigurationService.themoviedbKey)").responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any] else { return }
-            guard let cast = json["cast"] as? [Dictionary<String, Any>] else { return }
-            
-            for itemJson in cast {
-                if let personMovie = PersonMovie(ofType: .movie, from: itemJson) {
-                    self.personMovies.append(personMovie)
-                }
-            }
-            
+        ConfigurationService.client.loadPersonMovies(personId: id) { (movies) in
+            self.personMovies = movies
             self.personLoadingGroup.leave()
         }
     }
@@ -95,17 +86,8 @@ class PersonTableViewController: UITableViewController {
         
         personLoadingGroup.enter()
         
-        AF.request("https://api.themoviedb.org/3/person/\(id)/tv_credits?api_key=\(ConfigurationService.themoviedbKey)").responseJSON { (response) in
-            
-            guard let json = response.result.value as? [String: Any] else { return }
-            guard let cast = json["cast"] as? [Dictionary<String, Any>] else { return }
-            
-            for itemJson in cast {
-                if let personTvShow = PersonMovie(ofType: .tvShow, from: itemJson) {
-                    self.personTvShows.append(personTvShow)
-                }
-            }
-            
+        ConfigurationService.client.loadPersonTvShows(personId: id) { (tvShows) in
+            self.personTvShows = tvShows
             self.personLoadingGroup.leave()
         }
     }
@@ -164,17 +146,6 @@ class PersonTableViewController: UITableViewController {
         
         let cell = tableView.cellForRow(at: indexPath) as! PersonMovieTableViewCell
         navigator?.navigate(to: .movie(id: cell.id, type: cell.mediaType))
-//        
-//        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-//        guard let controller = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else {
-//            return
-//        }
-//        
-//        controller.movieId = cell.id
-//        controller.mediaType = cell.mediaType
-//
-//        self.navigationController?.pushViewController(controller, animated: true)
-        
     }
 
 }

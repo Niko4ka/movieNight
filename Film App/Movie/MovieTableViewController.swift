@@ -31,9 +31,9 @@ class MovieTableViewController: UITableViewController {
     public var movieTrailers: [MovieTrailer] = []
     public var movieReviews: [MovieReview] = []
     public var similarMovies: [DatabaseObject] = []
-    private var currentState: tableStates = .details
+    private var currentState: TableStates = .details
 
-    enum tableStates {
+    enum TableStates {
         case details
         case reviews
         case similar
