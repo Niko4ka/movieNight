@@ -14,7 +14,6 @@ class ProjectNavigator: Navigator {
     }
     
     func navigate(to destination: Destination) {
-        print("Navigate")
         guard let viewController = makeViewController(for: destination) else { return }
         navigation?.pushViewController(viewController, animated: true)
         

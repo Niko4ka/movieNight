@@ -1,5 +1,4 @@
 import UIKit
-import Alamofire
 import Kingfisher
 
 class PersonTableViewController: UITableViewController {
@@ -14,11 +13,33 @@ class PersonTableViewController: UITableViewController {
     var personId: Int!
     var personMovies: [PersonMovie] = []
     var personTvShows: [PersonMovie] = []
+    
+    var isLoading: Bool = false {
+        didSet {
+            updateLoading()
+        }
+    }
+    
+    private func updateLoading() {
+        if isLoading {
+            let activity = UIActivityIndicatorView(style: .gray)
+            activity.startAnimating()
+            
+            tableView.backgroundView = activity
+            tableView.tableHeaderView?.isHidden = true
+        } else {
+            tableView.backgroundView = nil
+            tableView.tableHeaderView?.isHidden = false
+        }
+        
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Spinner.start(from: (self.navigationController?.view)!)
+        tableView.tableFooterView = UIView()
+        isLoading = true
         
         getInfo(personId: personId)
         getMovies(forPersonId: personId)
@@ -26,7 +47,7 @@ class PersonTableViewController: UITableViewController {
         
         personLoadingGroup.notify(queue: .main) {
             self.tableView.reloadData()
-            Spinner.stop()
+            self.isLoading = false
         }
 
     }
