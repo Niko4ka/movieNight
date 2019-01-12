@@ -7,6 +7,7 @@ extension Client {
             ]).responseJSON { (response) in
                 guard let json = response.result.value as? [String: Any],
                     let dictionary = json["results"] as? [Dictionary<String, Any>] else {
+                        completion([])
                         return
                 }
                 

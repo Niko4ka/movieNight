@@ -3,7 +3,7 @@ import Alamofire
 
 extension Client {
     
-    func loadMovieDetails(forId id: Int, andType type: MediaType, completion: @escaping (MovieDetails)->Void) {
+    func loadMovieDetails(forId id: Int, andType type: MediaType, completion: @escaping (MovieDetails?)->Void) {
         
         var path: String = ""
         if type == .movie {
@@ -14,13 +14,16 @@ extension Client {
         
         request(path: path, params: [:]).responseJSON { (response) in
             guard let json = response.result.value as? [String: Any],
-                let details = MovieDetails(ofType: type, from: json) else { return }
+                let details = MovieDetails(ofType: type, from: json) else {
+                    completion(nil)
+                    return
+            }
             
             completion(details)
         }
     }
     
-    func loadMovieCast(forId id: Int, andType type: MediaType, completion: @escaping (MovieCast)->Void) {
+    func loadMovieCast(forId id: Int, andType type: MediaType, completion: @escaping (MovieCast?)->Void) {
         
         var path: String = ""
         if type == .movie {
@@ -31,7 +34,10 @@ extension Client {
         
         request(path: path, params: [:]).responseJSON { (response) in
             guard let json = response.result.value as? [String: Any],
-                let cast = MovieCast(ofType: type, from: json) else { return }
+                let cast = MovieCast(ofType: type, from: json) else {
+                    completion(nil)
+                    return
+            }
             
             completion(cast)
         }
@@ -51,7 +57,10 @@ extension Client {
         request(path: path, params: [:]).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
-                let results = json["results"] as? [Dictionary<String, Any>] else { return }
+                let results = json["results"] as? [Dictionary<String, Any>] else {
+                    completion(trailers)
+                    return
+            }
             
             let trailersLoadingGroup = DispatchGroup()
             
@@ -67,6 +76,8 @@ extension Client {
                         }
                         trailersLoadingGroup.leave()
                     })
+                } else {
+                    trailersLoadingGroup.leave()
                 }
             }
             
@@ -90,7 +101,10 @@ extension Client {
         request(path: path, params: [:]).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
-                let results = json["results"] as? [Dictionary<String, Any>] else { return }
+                let results = json["results"] as? [Dictionary<String, Any>] else {
+                    completion(reviews)
+                    return
+            }
             
             if !results.isEmpty {
                 for result in results {
@@ -117,7 +131,10 @@ extension Client {
         request(path: path, params: [:]).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
-                let results = json["results"] as? [Dictionary<String, Any>] else { return }
+                let results = json["results"] as? [Dictionary<String, Any>] else {
+                    completion(similar)
+                    return
+            }
             
             for result in results {
                 if let item = DatabaseObject(ofType: type, fromJson: result) {

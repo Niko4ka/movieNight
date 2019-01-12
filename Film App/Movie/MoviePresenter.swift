@@ -14,14 +14,22 @@ class MoviePresenter: MovieTableViewPresenter {
         controller.isLoading = true
         
         ConfigurationService.client.loadMovieDetails(forId: id, andType: type) { (details) in
+            guard let details = details else {
+                
+                // TODO: Show alert and pop controller
+                controller.isLoading = false
+                return
+            }
             controller.movieDetails = details
             self.configureHeaderView(controller, with: details)
             controller.isLoading = false
         }
         
         ConfigurationService.client.loadMovieCast(forId: id, andType: type) { (cast) in
-            controller.movieCast = cast
-            controller.tableView.reloadData()
+            if let cast = cast {
+                controller.movieCast = cast
+                controller.tableView.reloadData()
+            }
         }
         
         ConfigurationService.client.loadMovieTrailers(forId: id, andType: type) { (trailers) in

@@ -17,7 +17,11 @@ extension Client {
         request(path: "/search/multi", params: params).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
-                let dictionary = json["results"] as? [Dictionary<String, Any>] else { return }
+                let dictionary = json["results"] as? [Dictionary<String, Any>] else {
+                    let results = SearchResults()
+                    completion(results)
+                    return
+            }
             
             var results = SearchResults()
             
@@ -33,11 +37,7 @@ extension Client {
                     results.persons.append(object)
                 }
             }
-//            
-//            results.movies = objects.filter { $0.mediaType == .movie }
-//            results.tvShows = objects.filter { $0.mediaType == .tvShow }
-//            results.persons = objects.filter { $0.mediaType == .person }
-            
+
             completion(results)
         }
     }
