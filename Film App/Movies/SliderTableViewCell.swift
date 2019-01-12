@@ -18,6 +18,7 @@ class SliderTableViewCell: UITableViewCell {
         setSliderCollectionView()
     }
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionViewLayout.estimatedItemSize = CGSize(width: sliderCollectionView.frame.width, height: sliderCollectionView.frame.height)
@@ -55,14 +56,25 @@ class SliderTableViewCell: UITableViewCell {
     }
 
     func swipeSlidesOnTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(showNextSlide), userInfo: nil, repeats: true)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.showNextSlide), userInfo: nil, repeats: true)
+            let runLoop = RunLoop.current
+            runLoop.add(self.timer!, forMode: .default)
+            runLoop.run()
+        }
+        
+        
     }
     @objc private func showNextSlide() {
+        
+        DispatchQueue.main.async {
+            let cellSize = CGSize(width: self.sliderCollectionView.frame.width, height: self.sliderCollectionView.frame.height)
+            let contentOffset = self.sliderCollectionView.contentOffset
+            let scrollRect = CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
+            self.sliderCollectionView.scrollRectToVisible(scrollRect, animated: true)
+        }
 
-        let cellSize = CGSize(width: sliderCollectionView.frame.width, height: sliderCollectionView.frame.height)
-        let contentOffset = sliderCollectionView.contentOffset
-        let scrollRect = CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
-        sliderCollectionView.scrollRectToVisible(scrollRect, animated: true)
     }
     
     private func setCollectionViewConstraints() {
