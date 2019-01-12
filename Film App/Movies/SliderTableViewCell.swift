@@ -5,8 +5,13 @@ class SliderTableViewCell: UITableViewCell {
     var sliderCollectionView: UICollectionView!
     var collectionViewLayout: UICollectionViewFlowLayout!
     
-    private var posterSlides: [(image: String, path: String)] = [(image: "harrypotter", path: ""), (image: "starwars", path: ""), (image: "lordrings", path: "")]
-    private var timer: Timer!
+    private var posterSlides: [(image: String, path: String)] = [
+        (image: "harrypotter", path: ""),
+        (image: "starwars", path: ""),
+        (image: "lordrings", path: "")
+    ]
+    
+    private var timer: Timer?
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -16,6 +21,19 @@ class SliderTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionViewLayout.estimatedItemSize = CGSize(width: sliderCollectionView.frame.width, height: sliderCollectionView.frame.height)
+        swipeSlidesOnTimer()
+    }
+    
+    // Private
+    
+    private func setSliderCollectionView() {
+        sliderCollectionView = createCollectionView()
+        collectionViewLayout = sliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        self.addSubview(sliderCollectionView)
+        setCollectionViewConstraints()
+        sliderCollectionView.delegate = self
+        sliderCollectionView.dataSource = self
+        sliderCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "SliderCollectionViewCell")
     }
     
     private func createCollectionView() -> UICollectionView {
@@ -36,25 +54,15 @@ class SliderTableViewCell: UITableViewCell {
         return collectionView
     }
 
-   @objc private func showNextSlide() {
-        print("Tik-tak")
-   
-    }
-    
     func swipeSlidesOnTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(showNextSlide), userInfo: nil, repeats: true)
-        
-        // TODO: Timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(showNextSlide), userInfo: nil, repeats: true)
     }
-    
-    private func setSliderCollectionView() {
-        sliderCollectionView = createCollectionView()
-        collectionViewLayout = sliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        self.addSubview(sliderCollectionView)
-        setCollectionViewConstraints()
-        sliderCollectionView.delegate = self
-        sliderCollectionView.dataSource = self
-        sliderCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "SliderCollectionViewCell")
+    @objc private func showNextSlide() {
+
+        let cellSize = CGSize(width: sliderCollectionView.frame.width, height: sliderCollectionView.frame.height)
+        let contentOffset = sliderCollectionView.contentOffset
+        let scrollRect = CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
+        sliderCollectionView.scrollRectToVisible(scrollRect, animated: true)
     }
     
     private func setCollectionViewConstraints() {
@@ -72,13 +80,14 @@ class SliderTableViewCell: UITableViewCell {
 extension SliderTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posterSlides.count
+        return 500
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SliderCollectionViewCell", for: indexPath)
-        let image = UIImage(named: posterSlides[indexPath.item].image)
+        let index = indexPath.item % posterSlides.count
+        let image = UIImage(named: posterSlides[index].image)
         let imageView = UIImageView(image: image)
         imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         cell.addSubview(imageView)
@@ -88,8 +97,8 @@ extension SliderTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Select")
+        timer?.invalidate()
     }
    
-    
     
 }
