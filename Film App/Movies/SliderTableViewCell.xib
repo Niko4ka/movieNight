@@ -21,17 +21,22 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AKP-RO-gf4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuU-F4-aWl">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4wx-2L-QUy">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </scrollView>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="eEZ-Vj-QOo">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="RuU-F4-aWl" firstAttribute="centerY" secondItem="AKP-RO-gf4" secondAttribute="centerY" id="3fE-Jn-bol"/>
-                            <constraint firstItem="RuU-F4-aWl" firstAttribute="height" secondItem="AKP-RO-gf4" secondAttribute="height" id="ATq-jQ-f8Y"/>
-                            <constraint firstItem="RuU-F4-aWl" firstAttribute="width" secondItem="AKP-RO-gf4" secondAttribute="width" id="RhY-cM-YRX"/>
-                            <constraint firstItem="RuU-F4-aWl" firstAttribute="centerX" secondItem="AKP-RO-gf4" secondAttribute="centerX" id="Vws-Mo-r42"/>
+                            <constraint firstItem="4wx-2L-QUy" firstAttribute="centerY" secondItem="AKP-RO-gf4" secondAttribute="centerY" id="2ms-0Z-jyp"/>
+                            <constraint firstItem="4wx-2L-QUy" firstAttribute="width" secondItem="AKP-RO-gf4" secondAttribute="width" id="HW2-k4-j1r"/>
+                            <constraint firstItem="4wx-2L-QUy" firstAttribute="centerX" secondItem="AKP-RO-gf4" secondAttribute="centerX" id="OSt-yz-WbB"/>
                             <constraint firstAttribute="width" secondItem="AKP-RO-gf4" secondAttribute="height" multiplier="25:10" id="afm-s9-eba"/>
+                            <constraint firstItem="4wx-2L-QUy" firstAttribute="height" secondItem="AKP-RO-gf4" secondAttribute="height" id="b8u-7I-wOO"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -46,8 +51,9 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="collectionViewLayout" destination="eEZ-Vj-QOo" id="N8r-O1-b0r"/>
+                <outlet property="sliderCollectionView" destination="4wx-2L-QUy" id="wT1-VI-y2F"/>
                 <outlet property="sliderContentView" destination="AKP-RO-gf4" id="onm-Tf-L48"/>
-                <outlet property="sliderScrollView" destination="RuU-F4-aWl" id="CRn-oT-Lxn"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="153.37331334332833"/>
         </tableViewCell>

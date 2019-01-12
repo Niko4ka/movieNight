@@ -4,51 +4,63 @@ class SliderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var sliderContentView: UIView!
     @IBOutlet weak var sliderScrollView: UIScrollView!
+    @IBOutlet weak var sliderCollectionView: UICollectionView!
+    
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
     private var posterSlides = [UIButton]()
     private var posterImages = ["harrypotter", "starwars", "lordrings"]
-
+    private var timer: Timer!
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        createSlides()
-        setupScrollView(with: posterSlides)
+        sliderCollectionView.contentInsetAdjustmentBehavior = .never
+        sliderCollectionView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+        collectionViewLayout.estimatedItemSize = CGSize(width: self.frame.width, height: sliderCollectionView.frame.height)
     }
 
-    private func setupScrollView(with slides: [UIButton]) {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        sliderCollectionView.delegate = self
+        sliderCollectionView.dataSource = self
+        sliderCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "SliderCollectionViewCell")
+    }
 
-        sliderScrollView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-        sliderScrollView.contentSize = CGSize(width: self.frame.width * CGFloat(slides.count), height: self.frame.height)
-        sliderScrollView.isPagingEnabled = true
+//    @objc private func slideButtonPressed() {
+//        print("Pressed")
+//
+//    }
+    
+   @objc private func showNextSlide() {
+        print("Tik-tak")
+   
+    }
+    
+    func swipeSlidesOnTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(showNextSlide), userInfo: nil, repeats: true)
+        
+        // TODO: Timer.invalidate()
+    }
+    
+}
 
-        for i in 0..<slides.count {
-            slides[i].frame = CGRect(x: self.frame.width * CGFloat(i), y: 0, width: self.frame.width, height: self.frame.height)
-            sliderScrollView.addSubview(slides[i])
-        }
+extension SliderTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return posterImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SliderCollectionViewCell", for: indexPath)
+        let image = UIImage(named: posterImages[indexPath.item])
+        let imageView = UIImageView(image: image)
+        imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        cell.addSubview(imageView)
+        return cell
         
     }
     
-    private func createSlides() {
-        
-        for posterName in posterImages {
-            let poster = createPosterButton(with: posterName)
-            posterSlides.append(poster)
-        }
-        
-    }
-    
-    private func createPosterButton(with imageName: String) -> UIButton {
-        
-        let frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-        let button = UIButton(frame: frame)
-        let image = UIImage(named: imageName)
-        button.setBackgroundImage(image, for: .normal)
-        button.addTarget(self, action: #selector(slideButtonPressed), for: .touchUpInside)
-        return button
-    }
-    
-    @objc private func slideButtonPressed() {
-        print("Pressed")
-    }
     
 }
