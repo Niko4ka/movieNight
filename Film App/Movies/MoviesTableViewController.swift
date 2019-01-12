@@ -7,7 +7,8 @@ class MoviesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "SliderTableViewCell", bundle: nil), forCellReuseIdentifier: "SlideCell")
+        tableView.register(SliderTableViewCell.self, forCellReuseIdentifier: "SlideCell")
+//        tableView.register(UINib(nibName: "SliderTableViewCell", bundle: nil), forCellReuseIdentifier: "SlideCell")
     }
     
     // MARK: - Table view data source
