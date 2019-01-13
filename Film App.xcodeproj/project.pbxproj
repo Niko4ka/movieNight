@@ -175,7 +175,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E16AB4C21D12CEC00CB0EFD /* Collection */ = {
+		4E16AB4C21D12CEC00CB0EFD /* Items Collection */ = {
 			isa = PBXGroup;
 			children = (
 				4E16AB4821D124B900CB0EFD /* CollectionTableViewCell.swift */,
@@ -183,7 +183,7 @@
 				4E78BE2D21C020A70054FC5B /* ItemCollectionViewCell.swift */,
 				4E78BE2E21C020A70054FC5B /* ItemCollectionViewCell.xib */,
 			);
-			path = Collection;
+			path = "Items Collection";
 			sourceTree = "<group>";
 		};
 		4E16AB5121D173B600CB0EFD /* Wishlist */ = {
@@ -307,7 +307,7 @@
 				4ED0286321BDADB600094EAF /* Authorization (not used yet) */,
 				4E16AB5121D173B600CB0EFD /* Wishlist */,
 				4E78BE3121C045820054FC5B /* Search */,
-				4E16AB4C21D12CEC00CB0EFD /* Collection */,
+				4E16AB4C21D12CEC00CB0EFD /* Items Collection */,
 				4E16AB6521D51DEA00CB0EFD /* Person */,
 				4E78BE4321C4503E0054FC5B /* Movie */,
 				4E6C11A02183A84700C914BD /* AppDelegate.swift */,
