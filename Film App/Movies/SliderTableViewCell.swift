@@ -16,6 +16,8 @@ class SliderTableViewCell: UITableViewCell {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         setSliderCollectionView()
+        
+        addSwipeRecognizers()
     }
     
     
@@ -87,6 +89,27 @@ class SliderTableViewCell: UITableViewCell {
         sliderCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
+    private func addSwipeRecognizers() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(userSwipedSlider))
+        swipeRight.numberOfTouchesRequired = 1
+        swipeRight.direction = .right
+        swipeRight.delegate = self
+        self.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(userSwipedSlider))
+        swipeLeft.numberOfTouchesRequired = 1
+        swipeLeft.direction = .left
+        swipeLeft.delegate = self
+        self.addGestureRecognizer(swipeLeft)
+        
+    }
+    
+    @objc private func userSwipedSlider() {
+        if let timer = timer, timer.isValid {
+            timer.invalidate()
+        }
+    }
+    
 }
 
 extension SliderTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -109,8 +132,14 @@ extension SliderTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Select")
-        timer?.invalidate()
+        if let timer = timer, timer.isValid {
+            timer.invalidate()
+        }
+
     }
    
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
     
 }

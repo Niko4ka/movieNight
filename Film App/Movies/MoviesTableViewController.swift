@@ -8,7 +8,7 @@ class MoviesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(SliderTableViewCell.self, forCellReuseIdentifier: "SlideCell")
-//        tableView.register(UINib(nibName: "SliderTableViewCell", bundle: nil), forCellReuseIdentifier: "SlideCell")
+
     }
     
     // MARK: - Table view data source
