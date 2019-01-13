@@ -304,7 +304,7 @@
 				4ED9ED8B21E7D1A200ADF05F /* Navigation */,
 				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
 				4E16AB7421D57DFA00CB0EFD /* Movies */,
-				4ED0286321BDADB600094EAF /* Authorization */,
+				4ED0286321BDADB600094EAF /* Authorization (not used yet) */,
 				4E16AB5121D173B600CB0EFD /* Wishlist */,
 				4E78BE3121C045820054FC5B /* Search */,
 				4E16AB4C21D12CEC00CB0EFD /* Collection */,
@@ -346,7 +346,7 @@
 			path = Movie;
 			sourceTree = "<group>";
 		};
-		4ED0286321BDADB600094EAF /* Authorization */ = {
+		4ED0286321BDADB600094EAF /* Authorization (not used yet) */ = {
 			isa = PBXGroup;
 			children = (
 				4ED0286121BDA1D500094EAF /* Authorization.storyboard */,
@@ -355,7 +355,7 @@
 				4E5F38C22198F63C00AA3ECC /* VKHandler.swift */,
 				4E6C11A22183A84700C914BD /* AuthViewController.swift */,
 			);
-			path = Authorization;
+			path = "Authorization (not used yet)";
 			sourceTree = "<group>";
 		};
 		4ED9ED6421E4112300ADF05F /* Client */ = {

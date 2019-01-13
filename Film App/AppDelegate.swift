@@ -1,6 +1,5 @@
 import UIKit
-import VKSdkFramework
-import AVFoundation
+//import VKSdkFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,36 +8,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // VK SDK
+/*  Uncomment if using authorization
+        
+         VK SDK
         let vkSDK = VKSdk.initialize(withAppId: VKHandler.VK_APP_ID)
         vkSDK?.register(VKHandler.shared)
         vkSDK?.uiDelegate = VKHandler.shared
-        
-        // Root Controller
-        
+ 
+         Root Controller
+ 
         if KeychainService.shared.readToken(account: KeychainService.Accounts.vkontakte.rawValue) != nil {
 
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            guard let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {
-//                return false
-//            }
-            
             window = UIWindow()
-//            window?.rootViewController = tabBarController
             window?.rootViewController = TabBarController()
             window?.makeKeyAndVisible()
 
         } else {
             let storyboard = UIStoryboard(name: "Authorization", bundle: Bundle.main)
-            
+
             guard let authController = storyboard.instantiateViewController(withIdentifier: "AuthController") as? AuthViewController else {
                 return false
             }
-            
+
             window = UIWindow()
             window?.rootViewController = authController
             window?.makeKeyAndVisible()
         }
+         
+*/
+        
+        window = UIWindow()
+        window?.rootViewController = TabBarController()
+        window?.makeKeyAndVisible()
         
         ConfigurationService.shared.getMoviesGenres { (genres) in
             ConfigurationService.shared.moviesGenres = genres
@@ -55,11 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-
+/*  Uncomment if using authorization
+     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         VKSdk.processOpen(url, fromApplication: sourceApplication)
         return true
     }
+
+*/
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
