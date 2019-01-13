@@ -53,7 +53,7 @@ class MoviePresenter: MovieTableViewPresenter {
             
         case .trailers:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! TrailersTableViewCell
-            cell.coordinator = controller
+            cell.videoPlayer = controller
                         
             if !controller.movieTrailers.isEmpty {
                 cell.trailers = controller.movieTrailers
@@ -70,7 +70,7 @@ class MoviePresenter: MovieTableViewPresenter {
             
         case .cast:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! CastTableViewCell
-            cell.coordinator = controller
+            cell.navigator = controller.navigator
             if controller.movieCast != nil && !castCellConfigured {
                 cell.configure(with: controller.movieCast!)
                 castCellConfigured = true
@@ -104,7 +104,7 @@ class MoviePresenter: MovieTableViewPresenter {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell") as! CollectionTableViewCell
-                cell.coordinator = controller
+                cell.navigator = controller.navigator
                 cell.headerTitle.text = "Similar"
                 cell.data = controller.similarMovies
     

@@ -81,10 +81,5 @@ class VideoPlayerViewController: UIViewController {
         </html>
         """
     }
-    
-    
-    
- 
-    
 
 }

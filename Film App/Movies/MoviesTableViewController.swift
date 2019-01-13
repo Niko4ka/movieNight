@@ -68,20 +68,24 @@ class MoviesTableViewController: UITableViewController {
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SlideCell", for: indexPath) as! SliderTableViewCell
+            cell.navigator = navigator
             slider = cell
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
             if indexPath.row == 1 {
                 cell.data = nowPlaying
+                cell.navigator = navigator
                 cell.headerTitle.text = "Now in cinemas"
                 return cell
             } else if indexPath.row == 2 {
                 cell.data = popular
+                cell.navigator = navigator
                 cell.headerTitle.text = "Popular"
                 return cell
             } else {
                 cell.data = upcoming
+                cell.navigator = navigator
                 cell.headerTitle.text = "Upcoming"
                 return cell
             }

@@ -12,6 +12,7 @@ class SliderTableViewCell: UITableViewCell {
     ]
     
     weak var timer: Timer?
+    var navigator: ProjectNavigator?
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()

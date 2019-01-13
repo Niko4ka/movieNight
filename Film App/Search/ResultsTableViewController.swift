@@ -49,7 +49,7 @@ class ResultsTableViewController: UITableViewController {
         let items = data[indexPath.row].objects
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
-        cell.coordinator = self
+        cell.navigator = navigator
         cell.headerTitle.text = title
         cell.data = items
         
@@ -65,14 +65,6 @@ class ResultsTableViewController: UITableViewController {
     }
 
 
-}
-
-extension ResultsTableViewController: MovieCoordinator {
-    func showMovie(id: Int, type: MediaType) {
-        
-        navigator?.navigate(to: .movie(id: id, type: type))
-    }
-    
 }
 
 extension ResultsTableViewController: UIViewControllerPreviewingDelegate {

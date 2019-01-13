@@ -5,7 +5,7 @@ class TrailersTableViewCell: UITableViewCell {
     @IBOutlet weak var trailersCollectionView: UICollectionView!
     
     public var trailers: [MovieTrailer] = []
-    var coordinator: MovieCoordinator?
+    var videoPlayer: VideoPlayerDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,9 +30,8 @@ extension TrailersTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! TrailerCollectionViewCell
 
-        coordinator?.playVideo(withId: cell.id)
+        videoPlayer?.playVideo(withId: trailers[indexPath.item].id)
     }
 
 }

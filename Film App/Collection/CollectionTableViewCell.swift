@@ -10,7 +10,7 @@ class CollectionTableViewCell: UITableViewCell {
             itemsCollectionView.reloadData()
         }
     }
-    var coordinator: MovieCoordinator?
+    var navigator: ProjectNavigator?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,7 +50,7 @@ extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         let item = data[indexPath.item]
         
         if item.mediaType != MediaType.person {
-            coordinator?.showMovie(id: item.id, type: item.mediaType)
+            navigator?.navigate(to: .movie(id: item.id, type: item.mediaType))
         }
     }
     

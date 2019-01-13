@@ -1,18 +1,18 @@
 import UIKit
 
 protocol MovieTableViewPresenter: class {
-
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType)
-    
     func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell
 }
 
+protocol VideoPlayerDelegate: class {
+    func playVideo(withId id: String)
+}
 
 class MovieTableViewController: UITableViewController {
     
     @IBOutlet var headerView: UIView!
     @IBOutlet weak var backdropContentView: UIView!
-    
     @IBOutlet weak var backdropImageView: UIImageView!
     @IBOutlet weak var backdropGradientView: UIView!
     @IBOutlet weak var moviePoster: UIImageView!
@@ -234,12 +234,7 @@ class MovieTableViewController: UITableViewController {
     
 }
 
-extension MovieTableViewController: MovieCoordinator {
-    
-    func showMovie(id: Int, type: MediaType) {
-        
-        navigator?.navigate(to: .movie(id: id, type: type))
-    }
+extension MovieTableViewController: VideoPlayerDelegate {
     
     func playVideo(withId id: String) {
         
@@ -250,11 +245,6 @@ extension MovieTableViewController: MovieCoordinator {
         videoController.modalTransitionStyle = .crossDissolve
         videoController.modalPresentationStyle = .fullScreen
         present(videoController, animated: true, completion: nil)
-        
     }
     
-    func showPersonProfile(withId id: Int) {
-        
-        navigator?.navigate(to: .person(id: id))
-    }
 }
