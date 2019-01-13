@@ -28,6 +28,9 @@ class MoviesTableViewController: UITableViewController {
         
         tableView.register(SliderTableViewCell.self, forCellReuseIdentifier: "SlideCell")
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
+        tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
+        tableView.bounces = false
+        tableView.allowsSelection = false
         loadData()
         
         if traitCollection.forceTouchCapability == .available {
@@ -82,16 +85,19 @@ class MoviesTableViewController: UITableViewController {
                 cell.data = nowPlaying
                 cell.navigator = navigator
                 cell.headerTitle.text = "Now in cinemas"
+                cell.setDarkColorMode()
                 return cell
             } else if indexPath.row == 2 {
                 cell.data = popular
                 cell.navigator = navigator
                 cell.headerTitle.text = "Popular"
+                cell.setDarkColorMode()
                 return cell
             } else {
                 cell.data = upcoming
                 cell.navigator = navigator
                 cell.headerTitle.text = "Upcoming"
+                cell.setDarkColorMode()
                 return cell
             }
             

@@ -68,6 +68,7 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="100" height="210"/>
             <connections>
+                <outlet property="mainView" destination="gJe-jF-uae" id="xAm-Cc-qIw"/>
                 <outlet property="movieGenre" destination="2r8-X7-a3u" id="kBQ-5v-PcN"/>
                 <outlet property="movieImage" destination="SFi-73-aoM" id="OYr-VD-03N"/>
                 <outlet property="movieTitle" destination="S8l-K5-hua" id="bzp-Gk-d22"/>

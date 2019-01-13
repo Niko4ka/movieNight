@@ -74,6 +74,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="headerTitle" destination="YJb-lN-fD3" id="afm-Vv-zaR"/>
+                <outlet property="headerView" destination="Ym9-f1-C0m" id="CGE-ee-1fc"/>
                 <outlet property="itemsCollectionView" destination="1ow-7I-KNR" id="MbA-Kx-ryG"/>
             </connections>
             <point key="canvasLocation" x="106.40000000000001" y="202.84857571214394"/>

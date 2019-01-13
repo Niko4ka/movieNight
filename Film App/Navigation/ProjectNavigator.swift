@@ -1,5 +1,13 @@
 import UIKit
 
+protocol Navigator: class {
+    
+    associatedtype Destination
+    
+    init(navigationController: UINavigationController, isDarkMode: Bool)
+    func navigate(to destination: Destination)
+}
+
 class ProjectNavigator: Navigator {
     
     enum Destination {
@@ -7,10 +15,15 @@ class ProjectNavigator: Navigator {
         case person(id: Int)
     }
     
-    private weak var navigation: UINavigationController?
+    private weak var navigation: UINavigationController!
     
-    required init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController, isDarkMode: Bool) {
         self.navigation = navigationController
+        if isDarkMode {
+            self.navigation.navigationBar.barStyle = .blackTranslucent
+        } else {
+            self.navigation.navigationBar.isTranslucent = true
+        }
     }
     
     func navigate(to destination: Destination) {

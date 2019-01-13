@@ -70,7 +70,6 @@
 		4ED9ED7D21E5635C00ADF05F /* Client+MovieInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED7C21E5635C00ADF05F /* Client+MovieInformation.swift */; };
 		4ED9ED8121E7A96600ADF05F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8021E7A96600ADF05F /* TabBarController.swift */; };
 		4ED9ED8821E7BD5800ADF05F /* WishlistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */; };
-		4ED9ED8D21E8071900ADF05F /* NavigatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8C21E8071900ADF05F /* NavigatorProtocol.swift */; };
 		4ED9ED8F21E8087F00ADF05F /* ProjectNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8E21E8087F00ADF05F /* ProjectNavigator.swift */; };
 		4ED9EE3F21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */; };
 		4ED9EE4121E9446500ADF05F /* Client+PersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */; };
@@ -155,7 +154,6 @@
 		4ED9ED7C21E5635C00ADF05F /* Client+MovieInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MovieInformation.swift"; sourceTree = "<group>"; };
 		4ED9ED8021E7A96600ADF05F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4ED9ED8721E7BD5800ADF05F /* WishlistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistTableViewController.swift; sourceTree = "<group>"; };
-		4ED9ED8C21E8071900ADF05F /* NavigatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorProtocol.swift; sourceTree = "<group>"; };
 		4ED9ED8E21E8087F00ADF05F /* ProjectNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNavigator.swift; sourceTree = "<group>"; };
 		4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WishlistTableViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
 		4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+PersonInfo.swift"; sourceTree = "<group>"; };
@@ -385,7 +383,6 @@
 			isa = PBXGroup;
 			children = (
 				4ED9ED8021E7A96600ADF05F /* TabBarController.swift */,
-				4ED9ED8C21E8071900ADF05F /* NavigatorProtocol.swift */,
 				4ED9ED8E21E8087F00ADF05F /* ProjectNavigator.swift */,
 			);
 			path = Navigation;
@@ -524,7 +521,6 @@
 				4E6C11A12183A84700C914BD /* AppDelegate.swift in Sources */,
 				4EABAE7D21D01D1A00189FA6 /* MovieReview.swift in Sources */,
 				4E16AB6F21D555EB00CB0EFD /* PersonSectionHeaderCell.swift in Sources */,
-				4ED9ED8D21E8071900ADF05F /* NavigatorProtocol.swift in Sources */,
 				4ED9EE4121E9446500ADF05F /* Client+PersonInfo.swift in Sources */,
 				4E32CDC121C846E1000A15D8 /* RatingControl.swift in Sources */,
 				4E16AB6B21D52A2C00CB0EFD /* PersonMovieTableViewCell.swift in Sources */,

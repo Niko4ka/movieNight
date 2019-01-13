@@ -1,11 +1,23 @@
 import UIKit
 
+enum CollectionColorMode {
+    case light
+    case dark
+}
+
 class CollectionTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerTitle: UILabel!
     @IBOutlet weak var itemsCollectionView: UICollectionView!
     
     public var data = [DatabaseObject]() {
+        didSet {
+            itemsCollectionView.reloadData()
+        }
+    }
+    
+    var currentColorMode: CollectionColorMode = .light {
         didSet {
             itemsCollectionView.reloadData()
         }
@@ -18,10 +30,15 @@ class CollectionTableViewCell: UITableViewCell {
         itemsCollectionView.register(UINib(nibName: "ItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
         itemsCollectionView.dataSource = self
         itemsCollectionView.delegate = self
-        
-        itemsCollectionView.reloadData()
     }
 
+    func setDarkColorMode() {
+        
+        currentColorMode = .dark
+        headerView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
+        headerTitle.textColor = UIColor.white
+        itemsCollectionView.backgroundColor = headerView.backgroundColor
+    }
 }
 
 extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -33,10 +50,7 @@ extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCollectionViewCell
-        
-        cell.configure(with: data[indexPath.item])
-        // Configure the cell
-        
+        cell.configure(with: data[indexPath.item], colorMode: currentColorMode)
         return cell
     }
     
@@ -45,8 +59,7 @@ extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Select item")
-        
+
         let item = data[indexPath.item]
         
         if item.mediaType != MediaType.person {
