@@ -26,7 +26,6 @@ class ResultsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         if traitCollection.forceTouchCapability == .available {
-            print("Available")
             registerForPreviewing(with: self, sourceView: view)
         }
     }
