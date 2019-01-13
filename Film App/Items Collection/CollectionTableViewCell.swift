@@ -35,9 +35,10 @@ class CollectionTableViewCell: UITableViewCell {
     func setDarkColorMode() {
         
         currentColorMode = .dark
+        self.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         headerView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         headerTitle.textColor = UIColor.white
-        itemsCollectionView.backgroundColor = headerView.backgroundColor
+        itemsCollectionView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
     }
 }
 
