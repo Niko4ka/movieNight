@@ -5,6 +5,10 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.delegate = self
+        
+        self.tabBar.barStyle = .black
+        
         let moviesVC = MoviesTableViewController()
         let movies = UINavigationController(rootViewController: moviesVC)
         let moviesNavigator = ProjectNavigator(navigationController: movies, isDarkMode: true)
@@ -27,4 +31,18 @@ class TabBarController: UITabBarController {
         viewControllers = [movies, search, wishlist]
     }
 
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        
+        if viewController == tabBarController.viewControllers?.first {
+            self.tabBar.barStyle = .black
+        } else {
+            self.tabBar.barStyle = .default
+        }
+        
+    }
+    
 }
