@@ -1,7 +1,7 @@
 import UIKit
 
-class SliderTableViewCell: UITableViewCell {
-
+class SliderHeaderView: UIView {
+    
     var sliderCollectionView: UICollectionView!
     var collectionViewLayout: UICollectionViewFlowLayout!
     
@@ -13,14 +13,19 @@ class SliderTableViewCell: UITableViewCell {
     
     weak var timer: Timer?
     var navigator: ProjectNavigator?
-    
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
+
+    init(navigator: ProjectNavigator?) {
+        self.navigator = navigator
+        let width = UIScreen.main.bounds.width
+        let frame = CGRect(x: 0, y: 0, width: width, height: width / 2.5)
+        super.init(frame: frame)
         setSliderCollectionView()
-        
         addSwipeRecognizers()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError()
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -57,7 +62,7 @@ class SliderTableViewCell: UITableViewCell {
         
         return collectionView
     }
-
+    
     func swipeSlidesOnTimer() {
         
         if timer != nil {
@@ -80,7 +85,7 @@ class SliderTableViewCell: UITableViewCell {
             let scrollRect = CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
             self.sliderCollectionView.scrollRectToVisible(scrollRect, animated: true)
         }
-
+        
     }
     
     private func setCollectionViewConstraints() {
@@ -117,7 +122,7 @@ class SliderTableViewCell: UITableViewCell {
     
 }
 
-extension SliderTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SliderHeaderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 500
@@ -140,10 +145,14 @@ extension SliderTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
         if let timer = timer, timer.isValid {
             timer.invalidate()
         }
-
+        
     }
-   
-    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+ 
+}
+
+extension SliderHeaderView: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     

@@ -21,12 +21,12 @@ class MoviesTableViewController: UITableViewController {
     }
     
     var navigator: ProjectNavigator?
-    weak var slider: SliderTableViewCell?
+    var slider: SliderHeaderView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.register(SliderTableViewCell.self, forCellReuseIdentifier: "SlideCell")
+        slider = SliderHeaderView(navigator: navigator)
+        tableView.tableHeaderView = slider
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         tableView.bounces = false
@@ -68,39 +68,30 @@ class MoviesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SlideCell", for: indexPath) as! SliderTableViewCell
+            cell.data = nowPlaying
             cell.navigator = navigator
-            slider = cell
+            cell.headerTitle.text = "Now in cinemas"
+            cell.setDarkColorMode()
+            return cell
+        } else if indexPath.row == 1 {
+            cell.data = popular
+            cell.navigator = navigator
+            cell.headerTitle.text = "Popular"
+            cell.setDarkColorMode()
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
-            if indexPath.row == 1 {
-                cell.data = nowPlaying
-                cell.navigator = navigator
-                cell.headerTitle.text = "Now in cinemas"
-                cell.setDarkColorMode()
-                return cell
-            } else if indexPath.row == 2 {
-                cell.data = popular
-                cell.navigator = navigator
-                cell.headerTitle.text = "Popular"
-                cell.setDarkColorMode()
-                return cell
-            } else {
-                cell.data = upcoming
-                cell.navigator = navigator
-                cell.headerTitle.text = "Upcoming"
-                cell.setDarkColorMode()
-                return cell
-            }
-            
+            cell.data = upcoming
+            cell.navigator = navigator
+            cell.headerTitle.text = "Upcoming"
+            cell.setDarkColorMode()
+            return cell
         }
         
     }
