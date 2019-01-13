@@ -11,7 +11,7 @@ class SliderTableViewCell: UITableViewCell {
         (image: "lordrings", path: "")
     ]
     
-    private weak var timer: Timer?
+    weak var timer: Timer?
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()

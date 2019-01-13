@@ -21,6 +21,7 @@ class MoviesTableViewController: UITableViewController {
     }
     
     var navigator: ProjectNavigator?
+    weak var slider: SliderTableViewCell?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,13 @@ class MoviesTableViewController: UITableViewController {
         tableView.register(SliderTableViewCell.self, forCellReuseIdentifier: "SlideCell")
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         loadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let slider = slider, let timer = slider.timer, timer.isValid {
+            timer.invalidate()
+        }
     }
     
     private func loadData() {
@@ -60,6 +68,7 @@ class MoviesTableViewController: UITableViewController {
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SlideCell", for: indexPath) as! SliderTableViewCell
+            slider = cell
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
