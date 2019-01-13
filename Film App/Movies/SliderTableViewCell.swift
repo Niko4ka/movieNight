@@ -11,7 +11,7 @@ class SliderTableViewCell: UITableViewCell {
         (image: "lordrings", path: "")
     ]
     
-    private var timer: Timer?
+    private weak var timer: Timer?
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -59,15 +59,18 @@ class SliderTableViewCell: UITableViewCell {
 
     func swipeSlidesOnTimer() {
         
-        DispatchQueue.global(qos: .background).async {
-            self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.showNextSlide), userInfo: nil, repeats: true)
-            let runLoop = RunLoop.current
-            runLoop.add(self.timer!, forMode: .default)
-            runLoop.run()
+        if timer != nil {
+            return
+        } else {
+            DispatchQueue.global(qos: .background).async {
+                self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.showNextSlide), userInfo: nil, repeats: true)
+                let runLoop = RunLoop.current
+                runLoop.add(self.timer!, forMode: .default)
+                runLoop.run()
+            }
         }
-        
-        
     }
+    
     @objc private func showNextSlide() {
         
         DispatchQueue.main.async {
@@ -105,6 +108,7 @@ class SliderTableViewCell: UITableViewCell {
     }
     
     @objc private func userSwipedSlider() {
+        print("Swipe")
         if let timer = timer, timer.isValid {
             timer.invalidate()
         }

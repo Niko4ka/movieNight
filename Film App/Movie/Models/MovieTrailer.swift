@@ -8,8 +8,7 @@ struct MovieTrailer {
 
     init?(from json: [String: Any]) {
         
-        guard let trailerId = json["id"] as? String,
-            let videoUrl = URL(string: "https://www.youtube.com/watch?v=\(trailerId)") else { return nil }
+        guard let trailerId = json["id"] as? String else { return nil }
         
         self.id = trailerId
         

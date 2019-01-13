@@ -20,6 +20,7 @@
 		4E16AB6D21D52B2500CB0EFD /* PersonMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB6C21D52B2500CB0EFD /* PersonMovie.swift */; };
 		4E16AB6F21D555EB00CB0EFD /* PersonSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB6E21D555EB00CB0EFD /* PersonSectionHeaderCell.swift */; };
 		4E16AB7321D57DE200CB0EFD /* MoviesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB7221D57DE200CB0EFD /* MoviesTableViewController.swift */; };
+		4E27016121EBA9B70021EF5B /* Client+MoviesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */; };
 		4E32CDA821C73352000A15D8 /* MovieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E32CDA721C73352000A15D8 /* MovieTableViewController.swift */; };
 		4E32CDAB21C7343A000A15D8 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E78BE4121C445930054FC5B /* Movie.storyboard */; };
 		4E32CDAD21C7378B000A15D8 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E32CDAC21C7378B000A15D8 /* OverviewTableViewCell.swift */; };
@@ -106,6 +107,7 @@
 		4E16AB6C21D52B2500CB0EFD /* PersonMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonMovie.swift; sourceTree = "<group>"; };
 		4E16AB6E21D555EB00CB0EFD /* PersonSectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSectionHeaderCell.swift; sourceTree = "<group>"; };
 		4E16AB7221D57DE200CB0EFD /* MoviesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewController.swift; sourceTree = "<group>"; };
+		4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MoviesCategories.swift"; sourceTree = "<group>"; };
 		4E32CDA721C73352000A15D8 /* MovieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewController.swift; sourceTree = "<group>"; };
 		4E32CDAC21C7378B000A15D8 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
 		4E32CDAE21C73914000A15D8 /* TrailersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailersTableViewCell.swift; sourceTree = "<group>"; };
@@ -301,7 +303,6 @@
 			children = (
 				4ED9ED6421E4112300ADF05F /* Client */,
 				4ED9ED7121E542DA00ADF05F /* Extensions */,
-				4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */,
 				4ED9ED8B21E7D1A200ADF05F /* Navigation */,
 				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
 				4E16AB7421D57DFA00CB0EFD /* Movies */,
@@ -323,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED0286E21BFFCE400094EAF /* DatabaseObject.swift */,
+				4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */,
 				4ED0286C21BFE58100094EAF /* SearchViewController.swift */,
 				4ED9ED6D21E4154900ADF05F /* KeywordsViewController.swift */,
 				4ED9ED6B21E4140B00ADF05F /* KeywordSearchUpdater.swift */,
@@ -368,6 +370,7 @@
 				4ED9ED6921E411AC00ADF05F /* Client+SearchResults.swift */,
 				4ED9ED7C21E5635C00ADF05F /* Client+MovieInformation.swift */,
 				4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */,
+				4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				4EABAE7521CA9FF700189FA6 /* VideoPlayerViewController.swift in Sources */,
 				4E6C11A32183A84700C914BD /* AuthViewController.swift in Sources */,
 				4E16AB7321D57DE200CB0EFD /* MoviesTableViewController.swift in Sources */,
+				4E27016121EBA9B70021EF5B /* Client+MoviesCategories.swift in Sources */,
 				4E32CDB621C73F25000A15D8 /* MovieDetails.swift in Sources */,
 				4ED9ED8F21E8087F00ADF05F /* ProjectNavigator.swift in Sources */,
 				4E32CDC321C92C8B000A15D8 /* MovieTrailer.swift in Sources */,
