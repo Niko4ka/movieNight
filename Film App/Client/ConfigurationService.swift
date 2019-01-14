@@ -9,11 +9,11 @@ class ConfigurationService {
     
     static let client = Client()
     
-    public var moviesGenres: [Int: String]!
+    public var movieGenres: [Int: String]!
     public var tvGenres: [Int: String]!
     public var countries: [String: String]!
     
-    public func getMoviesGenres(completion: @escaping ([Int: String]) -> ()) {
+    public func getMovieGenres(completion: @escaping ([Int: String]) -> ()) {
         
         AF.request("https://api.themoviedb.org/3/genre/movie/list?api_key=81c0943d1596e1cc2b1c8de9e9ba8945&language=en-US").responseJSON(completionHandler: { (response) in
             

@@ -36,7 +36,7 @@ struct DatabaseObject {
                 switch mediaType {
                 case "movie":
                     
-                    if let genre = ConfigurationService.shared.moviesGenres[genreIds[i]] {
+                    if let genre = ConfigurationService.shared.movieGenres[genreIds[i]] {
                         if self.genres.isEmpty {
                             self.genres.append(genre)
                         } else {
@@ -100,7 +100,7 @@ struct DatabaseObject {
                 switch type {
                 case .movie:
                     
-                    if let genre = ConfigurationService.shared.moviesGenres[genreIds[i]] {
+                    if let genre = ConfigurationService.shared.movieGenres[genreIds[i]] {
                         if self.genres.isEmpty {
                             self.genres.append(genre)
                         } else {

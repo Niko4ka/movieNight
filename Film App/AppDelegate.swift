@@ -41,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
         
-        ConfigurationService.shared.getMoviesGenres { (genres) in
-            ConfigurationService.shared.moviesGenres = genres
+        ConfigurationService.shared.getMovieGenres { (genres) in
+            ConfigurationService.shared.movieGenres = genres
         }
         
         ConfigurationService.shared.getTvGenres { (genres) in
