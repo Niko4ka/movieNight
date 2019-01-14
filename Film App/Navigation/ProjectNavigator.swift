@@ -13,6 +13,7 @@ class ProjectNavigator: Navigator {
     enum Destination {
         case movie(id: Int, type: MediaType)
         case person(id: Int)
+        case movieCollection
     }
     
     private weak var navigation: UINavigationController!
@@ -49,6 +50,12 @@ class ProjectNavigator: Navigator {
             personController.navigator = self
             personController.personId = id
             return personController
+        
+        case .movieCollection:
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            let movieCollection = MovieCollectionViewController.init(collectionViewLayout: layout)
+            return movieCollection
         }
   
     }

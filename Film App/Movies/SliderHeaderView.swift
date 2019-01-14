@@ -146,6 +146,8 @@ extension SliderHeaderView: UICollectionViewDelegate, UICollectionViewDataSource
             timer.invalidate()
         }
         
+        navigator?.navigate(to: .movieCollection)
+        
     }
  
 }
