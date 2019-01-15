@@ -61,11 +61,12 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
         pageControl = UIPageControl()
         pageControl.numberOfPages = parts.count
         pageControl.isUserInteractionEnabled = false
-        self.view.addSubview(self.pageControl)
-        self.view.bringSubviewToFront(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.bottomAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -64.0).isActive = true
-        pageControl.centerXAnchor.constraint(equalTo: self.collectionView.centerXAnchor).isActive = true
+        self.navigationItem.titleView = pageControl
+//        self.view.addSubview(self.pageControl)
+//        self.view.bringSubviewToFront(pageControl)
+//        pageControl.translatesAutoresizingMaskIntoConstraints = false
+//        pageControl.bottomAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -64.0).isActive = true
+//        pageControl.centerXAnchor.constraint(equalTo: self.collectionView.centerXAnchor).isActive = true
 
     }
 
