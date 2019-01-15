@@ -21,7 +21,7 @@ extension Client {
                     completion(results)
                     return
             }
-            var results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
+            let results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
             completion(results)            
         }
     }

@@ -5,10 +5,10 @@ class SliderHeaderView: UIView {
     var sliderCollectionView: UICollectionView!
     var collectionViewLayout: UICollectionViewFlowLayout!
     
-    private var posterSlides: [(image: String, path: String)] = [
-        (image: "harrypotter", path: ""),
-        (image: "starwars", path: ""),
-        (image: "lordrings", path: "")
+    private var posterSlides: [(image: String, collectionId: Int)] = [
+        (image: "harrypotter", collectionId: 1241),
+        (image: "starwars", collectionId: 10),
+        (image: "lordrings", collectionId: 119)
     ]
     
     weak var timer: Timer?
@@ -146,8 +146,9 @@ extension SliderHeaderView: UICollectionViewDelegate, UICollectionViewDataSource
             timer.invalidate()
         }
         
-        navigator?.navigate(to: .movieCollection)
-        
+        let index = indexPath.item % posterSlides.count
+        let collectionId = posterSlides[index].collectionId
+        navigator?.navigate(to: .movieColletion(id: collectionId))
     }
  
 }

@@ -43,7 +43,6 @@ class MoviesTableViewController: UITableViewController {
         navigationItem.titleView = sectionSegmentedControl
         
         slider = SliderHeaderView(navigator: navigator)
-        slider?.navigator = navigator
         tableView.tableHeaderView = slider
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "GenreCell")
