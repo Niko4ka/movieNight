@@ -19,10 +19,8 @@ class VKHandler: NSObject {
     func vkLogin(completion: @escaping (Bool) -> ()) {
         VKSdk.wakeUpSession(self.permissions) { (state, error) in
             if state == .authorized && error == nil && VKSdk.accessToken() != nil {
-                print("Vk authorized")
                 completion(true)
             } else if state == .initialized {
-                print("vk initialized")
                 VKSdk.authorize(self.permissions)
             } else {
                 completion(false)
@@ -31,7 +29,6 @@ class VKHandler: NSObject {
     }
     
     func vkLogout() {
-        print("Пользователь разлогинен")
         VKSdk.forceLogout()
     }
     
@@ -41,8 +38,7 @@ extension VKHandler: VKSdkDelegate, VKSdkUIDelegate {
 
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         if ((result.token) != nil) {
-            print("Пользователь успешно авторизован")
-            
+
             if let email = result.token.email, let token = result.token.accessToken, let id = result.token.userId {
                 self.userEmail = email
                 self.token = token
@@ -56,7 +52,6 @@ extension VKHandler: VKSdkDelegate, VKSdkUIDelegate {
                         
         } else if ((result.error) != nil) {
             print("Пользователь отменил авторизацию или произошла ошибка")
-            // Пользователь отменил авторизацию или произошла ошибка
         }
     }
     

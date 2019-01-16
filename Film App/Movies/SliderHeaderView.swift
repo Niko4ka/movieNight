@@ -114,7 +114,6 @@ class SliderHeaderView: UIView {
     }
     
     @objc private func userSwipedSlider() {
-        print("Swipe")
         if let timer = timer, timer.isValid {
             timer.invalidate()
         }
@@ -141,7 +140,6 @@ extension SliderHeaderView: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Select")
         if let timer = timer, timer.isValid {
             timer.invalidate()
         }

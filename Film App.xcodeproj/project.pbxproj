@@ -183,7 +183,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E16AB4C21D12CEC00CB0EFD /* Items Collection */ = {
+		4E16AB4C21D12CEC00CB0EFD /* Items Collection Cell */ = {
 			isa = PBXGroup;
 			children = (
 				4E16AB4821D124B900CB0EFD /* CollectionTableViewCell.swift */,
@@ -191,7 +191,7 @@
 				4E78BE2D21C020A70054FC5B /* ItemCollectionViewCell.swift */,
 				4E78BE2E21C020A70054FC5B /* ItemCollectionViewCell.xib */,
 			);
-			path = "Items Collection";
+			path = "Items Collection Cell";
 			sourceTree = "<group>";
 		};
 		4E16AB5121D173B600CB0EFD /* Wishlist */ = {
@@ -318,18 +318,17 @@
 		4E6C119F2183A84700C914BD /* Film App */ = {
 			isa = PBXGroup;
 			children = (
+				4ED0286321BDADB600094EAF /* Authorization (not used yet) */,
 				4ED9ED6421E4112300ADF05F /* Client */,
 				4ED9ED7121E542DA00ADF05F /* Extensions */,
 				4ED9ED8B21E7D1A200ADF05F /* Navigation */,
-				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
+				4E16AB4C21D12CEC00CB0EFD /* Items Collection Cell */,
+				4E78BE4321C4503E0054FC5B /* Movie */,
 				4E16AB7421D57DFA00CB0EFD /* Movies */,
 				4E27016621ED0EE20021EF5B /* MovieCollection */,
-				4ED0286321BDADB600094EAF /* Authorization (not used yet) */,
-				4E16AB5121D173B600CB0EFD /* Wishlist */,
-				4E78BE3121C045820054FC5B /* Search */,
-				4E16AB4C21D12CEC00CB0EFD /* Items Collection */,
 				4E16AB6521D51DEA00CB0EFD /* Person */,
-				4E78BE4321C4503E0054FC5B /* Movie */,
+				4E78BE3121C045820054FC5B /* Search */,
+				4E16AB5121D173B600CB0EFD /* Wishlist */,
 				4E6C11A02183A84700C914BD /* AppDelegate.swift */,
 				4E6C11A72183A84900C914BD /* Assets.xcassets */,
 				4E6C11A92183A84900C914BD /* LaunchScreen.storyboard */,
@@ -341,6 +340,7 @@
 		4E78BE3121C045820054FC5B /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				4E32CDBE21C823A3000A15D8 /* MediaType.swift */,
 				4ED0286E21BFFCE400094EAF /* DatabaseObject.swift */,
 				4ED9ED6221E40BF400ADF05F /* UISearchBarNoCancel.swift */,
 				4ED0286C21BFE58100094EAF /* SearchViewController.swift */,

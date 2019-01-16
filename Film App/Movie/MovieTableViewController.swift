@@ -73,7 +73,6 @@ class MovieTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         guard let id = movieId, let type = mediaType else { return }
-        print("ID - \(id)")
         
         switch type {
         case .movie:

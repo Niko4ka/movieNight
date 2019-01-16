@@ -51,13 +51,11 @@ class SearchViewController: UIViewController {
         hintLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -0.15 * view.frame.height).isActive = true
         hintLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 32).isActive = true
         
-        
         addChild(resultsViewController)
         resultsViewController.view.frame = view.bounds
         resultsViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(resultsViewController.view)
         resultsViewController.didMove(toParent: self)
-        
         resultsViewController.view.isHidden = true
     }
     

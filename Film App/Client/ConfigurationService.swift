@@ -40,7 +40,6 @@ final class ConfigurationService {
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["genres"] as? [Dictionary<String, Any>] else {
-                    print(" --- genres ---- error")
                     return
             }
             

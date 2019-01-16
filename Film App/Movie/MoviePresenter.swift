@@ -10,7 +10,6 @@ class MoviePresenter: MovieTableViewPresenter {
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType) {
         
         mediaType = type
-
         controller.isLoading = true
         
         Client.shared.loadMovieDetails(forId: id, andType: type) { (details) in
@@ -111,7 +110,6 @@ class MoviePresenter: MovieTableViewPresenter {
                 return cell
             }
         }
-        
     }
     
     private func configureHeaderView(_ controller: MovieTableViewController, with details: MovieDetails) {
