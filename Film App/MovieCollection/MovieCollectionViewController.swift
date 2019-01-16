@@ -14,8 +14,6 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     var pageControl: UIPageControl!
-    
-    
 
     init(collectionViewLayout layout: UICollectionViewLayout, collectionId id: Int, navigator: ProjectNavigator?) {
         self.collectionId = id
@@ -29,9 +27,7 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.isPagingEnabled = true
 
@@ -63,9 +59,6 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
                     self.parts = result.parts
                 }
             }
-            
-
-            
         }
     }
     
@@ -74,15 +67,19 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
         pageControl.numberOfPages = parts.count
         pageControl.isUserInteractionEnabled = false
         self.navigationItem.titleView = pageControl
-//        self.view.addSubview(self.pageControl)
-//        self.view.bringSubviewToFront(pageControl)
-//        pageControl.translatesAutoresizingMaskIntoConstraints = false
-//        pageControl.bottomAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -64.0).isActive = true
-//        pageControl.centerXAnchor.constraint(equalTo: self.collectionView.centerXAnchor).isActive = true
-
+        
+        /* If wanted pageControl as a subview
+         
+        self.view.addSubview(self.pageControl)
+        self.view.bringSubviewToFront(pageControl)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.bottomAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -64.0).isActive = true
+        pageControl.centerXAnchor.constraint(equalTo: self.collectionView.centerXAnchor).isActive = true
+         
+        */
     }
 
-    // MARK: UICollectionViewDataSource
+    // MARK: Protocols implementation
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

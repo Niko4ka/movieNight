@@ -5,7 +5,7 @@ class TrailersTableViewCell: UITableViewCell {
     @IBOutlet weak var trailersCollectionView: UICollectionView!
     
     public var trailers: [MovieTrailer] = []
-    var videoPlayer: VideoPlayerDelegate?
+    weak var videoPlayer: VideoPlayerDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
