@@ -13,7 +13,7 @@ class MoviePresenter: MovieTableViewPresenter {
 
         controller.isLoading = true
         
-        ConfigurationService.client.loadMovieDetails(forId: id, andType: type) { (details) in
+        Client.shared.loadMovieDetails(forId: id, andType: type) { (details) in
             guard let details = details else {
                 
                 // TODO: Show alert and pop controller
@@ -25,23 +25,23 @@ class MoviePresenter: MovieTableViewPresenter {
             controller.isLoading = false
         }
         
-        ConfigurationService.client.loadMovieCast(forId: id, andType: type) { (cast) in
+        Client.shared.loadMovieCast(forId: id, andType: type) { (cast) in
             if let cast = cast {
                 controller.movieCast = cast
                 controller.tableView.reloadData()
             }
         }
         
-        ConfigurationService.client.loadMovieTrailers(forId: id, andType: type) { (trailers) in
+        Client.shared.loadMovieTrailers(forId: id, andType: type) { (trailers) in
             controller.movieTrailers = trailers
             controller.tableView.reloadData()
         }
         
-        ConfigurationService.client.loadMovieReviews(forId: id, andType: type) { (reviews) in
+        Client.shared.loadMovieReviews(forId: id, andType: type) { (reviews) in
             controller.movieReviews = reviews
         }
         
-        ConfigurationService.client.loadSimilarMovies(forId: id, andType: type) { (similar) in
+        Client.shared.loadSimilarMovies(forId: id, andType: type) { (similar) in
             controller.similarMovies = similar
         }
 

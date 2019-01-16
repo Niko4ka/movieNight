@@ -38,7 +38,7 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     private func loadCollectionInfo() {
-        ConfigurationService.client.loadMovieCollection(collectionId: collectionId) { (result) in
+        Client.shared.loadMovieCollection(collectionId: collectionId) { (result) in
             guard let result = result else {
                 // TODO: Show error
                 return }

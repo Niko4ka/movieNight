@@ -55,7 +55,7 @@ class PersonTableViewController: UITableViewController {
     private func getInfo(personId id: Int) {
         personLoadingGroup.enter()
         
-        ConfigurationService.client.loadPersonInfo(id: id) { (info) in
+        Client.shared.loadPersonInfo(id: id) { (info) in
             
             guard let info = info else {
                 self.personLoadingGroup.leave()
@@ -97,7 +97,7 @@ class PersonTableViewController: UITableViewController {
         
         personLoadingGroup.enter()
         
-        ConfigurationService.client.loadPersonMovies(personId: id) { (movies) in
+        Client.shared.loadPersonMovies(personId: id) { (movies) in
             self.personMovies = movies
             self.personLoadingGroup.leave()
         }
@@ -107,7 +107,7 @@ class PersonTableViewController: UITableViewController {
         
         personLoadingGroup.enter()
         
-        ConfigurationService.client.loadPersonTvShows(personId: id) { (tvShows) in
+        Client.shared.loadPersonTvShows(personId: id) { (tvShows) in
             self.personTvShows = tvShows
             self.personLoadingGroup.leave()
         }

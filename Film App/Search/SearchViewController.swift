@@ -73,7 +73,7 @@ extension SearchViewController: KeywordsViewControllerDelegate {
             searchBar.text = keyword
         }
         
-        ConfigurationService.client.loadSearchResults(forKey: keyword) { (results) in
+        Client.shared.loadSearchResults(forKey: keyword) { (results) in
             guard searchBar.text == keyword else { return }
             
             let data = [ ("Movies", results.movies),

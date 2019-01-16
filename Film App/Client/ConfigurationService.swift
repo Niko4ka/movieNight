@@ -1,13 +1,11 @@
 import Foundation
 import Alamofire
 
-class ConfigurationService {
+final class ConfigurationService {
     
     static let shared = ConfigurationService()
     static let themoviedbKey = "81c0943d1596e1cc2b1c8de9e9ba8945"
     static let googleKey = "AIzaSyAluG5wfH3vDhket7F2b2pFAzdgKH6F4mk"
-    
-    static let client = Client()
     
     private init() {}
     

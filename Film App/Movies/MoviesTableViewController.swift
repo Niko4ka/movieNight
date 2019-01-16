@@ -66,15 +66,15 @@ class MoviesTableViewController: UITableViewController {
     
     private func loadCategoriesData() {
         
-        ConfigurationService.client.loadMoviesCategory(.nowPlaying) { (movies) in
+        Client.shared.loadMoviesCategory(.nowPlaying) { (movies) in
             self.nowPlaying = movies
         }
         
-        ConfigurationService.client.loadMoviesCategory(.popular) { (movies) in
+        Client.shared.loadMoviesCategory(.popular) { (movies) in
             self.popular = movies
         }
         
-        ConfigurationService.client.loadMoviesCategory(.upcoming) { (movies) in
+        Client.shared.loadMoviesCategory(.upcoming) { (movies) in
             self.upcoming = movies
         }
     }
