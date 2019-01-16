@@ -157,7 +157,7 @@ extension Client {
         let params: [String : Any] = [
             "part" : "snippet,contentDetails",
             "id" : youtubeId,
-            "key" : ConfigurationService.googleKey
+            "key" : googleKey
         ]
         
         AF.request(path, parameters: params).responseJSON { (response) in
