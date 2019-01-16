@@ -1,3 +1,5 @@
+import Foundation
+
 extension Client {
     
     func loadMovieCollection(collectionId id: Int, completion: @escaping ((cover: String?, parts: [DatabaseObject])?)->Void) {

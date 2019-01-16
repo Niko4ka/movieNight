@@ -14,6 +14,23 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     var pageControl: UIPageControl!
+    
+    var isLoading: Bool = false {
+        didSet {
+            updateLoading()
+        }
+    }
+    
+    private func updateLoading() {
+        if isLoading {
+            let activity = UIActivityIndicatorView(style: .white)
+            activity.startAnimating()
+            
+            collectionView.backgroundView = activity
+        } else {
+            collectionView.backgroundView = nil
+        }
+    }
 
     init(collectionViewLayout layout: UICollectionViewLayout, collectionId id: Int, navigator: ProjectNavigator?) {
         self.collectionId = id
@@ -38,6 +55,9 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     private func loadCollectionInfo() {
+        
+        isLoading = true
+        
         Client.shared.loadMovieCollection(collectionId: collectionId) { (result) in
             guard let result = result else {
                 // TODO: Show error
@@ -45,18 +65,25 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
             
             if let coverPath = result.cover,
                 let url = URL(string: "https://image.tmdb.org/t/p/w780\(coverPath)") {
-                let coverController = CollectionCoverViewController(coverUrl: url)
-                coverController.modalTransitionStyle = .crossDissolve
-                coverController.modalPresentationStyle = .overFullScreen
-               
-                self.present(coverController, animated: true, completion: {
-                    if !result.parts.isEmpty {
-                        self.parts = result.parts
+                
+                Client.shared.loadImageRequest(url: url).responseData { (response) in
+                    if let data = response.value {
+                        
+                        let coverController = CollectionCoverViewController(data: data)
+                        coverController.modalTransitionStyle = .crossDissolve
+                        coverController.modalPresentationStyle = .overFullScreen
+                        self.present(coverController, animated: true, completion: {
+                            self.isLoading = false
+                            if !result.parts.isEmpty {
+                                self.parts = result.parts
+                            }
+                        })
+                    } else {
+                        self.isLoading = false
+                        if !result.parts.isEmpty {
+                            self.parts = result.parts
+                        }
                     }
-                })
-            } else {
-                if !result.parts.isEmpty {
-                    self.parts = result.parts
                 }
             }
         }

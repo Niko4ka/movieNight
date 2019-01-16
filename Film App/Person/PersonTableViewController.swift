@@ -73,6 +73,10 @@ class PersonTableViewController: UITableViewController {
                 if department == "Acting" && info.gender == 1 {
                     self.jobLabel.text = "Actress"
                 }
+                
+                if department == "Acting" && info.gender == 0 {
+                    self.jobLabel.text = ""
+                }
             }
             
             if let profilePath = info.profilePath,

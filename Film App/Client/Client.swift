@@ -20,4 +20,8 @@ final class Client {
         return AF.request(urlString, parameters: injectParams(params))
     }
     
+    func loadImageRequest(url: URLConvertible) -> DataRequest {
+        return AF.request(url)
+    }
+    
 }
