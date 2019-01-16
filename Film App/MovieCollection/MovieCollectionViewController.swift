@@ -47,12 +47,24 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
                 // TODO: Show error
                 return }
             
-            self.coverURL = result.cover
-
-            if !result.parts.isEmpty {
-                self.parts = result.parts
+            if let coverPath = result.cover,
+                let url = URL(string: "https://image.tmdb.org/t/p/w780\(coverPath)") {
+                let coverController = CollectionCoverViewController(coverUrl: url)
+                coverController.modalTransitionStyle = .crossDissolve
+                coverController.modalPresentationStyle = .overFullScreen
+               
+                self.present(coverController, animated: true, completion: {
+                    if !result.parts.isEmpty {
+                        self.parts = result.parts
+                    }
+                })
+            } else {
+                if !result.parts.isEmpty {
+                    self.parts = result.parts
+                }
             }
             
+
             
         }
     }

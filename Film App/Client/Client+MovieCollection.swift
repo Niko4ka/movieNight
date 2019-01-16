@@ -1,8 +1,8 @@
 extension Client {
     
-    func loadMovieCollection(collectionId id: Int, completion: @escaping ((cover: String, parts: [DatabaseObject])?)->Void) {
+    func loadMovieCollection(collectionId id: Int, completion: @escaping ((cover: String?, parts: [DatabaseObject])?)->Void) {
         
-        var cover: String = ""
+        var cover: String?
         
         request(path: "/collection/\(id)").responseJSON { (response) in
             
