@@ -33,7 +33,7 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
 
         // Register cell classes
         self.collectionView.register(UINib(nibName: "PosterCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PosterCell")
-    
+        
         loadCollectionInfo()
     }
     

@@ -1,6 +1,6 @@
 import Alamofire
 
-class Client {
+final class Client {
 
     private func injectParams(_ params: Parameters) -> Parameters {
         var res = params

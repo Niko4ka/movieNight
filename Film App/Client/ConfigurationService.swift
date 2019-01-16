@@ -9,6 +9,8 @@ class ConfigurationService {
     
     static let client = Client()
     
+    private init() {}
+    
     public var movieGenres: [Int: String]!
     public var tvGenres: [Int: String]!
     public var countries: [String: String]!
