@@ -6,11 +6,6 @@ class InformationTableViewCell: UITableViewCell {
     @IBOutlet weak var valuesStackView: UIStackView!
     
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     public func configure(with movie: MovieDetails) {
         
         if keysStackView.subviews.isEmpty && valuesStackView.subviews.isEmpty {

@@ -2,6 +2,11 @@ import UIKit
 
 class MoviesTableViewController: UITableViewController {
     
+    enum MoviesStates {
+        case categories
+        case genres
+    }
+    
     var nowPlaying = [DatabaseObject]() {
         didSet {
             tableView.reloadData()
@@ -20,7 +25,15 @@ class MoviesTableViewController: UITableViewController {
         }
     }
     
-    var genres = [String]() {
+    var genres = [(id: Int, name: String)]()
+    
+    var genreMovies = [(genre: String, movies: [DatabaseObject])]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var currentState: MoviesStates = .categories {
         didSet {
             tableView.reloadData()
         }
@@ -44,8 +57,8 @@ class MoviesTableViewController: UITableViewController {
         
         slider = SliderHeaderView(navigator: navigator)
         tableView.tableHeaderView = slider
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 1))
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "GenreCell")
         tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         tableView.bounces = false
         tableView.allowsSelection = false
@@ -81,10 +94,18 @@ class MoviesTableViewController: UITableViewController {
     
     private func showGenres() {
         if let genreArray = ConfigurationService.shared.movieGenres {
-            var genreNames = genreArray.map{ $0.value }
-            genreNames.sort(by: {$0 < $1})
-            genres = genreNames
+            for genre in genreArray {
+                genres.append((id: genre.key, name: genre.value))
+            }
+            genres.sort(by: { $0.name < $1.name })
         }
+        
+        for genre in genres {
+            Client.shared.loadMoviesWithGenre(genre.id) { (movies) in
+                self.genreMovies.append((genre: genre.name, movies: movies))
+            }
+        }
+        
 
     }
     
@@ -92,10 +113,11 @@ class MoviesTableViewController: UITableViewController {
         if sender.selectedSegmentIndex == 1 {
             tableView.tableHeaderView = nil
             showGenres()
+            currentState = .genres
         } else {
             tableView.tableHeaderView = slider
+            currentState = .categories
         }
-        tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -105,42 +127,36 @@ class MoviesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if sectionSegmentedControl.selectedSegmentIndex == 0 {
+        if currentState == .categories {
             return 3
         } else {
-            return genres.count
+            return genreMovies.count
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if sectionSegmentedControl.selectedSegmentIndex == 0 {
+        if currentState == .categories {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
+            cell.navigator = navigator
+            cell.setDarkColorMode()
             if indexPath.row == 0 {
                 cell.data = nowPlaying
-                cell.navigator = navigator
                 cell.headerTitle.text = "Now in cinemas"
-                cell.setDarkColorMode()
-                return cell
             } else if indexPath.row == 1 {
                 cell.data = popular
-                cell.navigator = navigator
                 cell.headerTitle.text = "Popular"
-                cell.setDarkColorMode()
-                return cell
             } else {
                 cell.data = upcoming
-                cell.navigator = navigator
                 cell.headerTitle.text = "Upcoming"
-                cell.setDarkColorMode()
-                return cell
             }
+            return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "GenreCell", for: indexPath)
-            cell.textLabel?.text = genres[indexPath.row]
-            cell.textLabel?.textColor = UIColor.white
-            cell.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
+            cell.data = genreMovies[indexPath.row].movies
+            cell.headerTitle.text = genreMovies[indexPath.row].genre
+            cell.setDarkColorMode()
+
             return cell
         }
 

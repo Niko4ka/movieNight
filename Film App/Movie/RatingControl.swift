@@ -43,7 +43,6 @@ class RatingControl: UIStackView {
             self.removeArrangedSubview(subview)
             return allSubviews + [subview]
         }
-
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
     
@@ -54,8 +53,5 @@ class RatingControl: UIStackView {
         star.widthAnchor.constraint(equalToConstant: self.frame.height).isActive = true
         addArrangedSubview(star)
     }
-    
-    
-    
     
 }

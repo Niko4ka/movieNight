@@ -57,6 +57,7 @@
 		4EABAE7921CC567E00189FA6 /* MoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */; };
 		4EABAE7B21CD319900189FA6 /* MovieCellIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7A21CD319900189FA6 /* MovieCellIdentifiers.swift */; };
 		4EABAE7D21D01D1A00189FA6 /* MovieReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7C21D01D1A00189FA6 /* MovieReview.swift */; };
+		4EB5C53F21F4BCDF00863ACC /* Client+MovieGenres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C53E21F4BCDF00863ACC /* Client+MovieGenres.swift */; };
 		4ED0286221BDA1D500094EAF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0286121BDA1D500094EAF /* Authorization.storyboard */; };
 		4ED0286721BF126200094EAF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0286621BF126200094EAF /* Alamofire.framework */; };
 		4ED0286821BF126200094EAF /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0286621BF126200094EAF /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -148,6 +149,7 @@
 		4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePresenter.swift; sourceTree = "<group>"; };
 		4EABAE7A21CD319900189FA6 /* MovieCellIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellIdentifiers.swift; sourceTree = "<group>"; };
 		4EABAE7C21D01D1A00189FA6 /* MovieReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReview.swift; sourceTree = "<group>"; };
+		4EB5C53E21F4BCDF00863ACC /* Client+MovieGenres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MovieGenres.swift"; sourceTree = "<group>"; };
 		4ED0286121BDA1D500094EAF /* Authorization.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authorization.storyboard; sourceTree = "<group>"; };
 		4ED0286621BF126200094EAF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		4ED0286A21BF2AC900094EAF /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */,
 				4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */,
 				4E27016721ED16E20021EF5B /* Client+MovieCollection.swift */,
+				4EB5C53E21F4BCDF00863ACC /* Client+MovieGenres.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				4E32CDB321C73D2D000A15D8 /* InformationTableViewCell.swift in Sources */,
 				4E78BE4021C3EEA00054FC5B /* ConfigurationService.swift in Sources */,
 				4ED9ED6A21E411AC00ADF05F /* Client+SearchResults.swift in Sources */,
+				4EB5C53F21F4BCDF00863ACC /* Client+MovieGenres.swift in Sources */,
 				4E78BE3921C061E00054FC5B /* ResultsTableViewController.swift in Sources */,
 				4ED9ED6621E4112F00ADF05F /* Client.swift in Sources */,
 				4ED0286D21BFE58100094EAF /* SearchViewController.swift in Sources */,

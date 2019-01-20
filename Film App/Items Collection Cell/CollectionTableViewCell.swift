@@ -14,6 +14,7 @@ class CollectionTableViewCell: UITableViewCell {
     public var data = [DatabaseObject]() {
         didSet {
             itemsCollectionView.reloadData()
+            itemsCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         }
     }
     

@@ -30,7 +30,6 @@ extension TrailersTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         videoPlayer?.playVideo(withId: trailers[indexPath.item].id)
     }
 

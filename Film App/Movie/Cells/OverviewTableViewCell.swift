@@ -7,7 +7,6 @@ class OverviewTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var showMoreButton: UIButton!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -26,7 +25,6 @@ class OverviewTableViewCell: UITableViewCell {
         if let tableView = self.superview as? UITableView {
             tableView.reloadData()
         }
-        
     }
     
     public func configure(with movie: MovieDetails) {
@@ -66,6 +64,4 @@ class OverviewTableViewCell: UITableViewCell {
         return size.height
     }
     
-    
-
 }
