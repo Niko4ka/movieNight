@@ -136,10 +136,13 @@ class MoviesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if currentState == .categories {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
-            cell.navigator = navigator
-            cell.setDarkColorMode()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
+        cell.navigator = navigator
+        cell.setDarkColorMode()
+        
+        switch currentState {
+        case .categories:
+            
             if indexPath.row == 0 {
                 cell.data = nowPlaying
                 cell.headerTitle.text = "Now in cinemas"
@@ -150,48 +153,15 @@ class MoviesTableViewController: UITableViewController {
                 cell.data = upcoming
                 cell.headerTitle.text = "Upcoming"
             }
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
+            
+        case .genres:
+            
             cell.data = genreMovies[indexPath.row].movies
             cell.headerTitle.text = genreMovies[indexPath.row].genre
-            cell.setDarkColorMode()
-
-            return cell
         }
+        
+        return cell
 
     }
  
-
-}
-
-extension MoviesTableViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        
-        guard let tableCellIndexPath = tableView.indexPathForRow(at: location),
-            let tableViewCell = tableView.cellForRow(at: tableCellIndexPath) as? CollectionTableViewCell,
-            let collectionView = tableViewCell.itemsCollectionView else { return nil }
-        
-        let collectionViewLocation = tableView.convert(location, to: collectionView)
-        
-        guard let collectionViewIndexPath = collectionView.indexPathForItem(at: collectionViewLocation),
-            let collectionViewCell = collectionView.cellForItem(at: collectionViewIndexPath) as? ItemCollectionViewCell else { return nil }
-        
-        let storyboard = UIStoryboard(name: "Movie", bundle: nil)
-        guard let movieController = storyboard.instantiateViewController(withIdentifier: "MovieTableViewController") as? MovieTableViewController else { return nil }
-        
-        movieController.movieId = collectionViewCell.objectID
-        movieController.mediaType = collectionViewCell.mediaType
-        movieController.navigator = navigator
-        movieController.preferredContentSize = CGSize(width: 0.0, height: 500.0)
-        previewingContext.sourceRect = collectionViewCell.frame
-        
-        return movieController
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        show(viewControllerToCommit, sender: self)
-    }
-    
 }
