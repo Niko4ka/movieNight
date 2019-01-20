@@ -32,6 +32,11 @@ class CollectionTableViewCell: UITableViewCell {
         itemsCollectionView.dataSource = self
         itemsCollectionView.delegate = self
     }
+    
+    @IBAction func seeAllButtonPressed(_ sender: UIButton) {
+        navigator?.navigate(to: .list)
+    }
+    
 
     func setDarkColorMode() {
         

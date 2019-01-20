@@ -14,6 +14,7 @@ class ProjectNavigator: Navigator {
         case movie(id: Int, type: MediaType)
         case person(id: Int)
         case movieColletion(id: Int)
+        case list
     }
     
     private weak var navigation: UINavigationController!
@@ -58,6 +59,10 @@ class ProjectNavigator: Navigator {
             layout.minimumInteritemSpacing = 0
             let movieCollection = MovieCollectionViewController(collectionViewLayout: layout, collectionId: id, navigator: self)
             return movieCollection
+            
+        case .list:
+            let listController = ListTableViewController(requestType: .popularMovies, title: "Popular movies")
+            return listController
         }
     }
     
