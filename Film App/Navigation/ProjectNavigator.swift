@@ -61,7 +61,7 @@ class ProjectNavigator: Navigator {
             return movieCollection
             
         case .list:
-            let listController = ListTableViewController(requestType: .popularMovies, title: "Popular movies")
+            let listController = ListTableViewController(requestType: .popularMovies, title: "Popular Movies", navigator: self)
             return listController
         }
     }

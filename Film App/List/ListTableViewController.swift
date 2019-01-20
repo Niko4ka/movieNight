@@ -3,6 +3,7 @@ import UIKit
 class ListTableViewController: UITableViewController {
     
     var requestType: ListRequest!
+    var navigator: ProjectNavigator!
     
     var data = [DatabaseObject]() {
         didSet {
@@ -15,8 +16,9 @@ class ListTableViewController: UITableViewController {
     var loadedPage = 1
     var isLoadingNewData = false
     
-    init(requestType: ListRequest, title: String) {
+    init(requestType: ListRequest, title: String, navigator: ProjectNavigator) {
         self.requestType = requestType
+        self.navigator = navigator
         super.init(style: .plain)
         self.navigationItem.title = title
     }
@@ -62,6 +64,10 @@ class ListTableViewController: UITableViewController {
             cell.configure(with: data[indexPath.row])
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigator.navigate(to: .movie(id: data[indexPath.row].id, type: .movie))
     }
  
 }
