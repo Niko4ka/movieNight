@@ -133,7 +133,12 @@ class MoviesTableViewController: UITableViewController {
         case .categories:
             return moviesCategoriesList.count
         case .genres:
-            return 1
+            if genreSections[section].expanded {
+                return 1
+            } else {
+                return 0
+            }
+            
         }
     }
     
@@ -146,19 +151,22 @@ class MoviesTableViewController: UITableViewController {
         switch currentState {
         case .categories:
             
-            cell.contentView.isHidden = false
+//            cell.contentView.isHidden = false
             cell.data = moviesCategoriesList[indexPath.row].items
             cell.headerTitle.text = moviesCategoriesList[indexPath.row].name
             
         case .genres:
             
-            if genreSections[indexPath.section].expanded {
-                cell.contentView.isHidden = false
-                cell.data = genreSections[indexPath.section].movies
-                cell.removeHeaderView()
-            } else {
-                cell.contentView.isHidden = true
-            }
+            cell.data = genreSections[indexPath.section].movies
+            cell.removeHeaderView()
+            
+//            if genreSections[indexPath.section].expanded {
+//                cell.contentView.isHidden = false
+//                cell.data = genreSections[indexPath.section].movies
+//                cell.removeHeaderView()
+//            } else {
+//                cell.contentView.isHidden = true
+//            }
             
         }
         
@@ -217,10 +225,11 @@ extension MoviesTableViewController: ExpandableHeaderViewDelegate {
     func toggleSection(header: ExpandableHeaderView, section: Int) {
         genreSections[section].expanded = !genreSections[section].expanded
         header.seeAllButton.isHidden = !genreSections[section].expanded
-        
-        tableView.beginUpdates()
-        tableView.reloadRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
-        tableView.layoutIfNeeded()
-        tableView.endUpdates()
+        tableView.reloadData()
+//        tableView.beginUpdates()
+//
+//        tableView.reloadRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
+//        tableView.layoutIfNeeded()
+//        tableView.endUpdates()
     }
 }
