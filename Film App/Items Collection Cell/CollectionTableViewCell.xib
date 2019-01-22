@@ -44,15 +44,15 @@
                             <constraint firstItem="q1t-fq-46P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YJb-lN-fD3" secondAttribute="trailing" constant="8" symbolic="YES" id="Rvl-pw-qkX"/>
                             <constraint firstItem="YJb-lN-fD3" firstAttribute="leading" secondItem="Ym9-f1-C0m" secondAttribute="leading" constant="16" id="UmM-BC-To9"/>
                             <constraint firstItem="YJb-lN-fD3" firstAttribute="centerY" secondItem="Ym9-f1-C0m" secondAttribute="centerY" id="e8J-ZR-F4N"/>
-                            <constraint firstAttribute="height" constant="30" id="n9z-NH-viR"/>
+                            <constraint firstAttribute="height" priority="750" constant="30" id="n9z-NH-viR"/>
                             <constraint firstAttribute="trailing" secondItem="q1t-fq-46P" secondAttribute="trailing" constant="16" id="sx3-Q1-r4S"/>
                         </constraints>
                     </view>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="1ow-7I-KNR">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="1ow-7I-KNR">
                         <rect key="frame" x="0.0" y="30" width="359" height="222.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="750" constant="220" id="B69-Se-6y2"/>
+                            <constraint firstAttribute="height" priority="250" constant="220" id="B69-Se-6y2"/>
                         </constraints>
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-2"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t3q-lk-8nY">
@@ -78,6 +78,7 @@
             <connections>
                 <outlet property="headerTitle" destination="YJb-lN-fD3" id="afm-Vv-zaR"/>
                 <outlet property="headerView" destination="Ym9-f1-C0m" id="CGE-ee-1fc"/>
+                <outlet property="headerViewHeight" destination="n9z-NH-viR" id="8Td-bK-az0"/>
                 <outlet property="itemsCollectionView" destination="1ow-7I-KNR" id="MbA-Kx-ryG"/>
             </connections>
             <point key="canvasLocation" x="106.40000000000001" y="202.84857571214394"/>

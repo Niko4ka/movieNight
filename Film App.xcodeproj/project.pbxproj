@@ -263,9 +263,9 @@
 			isa = PBXGroup;
 			children = (
 				4E16AB7221D57DE200CB0EFD /* MoviesTableViewController.swift */,
-				4EB5C54D21F78E7000863ACC /* GenreMovies.swift */,
-				4EB5C54B21F78DFC00863ACC /* ExpandableHeaderView.swift */,
 				4EB5C54021F4CFD700863ACC /* MoviesTableViewController+UIViewControllerPreviewingDelegate.swift */,
+				4EB5C54B21F78DFC00863ACC /* ExpandableHeaderView.swift */,
+				4EB5C54D21F78E7000863ACC /* GenreMovies.swift */,
 				4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */,
 			);
 			path = Movies;

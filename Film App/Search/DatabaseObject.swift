@@ -100,7 +100,8 @@ struct DatabaseObject {
                 switch type {
                 case .movie:
                     
-                    if let genre = ConfigurationService.shared.movieGenres[genreIds[i]] {
+                    if let movieGenres = ConfigurationService.shared.movieGenres,
+                        let genre = movieGenres[genreIds[i]] {
                         if self.genres.isEmpty {
                             self.genres.append(genre)
                         } else {

@@ -10,11 +10,14 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerTitle: UILabel!
     @IBOutlet weak var itemsCollectionView: UICollectionView!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
+    
     
     public var data = [DatabaseObject]() {
         didSet {
             itemsCollectionView.reloadData()
             itemsCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            headerViewHeight.constant = 30
         }
     }
     
@@ -45,6 +48,11 @@ class CollectionTableViewCell: UITableViewCell {
         headerView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         headerTitle.textColor = UIColor.white
         itemsCollectionView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
+    }
+    
+    func removeHeaderView() {
+        headerViewHeight.constant = 0
+        self.setNeedsLayout()
     }
 }
 

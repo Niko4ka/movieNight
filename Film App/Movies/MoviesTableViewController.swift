@@ -13,8 +13,7 @@ class MoviesTableViewController: UITableViewController {
         (name: "Upcoming", items: [])
     ]
     
-    var genreMovies = [GenreMovies]()
-    
+    var genreSections = [GenreMovies]()
     private var currentState: MoviesTableStates = .categories {
         didSet {
             tableView.reloadData()
@@ -48,8 +47,10 @@ class MoviesTableViewController: UITableViewController {
         navigationItem.titleView = sectionSegmentedControl
         
         slider = SliderHeaderView(navigator: navigator)
+//        tableView = UITableView(frame: .zero, style: .grouped)
         tableView.tableHeaderView = slider
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 1))
+        tableView.sectionFooterHeight = 0
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         tableView.bounces = false
@@ -89,11 +90,12 @@ class MoviesTableViewController: UITableViewController {
     
     private func showGenres() {
         
-        if !genres.isEmpty {
+        if !genres.isEmpty && genreSections.isEmpty {
             for genre in genres {
                 Client.shared.loadMoviesWithGenre(genre.id) { (result) in
                     let item = GenreMovies.init(name: genre.name, movies: result)
-                    self.genreMovies.append(item)
+                    self.genreSections.append(item)
+                    self.tableView.reloadData()
                 }
             }
         } else {
@@ -116,14 +118,22 @@ class MoviesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        
+        switch currentState {
+        case .categories:
+            return 1
+        case .genres:
+            return genreSections.count
+        }
+        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if currentState == .categories {
+        switch currentState {
+        case .categories:
             return moviesCategoriesList.count
-        } else {
-            return genreMovies.count
+        case .genres:
+            return 1
         }
     }
     
@@ -136,17 +146,81 @@ class MoviesTableViewController: UITableViewController {
         switch currentState {
         case .categories:
             
+            cell.contentView.isHidden = false
             cell.data = moviesCategoriesList[indexPath.row].items
             cell.headerTitle.text = moviesCategoriesList[indexPath.row].name
             
         case .genres:
             
-            cell.data = genreMovies[indexPath.row].movies
-            cell.headerTitle.text = genreMovies[indexPath.row].name
+            if genreSections[indexPath.section].expanded {
+                cell.contentView.isHidden = false
+                cell.data = genreSections[indexPath.section].movies
+                cell.removeHeaderView()
+            } else {
+                cell.contentView.isHidden = true
+            }
+            
         }
         
         return cell
 
     }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch currentState {
+        case .categories:
+            return 0
+        case .genres:
+            return 44.0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if currentState == .genres {
+            if genreSections[indexPath.section].expanded {
+                return 220
+            } else {
+                return 0
+            }
+        }
+            
+        return 250.0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+
+        switch currentState {
+        case .categories:
+            return 0
+        case .genres:
+            return 2.0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if currentState == .genres {
+            let header = ExpandableHeaderView()
+            header.setup(withTitle: genreSections[section].name, section: section, delegate: self)
+            header.seeAllButton.isHidden = genreSections[section].expanded ? false : true
+
+            return header
+        }
+        
+        return nil
+    }
  
+}
+
+extension MoviesTableViewController: ExpandableHeaderViewDelegate {
+    func toggleSection(header: ExpandableHeaderView, section: Int) {
+        genreSections[section].expanded = !genreSections[section].expanded
+        header.seeAllButton.isHidden = !genreSections[section].expanded
+        
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
+        tableView.layoutIfNeeded()
+        tableView.endUpdates()
+    }
 }
