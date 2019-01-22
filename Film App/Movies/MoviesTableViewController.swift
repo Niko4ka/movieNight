@@ -2,38 +2,20 @@ import UIKit
 
 class MoviesTableViewController: UITableViewController {
     
-    enum MoviesStates {
+    private enum MoviesTableStates {
         case categories
         case genres
     }
+
+    var moviesCategoriesList: [(name: String, items: [DatabaseObject])] = [
+        (name: "Now in cinemas", items: []),
+        (name: "Popular", items: []),
+        (name: "Upcoming", items: [])
+    ]
     
-    var nowPlaying = [DatabaseObject]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var genreMovies = [GenreMovies]()
     
-    var popular = [DatabaseObject]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
-    var upcoming = [DatabaseObject]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
-    var genres = [(id: Int, name: String)]()
-    
-    var genreMovies = [(genre: String, movies: [DatabaseObject])]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
-    var currentState: MoviesStates = .categories {
+    private var currentState: MoviesTableStates = .categories {
         didSet {
             tableView.reloadData()
         }
@@ -46,6 +28,16 @@ class MoviesTableViewController: UITableViewController {
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(sectionSegmentedControlValueChanged(_:)), for: .valueChanged)
         return segmentedControl
+    }()
+    
+    lazy var genres: [(id: Int, name: String)] = {
+        
+        var result = [(id: Int, name: String)]()
+        if let genreArray = ConfigurationService.shared.movieGenres {
+            genreArray.forEach { result.append((id: $0.key, name: $0.value)) }
+            result.sort(by: { $0.name < $1.name })
+        }
+        return result
     }()
     
     var navigator: ProjectNavigator?
@@ -80,40 +72,41 @@ class MoviesTableViewController: UITableViewController {
     private func loadCategoriesData() {
         
         Client.shared.loadMoviesCategory(.nowPlaying) { (movies) in
-            self.nowPlaying = movies
+            self.moviesCategoriesList[0].items = movies
+            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         }
         
         Client.shared.loadMoviesCategory(.popular) { (movies) in
-            self.popular = movies
+            self.moviesCategoriesList[1].items = movies
+            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
         }
         
         Client.shared.loadMoviesCategory(.upcoming) { (movies) in
-            self.upcoming = movies
+            self.moviesCategoriesList[2].items = movies
+            self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
         }
     }
     
     private func showGenres() {
-        if let genreArray = ConfigurationService.shared.movieGenres {
-            for genre in genreArray {
-                genres.append((id: genre.key, name: genre.value))
+        
+        if !genres.isEmpty {
+            for genre in genres {
+                Client.shared.loadMoviesWithGenre(genre.id) { (result) in
+                    let item = GenreMovies.init(name: genre.name, movies: result)
+                    self.genreMovies.append(item)
+                }
             }
-            genres.sort(by: { $0.name < $1.name })
+        } else {
+            // TODO: Show alert
         }
         
-        for genre in genres {
-            Client.shared.loadMoviesWithGenre(genre.id) { (movies) in
-                self.genreMovies.append((genre: genre.name, movies: movies))
-            }
-        }
-        
-
     }
     
     @objc private func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1 {
             tableView.tableHeaderView = nil
-            showGenres()
             currentState = .genres
+            showGenres()
         } else {
             tableView.tableHeaderView = slider
             currentState = .categories
@@ -128,7 +121,7 @@ class MoviesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if currentState == .categories {
-            return 3
+            return moviesCategoriesList.count
         } else {
             return genreMovies.count
         }
@@ -143,21 +136,13 @@ class MoviesTableViewController: UITableViewController {
         switch currentState {
         case .categories:
             
-            if indexPath.row == 0 {
-                cell.data = nowPlaying
-                cell.headerTitle.text = "Now in cinemas"
-            } else if indexPath.row == 1 {
-                cell.data = popular
-                cell.headerTitle.text = "Popular"
-            } else {
-                cell.data = upcoming
-                cell.headerTitle.text = "Upcoming"
-            }
+            cell.data = moviesCategoriesList[indexPath.row].items
+            cell.headerTitle.text = moviesCategoriesList[indexPath.row].name
             
         case .genres:
             
             cell.data = genreMovies[indexPath.row].movies
-            cell.headerTitle.text = genreMovies[indexPath.row].genre
+            cell.headerTitle.text = genreMovies[indexPath.row].name
         }
         
         return cell

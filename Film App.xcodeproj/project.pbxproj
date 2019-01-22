@@ -63,6 +63,8 @@
 		4EB5C54621F5082500863ACC /* Client+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C54521F5082500863ACC /* Client+List.swift */; };
 		4EB5C54921F516A900863ACC /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C54721F516A900863ACC /* ListTableViewCell.swift */; };
 		4EB5C54A21F516A900863ACC /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EB5C54821F516A900863ACC /* ListTableViewCell.xib */; };
+		4EB5C54C21F78DFC00863ACC /* ExpandableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C54B21F78DFC00863ACC /* ExpandableHeaderView.swift */; };
+		4EB5C54E21F78E7000863ACC /* GenreMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C54D21F78E7000863ACC /* GenreMovies.swift */; };
 		4ED0286221BDA1D500094EAF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0286121BDA1D500094EAF /* Authorization.storyboard */; };
 		4ED0286721BF126200094EAF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0286621BF126200094EAF /* Alamofire.framework */; };
 		4ED0286821BF126200094EAF /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0286621BF126200094EAF /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -160,6 +162,8 @@
 		4EB5C54521F5082500863ACC /* Client+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+List.swift"; sourceTree = "<group>"; };
 		4EB5C54721F516A900863ACC /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		4EB5C54821F516A900863ACC /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		4EB5C54B21F78DFC00863ACC /* ExpandableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableHeaderView.swift; sourceTree = "<group>"; };
+		4EB5C54D21F78E7000863ACC /* GenreMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreMovies.swift; sourceTree = "<group>"; };
 		4ED0286121BDA1D500094EAF /* Authorization.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authorization.storyboard; sourceTree = "<group>"; };
 		4ED0286621BF126200094EAF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		4ED0286A21BF2AC900094EAF /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 			isa = PBXGroup;
 			children = (
 				4E16AB7221D57DE200CB0EFD /* MoviesTableViewController.swift */,
+				4EB5C54D21F78E7000863ACC /* GenreMovies.swift */,
+				4EB5C54B21F78DFC00863ACC /* ExpandableHeaderView.swift */,
 				4EB5C54021F4CFD700863ACC /* MoviesTableViewController+UIViewControllerPreviewingDelegate.swift */,
 				4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */,
 			);
@@ -541,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E32CDB321C73D2D000A15D8 /* InformationTableViewCell.swift in Sources */,
+				4EB5C54C21F78DFC00863ACC /* ExpandableHeaderView.swift in Sources */,
 				4EB5C54921F516A900863ACC /* ListTableViewCell.swift in Sources */,
 				4E78BE4021C3EEA00054FC5B /* ConfigurationService.swift in Sources */,
 				4ED9ED6A21E411AC00ADF05F /* Client+SearchResults.swift in Sources */,
@@ -560,6 +567,7 @@
 				4E32CDB821C7D155000A15D8 /* MovieCast.swift in Sources */,
 				4E32CDAD21C7378B000A15D8 /* OverviewTableViewCell.swift in Sources */,
 				4ED9ED6821E4115300ADF05F /* Client+loadKeywords.swift in Sources */,
+				4EB5C54E21F78E7000863ACC /* GenreMovies.swift in Sources */,
 				4E16AB4E21D14F2900CB0EFD /* EmptyTableViewCell.swift in Sources */,
 				4E16AB5621D1747900CB0EFD /* WishlistTableViewCell.swift in Sources */,
 				4E16AB5F21D2723C00CB0EFD /* Wishlist.xcdatamodeld in Sources */,
