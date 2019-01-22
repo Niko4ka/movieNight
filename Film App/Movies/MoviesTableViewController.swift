@@ -47,7 +47,6 @@ class MoviesTableViewController: UITableViewController {
         navigationItem.titleView = sectionSegmentedControl
         
         slider = SliderHeaderView(navigator: navigator)
-//        tableView = UITableView(frame: .zero, style: .grouped)
         tableView.tableHeaderView = slider
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 1))
         tableView.sectionFooterHeight = 0
