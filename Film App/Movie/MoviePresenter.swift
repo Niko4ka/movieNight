@@ -5,11 +5,9 @@ import Kingfisher
 class MoviePresenter: MovieTableViewPresenter {
     
     var castCellConfigured = false
-    var mediaType: MediaType!
     
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType) {
         
-        mediaType = type
         controller.isLoading = true
         
         Client.shared.loadMovieDetails(forId: id, andType: type) { (details) in
@@ -86,7 +84,7 @@ class MoviePresenter: MovieTableViewPresenter {
         case .review:
             if controller.movieReviews.isEmpty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
-                cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(mediaType.rawValue)")\" hasn't any reviews yet"
+                cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(controller.mediaType.rawValue)")\" hasn't any reviews yet"
                 controller.tableView.separatorStyle = .none
                 return cell
             } else {
@@ -98,7 +96,7 @@ class MoviePresenter: MovieTableViewPresenter {
         case .similar:
             if controller.similarMovies.isEmpty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
-                cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(mediaType.rawValue)")\" has no similar movies"
+                cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(controller.mediaType.rawValue)")\" has no similar movies"
                 controller.tableView.separatorStyle = .none
                 return cell
             } else {
@@ -106,7 +104,13 @@ class MoviePresenter: MovieTableViewPresenter {
                 cell.navigator = controller.navigator
                 cell.headerTitle.text = "Similar"
                 cell.data = controller.similarMovies
-    
+                if let details = controller.movieDetails {
+                    if controller.mediaType == .movie {
+                        cell.requestType = SimilarListRequest.movie(name: details.title, id: controller.movieId)
+                    } else {
+                        cell.requestType = SimilarListRequest.tv(name: details.title, id: controller.movieId)
+                    }
+                }
                 return cell
             }
         }

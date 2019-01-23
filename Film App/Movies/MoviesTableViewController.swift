@@ -7,10 +7,10 @@ class MoviesTableViewController: UITableViewController {
         case genres
     }
 
-    var moviesCategoriesList: [(name: String, items: [DatabaseObject])] = [
-        (name: "Now in cinemas", items: []),
-        (name: "Popular", items: []),
-        (name: "Upcoming", items: [])
+    var moviesCategoriesList: [(name: String, requestType: ListRequest, items: [DatabaseObject])] = [
+        (name: MoviesCategoriesListRequest.nowPlayingMovies.rawValue.title, requestType: MoviesCategoriesListRequest.nowPlayingMovies, items: []),
+        (name: MoviesCategoriesListRequest.popularMovies.rawValue.title, requestType: MoviesCategoriesListRequest.popularMovies, items: []),
+        (name: MoviesCategoriesListRequest.upcomingMovies.rawValue.title, requestType: MoviesCategoriesListRequest.upcomingMovies, items: [])
     ]
     
     var genreSections = [GenreMovies]()
@@ -150,7 +150,7 @@ class MoviesTableViewController: UITableViewController {
         switch currentState {
         case .categories:
             
-//            cell.contentView.isHidden = false
+            cell.requestType = moviesCategoriesList[indexPath.row].requestType
             cell.data = moviesCategoriesList[indexPath.row].items
             cell.headerTitle.text = moviesCategoriesList[indexPath.row].name
             
@@ -158,15 +158,6 @@ class MoviesTableViewController: UITableViewController {
             
             cell.data = genreSections[indexPath.section].movies
             cell.removeHeaderView()
-            
-//            if genreSections[indexPath.section].expanded {
-//                cell.contentView.isHidden = false
-//                cell.data = genreSections[indexPath.section].movies
-//                cell.removeHeaderView()
-//            } else {
-//                cell.contentView.isHidden = true
-//            }
-            
         }
         
         return cell
@@ -211,7 +202,6 @@ class MoviesTableViewController: UITableViewController {
             let header = ExpandableHeaderView()
             header.setup(withTitle: genreSections[section].name, section: section, delegate: self)
             header.seeAllButton.isHidden = genreSections[section].expanded ? false : true
-
             return header
         }
         
@@ -221,14 +211,20 @@ class MoviesTableViewController: UITableViewController {
 }
 
 extension MoviesTableViewController: ExpandableHeaderViewDelegate {
+    
     func toggleSection(header: ExpandableHeaderView, section: Int) {
+
         genreSections[section].expanded = !genreSections[section].expanded
         header.seeAllButton.isHidden = !genreSections[section].expanded
-        tableView.reloadData()
-//        tableView.beginUpdates()
-//
-//        tableView.reloadRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
-//        tableView.layoutIfNeeded()
-//        tableView.endUpdates()
+
+        tableView.beginUpdates()
+
+        if !genreSections[section].expanded  {
+            tableView.deleteRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
+        } else {
+            tableView.insertRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
+        }
+
+        tableView.endUpdates()
     }
 }

@@ -14,7 +14,7 @@ class ProjectNavigator: Navigator {
         case movie(id: Int, type: MediaType)
         case person(id: Int)
         case movieColletion(id: Int)
-        case list
+        case list(listRequest: ListRequest)
     }
     
     private weak var navigation: UINavigationController!
@@ -60,8 +60,8 @@ class ProjectNavigator: Navigator {
             let movieCollection = MovieCollectionViewController(collectionViewLayout: layout, collectionId: id, navigator: self)
             return movieCollection
             
-        case .list:
-            let listController = ListTableViewController(requestType: .popularMovies, title: "Popular Movies", navigator: self)
+        case .list(let listRequest):
+            let listController = ListTableViewController(requestType: listRequest, title: listRequest.rawValue.title, navigator: self)
             return listController
         }
     }

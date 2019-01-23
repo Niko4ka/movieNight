@@ -67,7 +67,6 @@ extension SearchViewController: KeywordsViewControllerDelegate {
         let searchBar = searchController.searchBar
         UIView.performWithoutAnimation {
             searchController.isActive = false
-            
             searchBar.text = keyword
         }
         
@@ -78,6 +77,7 @@ extension SearchViewController: KeywordsViewControllerDelegate {
                          ("tvShows", results.tvShows),
                          ("Persons", results.persons) ]
             
+            self.resultsViewController.keyword = keyword
             self.resultsViewController.data = data.filter { !$0.1.isEmpty }
         }
     }

@@ -27,6 +27,7 @@ class CollectionTableViewCell: UITableViewCell {
         }
     }
     var navigator: ProjectNavigator?
+    var requestType: ListRequest?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +38,9 @@ class CollectionTableViewCell: UITableViewCell {
     }
     
     @IBAction func seeAllButtonPressed(_ sender: UIButton) {
-        navigator?.navigate(to: .list)
+        if let request = requestType {
+            navigator?.navigate(to: .list(listRequest: request))
+        }
     }
     
 

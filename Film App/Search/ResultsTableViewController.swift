@@ -8,6 +8,7 @@ class ResultsTableViewController: UITableViewController {
         }
     }
     
+    var keyword: String!
     var navigator: ProjectNavigator?
     
     init(navigator: ProjectNavigator) {
@@ -27,6 +28,15 @@ class ResultsTableViewController: UITableViewController {
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
+        }
+    }
+    
+    private func getRequestType(of objectsTitle: String) -> SearchListRequest? {
+        switch objectsTitle {
+        case "Movies": return SearchListRequest.movie(keyword: keyword)
+        case "tvShows": return SearchListRequest.tvShow(keyword: keyword)
+        case "Persons": return SearchListRequest.person(keyword: keyword)
+        default: return nil
         }
     }
 
@@ -49,6 +59,10 @@ class ResultsTableViewController: UITableViewController {
         cell.navigator = navigator
         cell.headerTitle.text = title
         cell.data = items
+        
+        if let requestType = getRequestType(of: data[indexPath.row].title) {
+            cell.requestType = requestType
+        }
         
         return cell
     }

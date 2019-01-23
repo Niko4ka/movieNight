@@ -35,6 +35,7 @@ class ListTableViewController: UITableViewController {
     }
     
     private func loadData(request: ListRequest, completion: (()->Void)? = nil) {
+
         Client.shared.loadList(of: request, onPage: loadedPage) { (results, totalPages, totalResults) in
             self.data = self.data + results
             self.resultsCount = totalResults
