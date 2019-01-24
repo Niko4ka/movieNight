@@ -200,7 +200,7 @@ class MoviesTableViewController: UITableViewController {
         
         if currentState == .genres {
             let header = ExpandableHeaderView()
-            header.setup(withTitle: genreSections[section].name, section: section, delegate: self)
+            header.setup(genre: genres[section], section: section, delegate: self)
             header.seeAllButton.isHidden = genreSections[section].expanded ? false : true
             return header
         }
@@ -226,5 +226,10 @@ extension MoviesTableViewController: ExpandableHeaderViewDelegate {
         }
 
         tableView.endUpdates()
+    }
+    
+    func showGenreList(genre: (id: Int, name: String)) {
+        var request = MovieGenresListRequest(genreName: genre.name, genreId: genre.id)
+        navigator?.navigate(to: .list(listRequest: request))
     }
 }

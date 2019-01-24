@@ -2,6 +2,7 @@ import UIKit
 
 protocol ExpandableHeaderViewDelegate: class {
     func toggleSection(header: ExpandableHeaderView, section: Int)
+    func showGenreList(genre: (id: Int, name: String))
 }
 
 class ExpandableHeaderView: UITableViewHeaderFooterView {
@@ -9,12 +10,14 @@ class ExpandableHeaderView: UITableViewHeaderFooterView {
     var delegate: ExpandableHeaderViewDelegate?
     var section: Int?
     var seeAllButton: UIButton!
+    var genre: (id: Int, name: String)?
     
-    func setup(withTitle title: String, section: Int, delegate: ExpandableHeaderViewDelegate) {
+    func setup(genre: (id: Int, name: String), section: Int, delegate: ExpandableHeaderViewDelegate) {
         
         self.delegate = delegate
         self.section = section
-        self.textLabel?.text = title
+        self.genre = genre
+        self.textLabel?.text = genre.name
     }
     
     override func layoutSubviews() {
@@ -49,5 +52,12 @@ class ExpandableHeaderView: UITableViewHeaderFooterView {
         seeAllButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         seeAllButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16.0).isActive = true
         seeAllButton.isHidden = true
+        seeAllButton.addTarget(self, action: #selector(showGenre), for: .touchUpInside)
+    }
+    
+    @objc func showGenre() {
+        if let genre = genre {
+            delegate?.showGenreList(genre: genre)
+        }
     }
 }
