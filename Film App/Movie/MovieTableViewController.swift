@@ -11,6 +11,8 @@ protocol VideoPlayerDelegate: class {
 
 class MovieTableViewController: UITableViewController {
     
+    // MARK: - Outlets
+    
     @IBOutlet var headerView: UIView!
     @IBOutlet weak var backdropContentView: UIView!
     @IBOutlet weak var backdropImageView: UIImageView!
@@ -22,6 +24,8 @@ class MovieTableViewController: UITableViewController {
     @IBOutlet weak var releasedLabel: UILabel!
     @IBOutlet weak var addToWishlistButton: UIButton!
     @IBOutlet weak var movieSegmentedControl: UISegmentedControl!
+    
+    // MARK: - Variables
     
     public var mediaType: MediaType!
     public var movieId: Int!
@@ -62,6 +66,8 @@ class MovieTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    // MARK: - Controller Livecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,6 +96,8 @@ class MovieTableViewController: UITableViewController {
         self.setAddToWishlistButton()
     }
     
+    // MARK: - IBAction functions
+    
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
@@ -115,6 +123,12 @@ class MovieTableViewController: UITableViewController {
             if let selectedMovie = CoreDataManager.shared.findMovie(withID: Int32(movieId)).first {
                 CoreDataManager.shared.delete(object: selectedMovie)
                 self.addToWishlistButton.isSelected = false
+                if let movieTitle = movieDetails?.title {
+                    self.view.showToast(withText: "\"\(movieTitle)\" was removed from wishlist")
+                } else {
+                    self.view.showToast(withText: "This movie was removed from wishlist")
+                }
+                
                 setAddToWishlistButton()
             }
         } else {
@@ -123,10 +137,17 @@ class MovieTableViewController: UITableViewController {
             let currentDateTime = Date()
             CoreDataManager.shared.saveItemToWishlist(mediaType: mediaType.rawValue, data: details, poster: poster, saveDate: currentDateTime)
             self.addToWishlistButton.isSelected = true
+            if let movieTitle = movieDetails?.title {
+                self.view.showToast(withText: "\"\(movieTitle)\" was added to wishlist")
+            } else {
+                self.view.showToast(withText: "This movie was added to wishlist")
+            }
             setAddToWishlistButton()
         }
 
     }
+    
+    // MARK: - Private
     
     private func setGradientView() {
         let gradientLayer = CAGradientLayer()
@@ -226,6 +247,8 @@ class MovieTableViewController: UITableViewController {
     }
     
 }
+
+// MARK: - VideoPlayerDelegate
 
 extension MovieTableViewController: VideoPlayerDelegate {
     
