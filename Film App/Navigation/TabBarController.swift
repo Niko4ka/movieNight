@@ -6,7 +6,6 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         self.delegate = self
-        
         self.tabBar.barStyle = .black
         
         let moviesVC = MoviesTableViewController()
@@ -21,13 +20,11 @@ class TabBarController: UITabBarController {
         searchVC.navigator = searchNavigator
         search.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         
-        
         let wishlistVC = WishlistTableViewController()
         let wishlist = UINavigationController(rootViewController: wishlistVC)
         let wishlistNavigator = ProjectNavigator(navigationController: wishlist, isDarkMode: false)
         wishlistVC.navigator = wishlistNavigator
         wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 2)
-        
         viewControllers = [movies, search, wishlist]
     }
 

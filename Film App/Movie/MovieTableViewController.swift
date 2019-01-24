@@ -39,14 +39,14 @@ class MovieTableViewController: UITableViewController {
         case similar
     }
     
+    var navigator: ProjectNavigator?
+    
     var isLoading: Bool = false {
         didSet {
             updateLoading()
         }
     }
-    
-    var navigator: ProjectNavigator?
-    
+
     private func updateLoading() {
         if isLoading {
             let activity = UIActivityIndicatorView(style: .gray)

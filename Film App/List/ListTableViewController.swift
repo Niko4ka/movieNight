@@ -16,6 +16,25 @@ class ListTableViewController: UITableViewController {
     var loadedPage = 1
     var isLoadingNewData = false
     
+    var isLoading: Bool = false {
+        didSet {
+            updateLoading()
+        }
+    }
+    
+    private func updateLoading() {
+        if isLoading {
+            let activity = UIActivityIndicatorView(style: .gray)
+            activity.startAnimating()
+            
+            tableView.backgroundView = activity
+            tableView.tableHeaderView = nil
+        } else {
+            tableView.backgroundView = nil
+        }
+        tableView.reloadData()
+    }
+    
     init(requestType: ListRequest, title: String, navigator: ProjectNavigator) {
         self.requestType = requestType
         self.navigator = navigator
@@ -28,23 +47,26 @@ class ListTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         tableView.prefetchDataSource = self
+        tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListCell")
-        loadData(request: requestType)
+        loadData(request: requestType) {
+            self.tableView.reloadData()
+        }
+
     }
     
-    private func loadData(request: ListRequest, completion: (()->Void)? = nil) {
-
+    private func loadData(request: ListRequest, completion: @escaping ()->Void) {
+        isLoading = true
         Client.shared.loadList(of: request, onPage: loadedPage) { (results, totalPages, totalResults) in
             self.data = self.data + results
             self.resultsCount = totalResults
             self.pagesCount = totalPages
             self.isLoadingNewData = false
-            self.tableView.reloadData()
-            if let completion = completion {
-                completion()
-            }
+            self.isLoading = false
+            completion()
         }
     }
 
