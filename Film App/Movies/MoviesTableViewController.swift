@@ -44,8 +44,24 @@ class MoviesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = sectionSegmentedControl
         
+        navigationItem.titleView = sectionSegmentedControl
+        configureTableView()
+        loadCategoriesData()
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: view)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let slider = slider, let timer = slider.timer, timer.isValid {
+            timer.invalidate()
+        }
+    }
+    
+    private func configureTableView() {
         slider = SliderHeaderView(navigator: navigator)
         tableView.tableHeaderView = slider
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 1))
@@ -54,19 +70,6 @@ class MoviesTableViewController: UITableViewController {
         tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         tableView.bounces = false
         tableView.allowsSelection = false
-        loadCategoriesData()
-        
-        if traitCollection.forceTouchCapability == .available {
-            registerForPreviewing(with: self, sourceView: view)
-        }
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if let slider = slider, let timer = slider.timer, timer.isValid {
-            timer.invalidate()
-        }
     }
     
     private func loadCategoriesData() {

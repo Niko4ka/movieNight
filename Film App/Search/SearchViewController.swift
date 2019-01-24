@@ -39,6 +39,11 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        createHintLabel()
+        createResultsViewController()
+    }
+    
+    private func createHintLabel() {
         let hintLabel = UILabel()
         hintLabel.text = "Start printing keyword to search particular movies, TV shows or persons"
         hintLabel.font = UIFont.systemFont(ofSize: 15.0)
@@ -50,7 +55,9 @@ class SearchViewController: UIViewController {
         hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         hintLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -0.15 * view.frame.height).isActive = true
         hintLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 32).isActive = true
-        
+    }
+    
+    private func createResultsViewController() {
         addChild(resultsViewController)
         resultsViewController.view.frame = view.bounds
         resultsViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]

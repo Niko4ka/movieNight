@@ -47,9 +47,7 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
 
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.isPagingEnabled = true
-
-        // Register cell classes
-        self.collectionView.register(UINib(nibName: "PosterCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PosterCell")
+        collectionView.register(UINib(nibName: "PosterCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PosterCell")
         
         loadCollectionInfo()
     }
@@ -107,11 +105,6 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
     }
 
     // MARK: Protocols implementation
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 

@@ -8,24 +8,40 @@ class TabBarController: UITabBarController {
         self.delegate = self
         self.tabBar.barStyle = .black
         
+        let movies = getMoviesNavigationController()
+        movies.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "movies"), tag: 0)
+        
+        let search = getSearchNavigationController()
+        search.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        
+        let wishlist = getWishlistNavigationController()
+        wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 2)
+        
+        viewControllers = [movies, search, wishlist]
+    }
+    
+    private func getMoviesNavigationController() -> UINavigationController {
         let moviesVC = MoviesTableViewController()
         let movies = UINavigationController(rootViewController: moviesVC)
         let moviesNavigator = ProjectNavigator(navigationController: movies, isDarkMode: true)
         moviesVC.navigator = moviesNavigator
-        movies.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "movies"), tag: 0)
-        
+        return movies
+    }
+    
+    private func getSearchNavigationController() -> UINavigationController {
         let searchVC = SearchViewController()
         let search = UINavigationController(rootViewController: searchVC)
         let searchNavigator = ProjectNavigator(navigationController: search, isDarkMode: false)
         searchVC.navigator = searchNavigator
-        search.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-        
+        return search
+    }
+    
+    private func getWishlistNavigationController() -> UINavigationController {
         let wishlistVC = WishlistTableViewController()
         let wishlist = UINavigationController(rootViewController: wishlistVC)
         let wishlistNavigator = ProjectNavigator(navigationController: wishlist, isDarkMode: false)
         wishlistVC.navigator = wishlistNavigator
-        wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 2)
-        viewControllers = [movies, search, wishlist]
+        return wishlist
     }
 
 }

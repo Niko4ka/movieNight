@@ -23,14 +23,20 @@ class WishlistTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNavigationBar()
+        configureTableView()
+        fetchData(predicate: Predicates.moviePredicate)
+    }
+    
+    private func configureNavigationBar() {
         navigationItem.titleView = sectionSegmentedControl
         navigationItem.leftBarButtonItem = editButtonItem
-
+    }
+    
+    private func configureTableView() {
         tableView.bounces = false
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "WishlistTableViewCell", bundle: nil), forCellReuseIdentifier: "WishlistCell")
-        
-        fetchData(predicate: Predicates.moviePredicate)
     }
     
     @objc private func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {

@@ -66,14 +66,12 @@ class MovieTableViewController: UITableViewController {
         super.viewDidLoad()
         
         updateLoading()
-        
         presenter = MoviePresenter()
         
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         guard let id = movieId, let type = mediaType else { return }
-        
         switch type {
         case .movie:
             presenter.loadData(self, forMovieId: id, andType: .movie)
@@ -159,10 +157,6 @@ class MovieTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
