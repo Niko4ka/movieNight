@@ -123,10 +123,13 @@ class MovieTableViewController: UITableViewController {
             if let selectedMovie = CoreDataManager.shared.findMovie(withID: Int32(movieId)).first {
                 CoreDataManager.shared.delete(object: selectedMovie)
                 self.addToWishlistButton.isSelected = false
+                
                 if let movieTitle = movieDetails?.title {
-                    self.view.showToast(withText: "\"\(movieTitle)\" was removed from wishlist")
+                    let toastText = "\"\(movieTitle)\" was removed from wishlist"
+                    navigator?.showToast(withText: toastText)
                 } else {
-                    self.view.showToast(withText: "This movie was removed from wishlist")
+                    let toastText = "This movie was removed from wishlist"
+                    navigator?.showToast(withText: toastText)
                 }
                 
                 setAddToWishlistButton()
@@ -137,11 +140,15 @@ class MovieTableViewController: UITableViewController {
             let currentDateTime = Date()
             CoreDataManager.shared.saveItemToWishlist(mediaType: mediaType.rawValue, data: details, poster: poster, saveDate: currentDateTime)
             self.addToWishlistButton.isSelected = true
+            
             if let movieTitle = movieDetails?.title {
-                self.view.showToast(withText: "\"\(movieTitle)\" was added to wishlist")
+                let toastText = "\"\(movieTitle)\" was added to wishlist"
+                navigator?.showToast(withText: toastText)
             } else {
-                self.view.showToast(withText: "This movie was added to wishlist")
+                let toastText = "This movie was added to wishlist"
+                navigator?.showToast(withText: toastText)
             }
+
             setAddToWishlistButton()
         }
 

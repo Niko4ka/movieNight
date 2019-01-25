@@ -34,6 +34,10 @@ class ProjectNavigator: Navigator {
         
     }
     
+    func showToast(withText text: String) {
+        navigation.view.showToast(withText: text)
+    }
+    
     private func makeViewController(for destination: Destination) -> UIViewController? {
         switch destination {
             

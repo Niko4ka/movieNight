@@ -43,7 +43,7 @@ extension UIView {
         
         toast.translatesAutoresizingMaskIntoConstraints = false
         toast.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        toast.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: self.frame.height * 0.2).isActive = true
+        toast.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -80.0).isActive = true
         toast.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 64.0).isActive = true
 
         self.bringSubviewToFront(toast)
