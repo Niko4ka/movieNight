@@ -15,7 +15,7 @@ class SearchViewController: UIViewController {
         let sc = UISearchController(searchResultsController: keywordsViewController)
         
         object_setClass(sc.searchBar, UISearchBarNoCancel.self)
-        
+        sc.searchBar.delegate = self
         sc.searchResultsUpdater = updater
         sc.delegate = self
         return sc
@@ -106,4 +106,12 @@ extension SearchViewController: UISearchControllerDelegate {
         resultsViewController.view.isHidden = hidden
     }
     
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchKeyword = searchBar.text {
+            keywordsViewController(keywordsViewController, didSelect: searchKeyword)
+        }
+    }
 }

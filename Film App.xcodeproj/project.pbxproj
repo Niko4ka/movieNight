@@ -342,7 +342,6 @@
 			isa = PBXGroup;
 			children = (
 				4ED0286321BDADB600094EAF /* Authorization (not used yet) */,
-				4EB5C55B21FE247D00863ACC /* Services */,
 				4ED9ED7121E542DA00ADF05F /* Extensions */,
 				4ED9ED8B21E7D1A200ADF05F /* Navigation */,
 				4E16AB4C21D12CEC00CB0EFD /* Items Collection Cell */,
@@ -352,6 +351,7 @@
 				4EB5C54221F4F98800863ACC /* List */,
 				4E16AB6521D51DEA00CB0EFD /* Person */,
 				4E78BE3121C045820054FC5B /* Search */,
+				4EB5C55B21FE247D00863ACC /* Services */,
 				4E16AB5121D173B600CB0EFD /* Wishlist */,
 				4E6C11A02183A84700C914BD /* AppDelegate.swift */,
 				4E6C11A72183A84900C914BD /* Assets.xcassets */,
