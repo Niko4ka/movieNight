@@ -232,7 +232,7 @@ extension MoviesTableViewController: ExpandableHeaderViewDelegate {
     }
     
     func showGenreList(genre: (id: Int, name: String)) {
-        var request = MovieGenresListRequest(genreName: genre.name, genreId: genre.id)
+        let request = MovieGenresListRequest(genreName: genre.name, genreId: genre.id)
         navigator?.navigate(to: .list(listRequest: request))
     }
 }

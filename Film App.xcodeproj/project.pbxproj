@@ -66,6 +66,7 @@
 		4EB5C54C21F78DFC00863ACC /* ExpandableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C54B21F78DFC00863ACC /* ExpandableHeaderView.swift */; };
 		4EB5C54E21F78E7000863ACC /* GenreMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C54D21F78E7000863ACC /* GenreMovies.swift */; };
 		4EB5C55421F8F2C400863ACC /* ListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C55321F8F2C400863ACC /* ListRequest.swift */; };
+		4EB5C55A21FB83D100863ACC /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5C55921FB83D100863ACC /* NotificationService.swift */; };
 		4ED0286221BDA1D500094EAF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0286121BDA1D500094EAF /* Authorization.storyboard */; };
 		4ED0286721BF126200094EAF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0286621BF126200094EAF /* Alamofire.framework */; };
 		4ED0286821BF126200094EAF /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED0286621BF126200094EAF /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -166,6 +167,7 @@
 		4EB5C54B21F78DFC00863ACC /* ExpandableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableHeaderView.swift; sourceTree = "<group>"; };
 		4EB5C54D21F78E7000863ACC /* GenreMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreMovies.swift; sourceTree = "<group>"; };
 		4EB5C55321F8F2C400863ACC /* ListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRequest.swift; sourceTree = "<group>"; };
+		4EB5C55921FB83D100863ACC /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		4ED0286121BDA1D500094EAF /* Authorization.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authorization.storyboard; sourceTree = "<group>"; };
 		4ED0286621BF126200094EAF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		4ED0286A21BF2AC900094EAF /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -340,7 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED0286321BDADB600094EAF /* Authorization (not used yet) */,
-				4ED9ED6421E4112300ADF05F /* Client */,
+				4EB5C55B21FE247D00863ACC /* Services */,
 				4ED9ED7121E542DA00ADF05F /* Extensions */,
 				4ED9ED8B21E7D1A200ADF05F /* Navigation */,
 				4E16AB4C21D12CEC00CB0EFD /* Items Collection Cell */,
@@ -399,11 +401,21 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		4EB5C55B21FE247D00863ACC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4ED0286A21BF2AC900094EAF /* KeychainService.swift */,
+				4E78BE3F21C3EEA00054FC5B /* ConfigurationService.swift */,
+				4EB5C55921FB83D100863ACC /* NotificationService.swift */,
+				4ED9ED6421E4112300ADF05F /* Client */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		4ED0286321BDADB600094EAF /* Authorization (not used yet) */ = {
 			isa = PBXGroup;
 			children = (
 				4ED0286121BDA1D500094EAF /* Authorization.storyboard */,
-				4ED0286A21BF2AC900094EAF /* KeychainService.swift */,
 				4E6C11B22183BAAB00C914BD /* AuthButton.swift */,
 				4E5F38C22198F63C00AA3ECC /* VKHandler.swift */,
 				4E6C11A22183A84700C914BD /* AuthViewController.swift */,
@@ -414,7 +426,6 @@
 		4ED9ED6421E4112300ADF05F /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				4E78BE3F21C3EEA00054FC5B /* ConfigurationService.swift */,
 				4ED9ED6521E4112F00ADF05F /* Client.swift */,
 				4ED9ED6721E4115300ADF05F /* Client+loadKeywords.swift */,
 				4ED9ED6921E411AC00ADF05F /* Client+SearchResults.swift */,
@@ -577,6 +588,7 @@
 				4ED9ED6121E40BCF00ADF05F /* UIView+Extension.swift in Sources */,
 				4ED0286F21BFFCE400094EAF /* DatabaseObject.swift in Sources */,
 				4EABAE7521CA9FF700189FA6 /* VideoPlayerViewController.swift in Sources */,
+				4EB5C55A21FB83D100863ACC /* NotificationService.swift in Sources */,
 				4E6C11A32183A84700C914BD /* AuthViewController.swift in Sources */,
 				4E16AB7321D57DE200CB0EFD /* MoviesTableViewController.swift in Sources */,
 				4E27016121EBA9B70021EF5B /* Client+MoviesCategories.swift in Sources */,

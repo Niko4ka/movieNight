@@ -64,8 +64,10 @@ class WishlistTableViewController: UITableViewController {
         if objects.count == 0 {
             let backgroundView = makeNoResultsView()
             tableView.backgroundView = backgroundView
+            NotificationService.shared.removeReminderNotification()
         } else {
-          tableView.backgroundView = nil
+            tableView.backgroundView = nil
+            NotificationService.shared.planReminderNotification()
         }
     }
     

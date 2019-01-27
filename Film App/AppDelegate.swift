@@ -1,4 +1,5 @@
 import UIKit
+import UserNotifications
 //import VKSdkFramework
 
 @UIApplicationMain
@@ -51,6 +52,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ConfigurationService.shared.getCountries { (countries) in
             ConfigurationService.shared.countries = countries
+        }
+        
+        // For sending notifications
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
         }
 
         return true
