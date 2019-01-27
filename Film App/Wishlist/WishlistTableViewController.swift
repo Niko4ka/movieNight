@@ -62,7 +62,7 @@ class WishlistTableViewController: UITableViewController {
         }
         
         if objects.count == 0 {
-            let backgroundView = makeNoResultsView()
+            let backgroundView = getNoResultsView()
             tableView.backgroundView = backgroundView
             NotificationService.shared.removeReminderNotification()
         } else {
@@ -71,14 +71,14 @@ class WishlistTableViewController: UITableViewController {
         }
     }
     
-    private func makeNoResultsView() -> UIView {
+    private func getNoResultsView() -> UIView {
         
         let backgroundView = UIView()
         backgroundView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.height)
         backgroundView.backgroundColor = UIColor.white
         let label = UILabel()
         backgroundView.addSubview(label)
-        label.text = "No movies in wishlidt yet"
+        label.text = "No movies in wishlist yet"
         label.font = UIFont.systemFont(ofSize: 15.0)
         label.textColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
         label.textAlignment = .center
