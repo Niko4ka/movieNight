@@ -17,6 +17,7 @@ class KeywordsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.tableFooterView = UIView()
     }
     
     func keyword(at indexPath: IndexPath) -> SearchKeyword {

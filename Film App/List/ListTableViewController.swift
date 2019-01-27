@@ -78,7 +78,6 @@ class ListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resultsCount
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! ListTableViewCell
@@ -97,9 +96,7 @@ class ListTableViewController: UITableViewController {
 extension ListTableViewController: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        
-        print("Prepare cells in indexPath - \(indexPaths)")
-        
+
         // TODO: нужно добавить проверку, чтобы текущая страница не была out of range
         
         indexPaths.forEach {
