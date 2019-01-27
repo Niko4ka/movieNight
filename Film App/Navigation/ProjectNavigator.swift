@@ -35,6 +35,10 @@ class ProjectNavigator: Navigator {
     }
     
     func showToast(withText text: String) {
+        
+        if let toast = navigation.view.subviews.last, toast.restorationIdentifier == "toastView" {
+            toast.removeFromSuperview()
+        }
         navigation.view.showToast(withText: text)
     }
     
