@@ -157,10 +157,11 @@ class WishlistTableViewController: UITableViewController {
             
             var items: [Any]!
             if let title = object.title {
-                if let releaseYear = object.releasedDate?.suffix(4), let genres = object.genres, let poster = object.poster as? UIImage {
+                if let releaseYear = object.releasedDate?.suffix(4), let genres = object.genres, let mediaType = object.mediaType?.name, let poster = object.poster as? UIImage {
                     let releaseYearString = String(releaseYear)
                     let description = title + " (" + releaseYearString + ")" + "\n" + genres
-                    items = [description, poster]
+                    let url = "https://www.themoviedb.org/" + mediaType + "/" + "\(object.id)"
+                    items = [description, url, poster]
                 } else {
                     items = [title]
                 }
