@@ -3,11 +3,13 @@ import CoreData
 
 class WishlistTableViewController: UITableViewController {
     
+    // MARK: - Outlets
+    
     var navigator: ProjectNavigator?
     var fetchedResultController: NSFetchedResultsController<Movie>!
     
     lazy var sectionSegmentedControl: UISegmentedControl = {
-       
+        
         let items = ["Movies", "TV Shows"]
         var segmentedControl = UISegmentedControl(items: items)
         segmentedControl.selectedSegmentIndex = 0
@@ -20,9 +22,11 @@ class WishlistTableViewController: UITableViewController {
         static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
     }
     
+    // MARK: - View Did Load
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureNavigationBar()
         configureTableView()
         fetchData(predicate: Predicates.moviePredicate)
@@ -31,6 +35,7 @@ class WishlistTableViewController: UITableViewController {
     private func configureNavigationBar() {
         navigationItem.titleView = sectionSegmentedControl
         navigationItem.leftBarButtonItem = editButtonItem
+        //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showActions))
     }
     
     private func configureTableView() {
@@ -39,14 +44,7 @@ class WishlistTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "WishlistTableViewCell", bundle: nil), forCellReuseIdentifier: "WishlistCell")
     }
     
-    @objc private func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 {
-            fetchData(predicate: Predicates.tvPredicate)
-        } else {
-            fetchData(predicate: Predicates.moviePredicate)
-        }
-        tableView.reloadData()
-    }
+    // MARK: - Fetch data
     
     private func fetchData(predicate: NSPredicate? = nil) {
         
@@ -71,6 +69,22 @@ class WishlistTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Private functions
+    
+    private func showActivity(forItems items: [Any]) {
+        let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+    }
+    
+    @objc private func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 1 {
+            fetchData(predicate: Predicates.tvPredicate)
+        } else {
+            fetchData(predicate: Predicates.moviePredicate)
+        }
+        tableView.reloadData()
+    }
+    
     private func getNoResultsView() -> UIView {
         
         let backgroundView = UIView()
@@ -91,18 +105,18 @@ class WishlistTableViewController: UITableViewController {
         
         return backgroundView
     }
+    
 
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         guard let frc = fetchedResultController, let sections = frc.sections else {
             return 0
         }
-        
         return sections.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard let frc = fetchedResultController, let sections = frc.sections else {
@@ -111,12 +125,11 @@ class WishlistTableViewController: UITableViewController {
         
         return sections[section].numberOfObjects
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WishlistCell", for: indexPath)
         
         if let cell = cell as? WishlistTableViewCell {
-            
             let item = fetchedResultController.object(at: indexPath)
             cell.configure(with: item)
         }
@@ -139,7 +152,26 @@ class WishlistTableViewController: UITableViewController {
             CoreDataManager.shared.delete(object: item)
         }
         
-        return [removeFromWishlist]
+        let share = UITableViewRowAction(style: .default, title: "Share") { (action, indexPath) in
+            let object = self.fetchedResultController.object(at: indexPath)
+            
+            var items: [Any]!
+            if let title = object.title {
+                if let releaseYear = object.releasedDate?.suffix(4), let genres = object.genres, let poster = object.poster as? UIImage {
+                    let releaseYearString = String(releaseYear)
+                    let description = title + " (" + releaseYearString + ")" + "\n" + genres
+                    items = [description, poster]
+                } else {
+                    items = [title]
+                }
+            }
+            
+            self.showActivity(forItems: items)
+    
+        }
+        share.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        
+        return [removeFromWishlist, share]
     }
-
+    
 }
