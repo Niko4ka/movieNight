@@ -71,11 +71,7 @@ class MovieTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateLoading()
-        presenter = MoviePresenter()
-        
-        tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
+        configureTableView()
         
         guard let id = movieId, let type = mediaType else { return }
         switch type {
@@ -86,6 +82,19 @@ class MovieTableViewController: UITableViewController {
         default:
             break
         }
+    }
+    
+    private func configureTableView() {
+        updateLoading()
+        presenter = MoviePresenter()
+        
+        tableView.tableFooterView = UIView()
+        tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
+        tableView.register(UINib(nibName: "TrailersTableViewCell", bundle: nil), forCellReuseIdentifier: "Trailers")
+        tableView.register(UINib(nibName: "OverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "Overview")
+        tableView.register(UINib(nibName: "CastTableViewCell", bundle: nil), forCellReuseIdentifier: "Cast")
+        tableView.register(UINib(nibName: "InformationTableViewCell", bundle: nil), forCellReuseIdentifier: "Information")
+        tableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "Review")
     }
     
     override func viewDidLayoutSubviews() {

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Review" rowHeight="111" id="pcg-Bg-RYh" customClass="ReviewTableViewCell" customModule="Film_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pcg-Bg-RYh" id="0xb-yl-kWc">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="110.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0V-It-rsZ">
+                        <rect key="frame" x="16" y="8" width="45" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="j9M-Ko-K38">
+                        <rect key="frame" x="16" y="36.5" width="351" height="66"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="j9M-Ko-K38" secondAttribute="bottom" constant="8" id="FTV-hK-ecz"/>
+                    <constraint firstAttribute="trailing" secondItem="j9M-Ko-K38" secondAttribute="trailing" constant="8" id="Oxg-2h-qBh"/>
+                    <constraint firstItem="j9M-Ko-K38" firstAttribute="leading" secondItem="0xb-yl-kWc" secondAttribute="leading" constant="16" id="a1w-RN-dRg"/>
+                    <constraint firstItem="a0V-It-rsZ" firstAttribute="top" secondItem="0xb-yl-kWc" secondAttribute="top" constant="8" id="eEO-mK-EsG"/>
+                    <constraint firstItem="a0V-It-rsZ" firstAttribute="leading" secondItem="0xb-yl-kWc" secondAttribute="leading" constant="16" id="gig-4I-hee"/>
+                    <constraint firstItem="j9M-Ko-K38" firstAttribute="top" secondItem="a0V-It-rsZ" secondAttribute="bottom" constant="8" id="thD-rO-ACi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="reviewTextView" destination="j9M-Ko-K38" id="kZV-x8-kgQ"/>
+                <outlet property="userNameLabel" destination="a0V-It-rsZ" id="B7y-v0-1qa"/>
+            </connections>
+            <point key="canvasLocation" x="80.799999999999997" y="63.418290854572717"/>
+        </tableViewCell>
+    </objects>
+</document>

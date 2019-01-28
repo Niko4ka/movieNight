@@ -2,6 +2,7 @@ import UIKit
 
 class TrailersTableViewCell: UITableViewCell {
     
+    
     @IBOutlet weak var trailersCollectionView: UICollectionView!
     
     public var trailers: [MovieTrailer] = []
@@ -10,6 +11,7 @@ class TrailersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        trailersCollectionView.register(UINib(nibName: "TrailerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "Trailer")
         trailersCollectionView.delegate = self
         trailersCollectionView.dataSource = self
         trailersCollectionView.reloadData()

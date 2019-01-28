@@ -2,6 +2,7 @@ import UIKit
 
 class ReviewTableViewCell: UITableViewCell {
     
+    
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var reviewTextView: UITextView!
     

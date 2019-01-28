@@ -4,7 +4,6 @@ class InformationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var keysStackView: UIStackView!
     @IBOutlet weak var valuesStackView: UIStackView!
-    
 
     public func configure(with movie: MovieDetails) {
         

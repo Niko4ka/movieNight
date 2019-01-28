@@ -2,11 +2,13 @@ import UIKit
 
 class OverviewTableViewCell: UITableViewCell {
     
+    
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionHeight: NSLayoutConstraint!
     @IBOutlet weak var descriptionBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var showMoreButton: UIButton!
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -14,7 +16,7 @@ class OverviewTableViewCell: UITableViewCell {
         descriptionTextView.textContainerInset = .zero
         descriptionTextView.textContainer.lineFragmentPadding = 0
     }
-
+    
     @IBAction func showMoreButtonPressed(_ sender: UIButton) {
         let height = getTextViewHeight(fromText: descriptionTextView.text)
         descriptionHeight.constant = height
