@@ -2,6 +2,9 @@ import Foundation
 
 extension String {
     
+    /// Returns duration of Youtube video in HH:MM:SS format
+    ///
+    /// - Returns: duration of video in HH:MM:SS format
     func getYoutubeFormattedDuration() -> String {
         
         let formattedDuration = self.replacingOccurrences(of: "PT", with: "").replacingOccurrences(of: "H", with:":").replacingOccurrences(of: "M", with: ":").replacingOccurrences(of: "S", with: "")
@@ -27,6 +30,10 @@ extension String {
         
     }
     
+    /// Returns string without prefix
+    ///
+    /// - Parameter prefix: prefix to delete
+    /// - Returns: string without prefix
     func deletedPrefix(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
@@ -55,6 +62,9 @@ extension String {
         }
     }
     
+    /// Calculates person's age from "YYYY-MM-DD" format
+    ///
+    /// - Returns: person's age
     func calculateCurrentAge() -> String {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "YYYY-MM-DD"

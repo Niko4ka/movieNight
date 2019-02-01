@@ -9,6 +9,11 @@ struct PersonInfo {
 
 extension Client {
     
+    /// Loads main information about particular person
+    ///
+    /// - Parameters:
+    ///   - id: person id
+    ///   - completion: completion handler, which contains PersonInfo if success or nil if failed
     func loadPersonInfo(id: Int, completion: @escaping (PersonInfo?)->Void) {
 
         request(path: "/person/\(id)").responseJSON { (response) in
@@ -33,6 +38,11 @@ extension Client {
         
     }
     
+    /// Loads movies, in which particular person took part
+    ///
+    /// - Parameters:
+    ///   - id: person id
+    ///   - completion: completion handler, which contains an array of PersonMovie structures if success or an empty array if failed
     func loadPersonMovies(personId id: Int, completion: @escaping ([PersonMovie])->Void) {
         
         request(path: "/person/\(id)/movie_credits").responseJSON { (response) in
@@ -47,6 +57,11 @@ extension Client {
         }
     }
     
+    /// Loads TV Shows, in which particular person took part
+    ///
+    /// - Parameters:
+    ///   - id: person id
+    ///   - completion: completion handler, which contains an array of PersonMovie structures if success or an empty array if failed
     func loadPersonTvShows(personId id: Int, completion: @escaping ([PersonMovie])->Void) {
         
         request(path: "/person/\(id)/tv_credits").responseJSON { (response) in

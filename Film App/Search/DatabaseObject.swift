@@ -1,5 +1,6 @@
 import Foundation
 
+/// Data structure, that contains common information about the mediatype item
 struct DatabaseObject {
 
     var mediaType: MediaType

@@ -1,5 +1,11 @@
 extension Client {
     
+    /// Loads a list of movies for particulas request
+    ///
+    /// - Parameters:
+    ///   - requestType: type of request, which conforms ListRequest protocol
+    ///   - page: page number
+    ///   - completion: completion handler, which contains a tuple, that consists of an array of DatabaseObject structures, total pages quantity and total results quantity, if success or a tuple, that consists of an empty array and zeros, if failed
     func loadList(of requestType: ListRequest, onPage page: Int, completion: @escaping ([DatabaseObject], Int, Int)->Void) {
         switch requestType.rawValue.type {
         case .movieGenres:

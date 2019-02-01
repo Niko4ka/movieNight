@@ -87,13 +87,14 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
+    /// Sets UIPageControl as NavigationItem titleView
     private func setPageControl() {
         pageControl = UIPageControl()
         pageControl.numberOfPages = parts.count
         pageControl.isUserInteractionEnabled = false
         self.navigationItem.titleView = pageControl
         
-        /* If wanted pageControl as a subview
+        /* If required pageControl as a subview
          
         self.view.addSubview(self.pageControl)
         self.view.bringSubviewToFront(pageControl)

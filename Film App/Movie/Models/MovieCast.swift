@@ -1,5 +1,6 @@
 import Foundation
 
+/// Data structure, that contains information about movie cast and crew
 struct MovieCast {
     
     var actors: [CastPerson] = []

@@ -40,9 +40,10 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
 
         createHintLabel()
-        createResultsViewController()
+        addResultsViewController()
     }
     
+    /// Creates the hint label to be shown before the user starts printing a keyword
     private func createHintLabel() {
         let hintLabel = UILabel()
         hintLabel.text = "Start printing keyword to search particular movies, TV shows or persons"
@@ -57,7 +58,7 @@ class SearchViewController: UIViewController {
         hintLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 32).isActive = true
     }
     
-    private func createResultsViewController() {
+    private func addResultsViewController() {
         addChild(resultsViewController)
         resultsViewController.view.frame = view.bounds
         resultsViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]

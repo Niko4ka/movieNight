@@ -1,5 +1,10 @@
 extension Client {
     
+    /// Loads all movies of particular genre
+    ///
+    /// - Parameters:
+    ///   - genreId: genre id
+    ///   - completion: completion handler, which contains an array of DatabaseObject structures if success or an empty array if failed
     func loadMoviesWithGenre(_ genreId: Int, completion: @escaping ([DatabaseObject])->Void) {
         
         let params: [String:Any] = [

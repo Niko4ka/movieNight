@@ -5,7 +5,12 @@ struct SearchResults {
 }
 
 extension Client {
-    
+
+    /// Loads all mediatype's items, that suits the selected keyword
+    ///
+    /// - Parameters:
+    ///   - key: selected keyword
+    ///   - completion: completion handler, which contains SearchResults structure with minimum one non-empty array if success or SearchResults structure with all empty arrays if failed or had no results
     func loadSearchResults(forKey key: String, completion: @escaping (SearchResults)->Void) {
         
         let params: [String:Any] = [

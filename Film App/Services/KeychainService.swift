@@ -1,6 +1,7 @@
 import Security
 import Foundation
 
+/// Used for saving authorization pair "account"-"token"
 final class KeychainService {
     
     enum Accounts: String {

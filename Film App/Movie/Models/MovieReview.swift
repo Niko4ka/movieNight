@@ -1,5 +1,6 @@
 import Foundation
 
+/// Data structure, that contains review author and content info
 struct MovieReview {
     
     var author: String

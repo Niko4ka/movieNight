@@ -1,7 +1,22 @@
 import UIKit
 
 protocol MovieTableViewPresenter: class {
+    /// Loads Movie data to present in controller (details, trailers, similar movies, etc.)
+    ///
+    /// - Parameters:
+    ///   - controller: MovieTableViewController
+    ///   - id: movie or TV Show id
+    ///   - type: mediatype (.movie or .tvShow)
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType)
+    
+    /// Returns cell with particular identifier
+    ///
+    /// - Parameters:
+    ///   - controller: MovieTableViewController
+    ///   - identifier: cell identifier from CellIdentifiers enum
+    ///   - tableView: current tableView
+    ///   - indexPath: current indexPath
+    /// - Returns: configured cell
     func createCell(_ controller: MovieTableViewController, withIdentifier identifier: CellIdentifiers, in tableView: UITableView, forRowAt indexPath: IndexPath) -> UITableViewCell
 }
 
@@ -165,6 +180,7 @@ class MovieTableViewController: UITableViewController {
     
     // MARK: - Private
     
+    /// Adds gradient to backdropGradientView
     private func setGradientView() {
         let gradientLayer = CAGradientLayer()
         let transparent = UIColor.init(white: 1, alpha: 0)
@@ -175,6 +191,7 @@ class MovieTableViewController: UITableViewController {
         self.backdropGradientView.layer.mask = gradientLayer
     }
     
+    /// Sets style for selected/deselected addToWishlistButton
     private func setAddToWishlistButton() {
         if addToWishlistButton.isSelected {
             addToWishlistButton.tintColor = UIColor.clear

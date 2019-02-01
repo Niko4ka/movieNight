@@ -1,5 +1,6 @@
 import Foundation
 
+/// Data structure, that contains information about the movie trailer
 struct MovieTrailer {
     var title: String
     var id: String

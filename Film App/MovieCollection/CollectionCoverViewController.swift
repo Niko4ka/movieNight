@@ -1,6 +1,7 @@
 import UIKit
 import Kingfisher
 
+/// UIViewController, that shows the movie collection cover and dismiss itself after established time interval
 class CollectionCoverViewController: UIViewController {
     
     private var data: Data!

@@ -34,6 +34,9 @@ class ProjectNavigator: Navigator {
         
     }
     
+    /// Shows Android-like toast view with some label
+    ///
+    /// - Parameter text: text of the label
     func showToast(withText text: String) {
         
         if let toast = navigation.view.subviews.last, toast.restorationIdentifier == "toastView" {

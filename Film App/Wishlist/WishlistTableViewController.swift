@@ -71,6 +71,9 @@ class WishlistTableViewController: UITableViewController {
     
     // MARK: - Private functions
     
+    /// Shows UIActivityViewController
+    ///
+    /// - Parameter items: information to pass
     private func showActivity(forItems items: [Any]) {
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
@@ -85,6 +88,9 @@ class WishlistTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    /// Returns background view with label, that notifes user about the absence of movies in wishlist
+    ///
+    /// - Returns: view with label
     private func getNoResultsView() -> UIView {
         
         let backgroundView = UIView()

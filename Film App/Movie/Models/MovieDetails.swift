@@ -1,5 +1,6 @@
 import Foundation
 
+/// Data structure, that contains main information about the movie or TV Show
 struct MovieDetails {
     var id: Int
     var posterUrl: URL?

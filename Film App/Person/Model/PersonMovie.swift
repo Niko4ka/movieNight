@@ -1,5 +1,6 @@
 import Foundation
 
+/// Data structure, that contains common information about the movie, in which the person took part
 struct PersonMovie {
     
     var id: Int

@@ -1,5 +1,10 @@
 extension Client {
     
+    /// Loads list of keywords, according to user's text
+    ///
+    /// - Parameters:
+    ///   - key: user's text
+    ///   - completion: completion handler, which contains array of keywords if success or empty array if failed or had no results
     func loadKeywords(key: String, completion: @escaping ([String])->Void) {
         request(path: "/search/keyword", params: [
             "query": key,

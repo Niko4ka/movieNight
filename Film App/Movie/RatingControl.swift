@@ -1,5 +1,6 @@
 import UIKit
 
+/// Represents star-rating view
 class RatingControl: UIStackView {
     
     var rating: Int = 0
@@ -38,6 +39,7 @@ class RatingControl: UIStackView {
 
     }
     
+    /// Clears stackView (for using in reusable cells)
     public func removeArrangedViews() {
         let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
             self.removeArrangedSubview(subview)

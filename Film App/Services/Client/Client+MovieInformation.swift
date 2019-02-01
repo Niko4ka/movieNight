@@ -3,6 +3,12 @@ import Alamofire
 
 extension Client {
     
+    /// Loads information about particular movie
+    ///
+    /// - Parameters:
+    ///   - id: movie or TV Show id
+    ///   - type: mediatype(.movie or .tvShow)
+    ///   - completion: completion handler, which contains MovieDetails if success or nil if failed
     func loadMovieDetails(forId id: Int, andType type: MediaType, completion: @escaping (MovieDetails?)->Void) {
         
         var path: String = ""
@@ -23,6 +29,12 @@ extension Client {
         }
     }
     
+    /// Loads information about movie cast (actors, director, writer, producers)
+    ///
+    /// - Parameters:
+    ///   - id: movie or TV Show id
+    ///   - type: mediatype(.movie or .tvShow)
+    ///   - completion: completion handler, which contains MovieCast if success or nil if failed
     func loadMovieCast(forId id: Int, andType type: MediaType, completion: @escaping (MovieCast?)->Void) {
         
         var path: String = ""
@@ -44,6 +56,12 @@ extension Client {
         
     }
     
+    /// Loads movie trailers from Youtube
+    ///
+    /// - Parameters:
+    ///   - id: movie or TV Show id
+    ///   - type: mediatype(.movie or .tvShow)
+    ///   - completion: completion handler, which contains an array of MovieTrailer structures if success or an empty array if failed
     func loadMovieTrailers(forId id: Int, andType type: MediaType, completion: @escaping ([MovieTrailer])->Void) {
         
         var trailers = [MovieTrailer]()
@@ -88,6 +106,12 @@ extension Client {
         
     }
     
+    /// Loads movie reviews
+    ///
+    /// - Parameters:
+    ///   - id: movie or TV Show id
+    ///   - type: mediatype(.movie or .tvShow)
+    ///   - completion: completion handler, which contains an array of MovieReview structures if success or an empty array if failed
     func loadMovieReviews(forId id: Int, andType type: MediaType, completion: @escaping ([MovieReview])->Void) {
         
         var reviews = [MovieReview]()
@@ -118,6 +142,12 @@ extension Client {
         
     }
     
+    /// Loads similar movies
+    ///
+    /// - Parameters:
+    ///   - id: movie or TV Show id
+    ///   - type: mediatype(.movie or .tvShow)
+    ///   - completion: completion handler, which contains an array of DatabaseObject structures if success or an empty array if failed
     func loadSimilarMovies(forId id: Int, andType type: MediaType, completion: @escaping ([DatabaseObject])->Void) {
         
         var similar = [DatabaseObject]()

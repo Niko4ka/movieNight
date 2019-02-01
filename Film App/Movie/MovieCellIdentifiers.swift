@@ -1,5 +1,6 @@
 import Foundation
 
+
 enum CellIdentifiers: String {
     case trailers = "Trailers"
     case overview = "Overview"

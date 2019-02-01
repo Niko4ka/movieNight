@@ -46,6 +46,7 @@ class VideoPlayerViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    /// HTML for loading Youtube iFrame Player
     private var embedVideoHtml: String {
         return """
         <!DOCTYPE html>

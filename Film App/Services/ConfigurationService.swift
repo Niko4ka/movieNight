@@ -12,6 +12,9 @@ final class ConfigurationService {
     public var tvGenres: [Int: String]!
     public var countries: [String: String]!
     
+    /// Load movie genres
+    ///
+    /// - Parameter completion: closure after loading finished, contains [Genre id : Genre name]
     func getMovieGenres(completion: @escaping ([Int: String]) -> ()) {
         
         AF.request("https://api.themoviedb.org/3/genre/movie/list?api_key=\(themoviedbKey)&language=en-US").responseJSON(completionHandler: { (response) in
@@ -34,6 +37,9 @@ final class ConfigurationService {
 
     }
     
+    /// Load TV Show genres
+    ///
+    /// - Parameter completion: closure after loading finished, contains [Genre id : Genre name]
     func getTvGenres(completion: @escaping ([Int: String]) -> ()) {
         
         AF.request("https://api.themoviedb.org/3/genre/tv/list?api_key=\(themoviedbKey)").responseJSON { (response) in
@@ -56,6 +62,9 @@ final class ConfigurationService {
         
     }
     
+    /// Load production countries
+    ///
+    /// - Parameter completion: closure after loading finished, contains [Country id : Country name]
     func getCountries(completion: @escaping ([String: String]) -> ()) {
         
         AF.request("https://api.themoviedb.org/3/configuration/countries?api_key=\(themoviedbKey)").responseJSON { (response) in

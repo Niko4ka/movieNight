@@ -2,6 +2,11 @@ import Foundation
 
 extension Client {
     
+    /// Loads particular movie collection
+    ///
+    /// - Parameters:
+    ///   - id: collection id
+    ///   - completion: completion handler, which contains a tuple of cover path and movie parts information if success or nil if failed
     func loadMovieCollection(collectionId id: Int, completion: @escaping ((cover: String?, parts: [DatabaseObject])?)->Void) {
         
         var cover: String?

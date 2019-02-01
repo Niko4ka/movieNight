@@ -9,6 +9,10 @@ final class Client {
     
     private init() {}
 
+    /// Returns Parameters with apiKey
+    ///
+    /// - Parameter params: request parameters
+    /// - Returns: Parameters with apiKey
     private func injectParams(_ params: Parameters) -> Parameters {
         var res = params
         res["api_key"] = themoviedbKey

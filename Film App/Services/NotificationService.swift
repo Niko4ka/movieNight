@@ -5,6 +5,7 @@ class NotificationService {
     static let shared = NotificationService()
     private init() {}
     
+    /// Plans the notification about user's wishlist
     func planReminderNotification() {
         
         removeNotifications(withIdentifiers: ["Reminder notification"])
