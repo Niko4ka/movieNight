@@ -17,7 +17,11 @@ class TabBarController: UITabBarController {
         let wishlist = getWishlistNavigationController()
         wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 2)
         
-        viewControllers = [movies, search, wishlist]
+        let map = CinemasMapViewController()
+        map.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 3)
+        
+        
+        viewControllers = [movies, search, map, wishlist]
     }
     
     private func getMoviesNavigationController() -> UINavigationController {
