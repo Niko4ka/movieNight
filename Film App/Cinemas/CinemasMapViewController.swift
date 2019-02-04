@@ -12,6 +12,7 @@ class CinemasMapViewController: UIViewController {
         let frame = CGRect(origin: self.view.frame.origin, size: self.view.frame.size)
         self.map = MKMapView(frame: frame)
         self.map.showsUserLocation = true
+        self.map.delegate = self
         self.view.addSubview(map)
     }
     
@@ -51,17 +52,36 @@ extension CinemasMapViewController: CLLocationManagerDelegate {
         let span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
         let region = MKCoordinateRegion(center: center, span: span)
         map.setRegion(region, animated: false)
+        
+        // TODO: Сохранять пользовательское местоположение в юзер дефолтс
+        
         Client.shared.searchCinemas(lat: userLocation.coordinate.latitude, lng: userLocation.coordinate.longitude) { (cinemas) in
             
             guard let cinemas = cinemas else { return }
-            
+        // TODO: Показывать алерт
             for cinema in cinemas {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2D(latitude: cinema.lat, longitude: cinema.lng)
                 annotation.title = cinema.name
                 self.map.addAnnotation(annotation)
             }
-            
+        // TODO: Добавить доп/инфо
         }
+    }
+}
+
+extension CinemasMapViewController: MKMapViewDelegate {
+
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("Tap")
+        print("\(view.annotation?.title)")
+        let modalViewController = ModalViewController()
+        let transitioningDelegate = HalfModalTransitioningDelegate(presentingViewController: self, presentedViewController: modalViewController)
+    
+        modalViewController.modalPresentationStyle = .custom
+        modalViewController.transitioningDelegate = transitioningDelegate
+        present(modalViewController, animated: true, completion: nil)
+        
     }
 }
