@@ -18,8 +18,7 @@ class TabBarController: UITabBarController {
         wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 2)
         
         let map = CinemasMapViewController()
-        map.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 3)
-        // TODO: Сделать кастомную картиночку
+        map.tabBarItem = UITabBarItem(title: "Cinemas", image: UIImage(named: "map"), tag: 3)
         
         viewControllers = [movies, search, map, wishlist]
     }
