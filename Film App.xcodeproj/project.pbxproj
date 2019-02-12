@@ -66,6 +66,8 @@
 		4E86749A2208DE2500508365 /* HalfModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8674992208DE2500508365 /* HalfModalPresentationController.swift */; };
 		4E86749C2208EB3900508365 /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86749B2208EB3900508365 /* HalfModalTransitionAnimator.swift */; };
 		4E86749E2208EDBF00508365 /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86749D2208EDBF00508365 /* HalfModalInteractiveTransition.swift */; };
+		4E8674A22209D33A00508365 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8674A02209D33A00508365 /* BottomSheetViewController.swift */; };
+		4E8674A32209D33A00508365 /* BottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E8674A12209D33A00508365 /* BottomSheetViewController.xib */; };
 		4EABAE7521CA9FF700189FA6 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7421CA9FF700189FA6 /* VideoPlayerViewController.swift */; };
 		4EABAE7721CC544C00189FA6 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7621CC544C00189FA6 /* ReviewTableViewCell.swift */; };
 		4EABAE7921CC567E00189FA6 /* MoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */; };
@@ -181,6 +183,8 @@
 		4E8674992208DE2500508365 /* HalfModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalPresentationController.swift; sourceTree = "<group>"; };
 		4E86749B2208EB3900508365 /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
 		4E86749D2208EDBF00508365 /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
+		4E8674A02209D33A00508365 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		4E8674A12209D33A00508365 /* BottomSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSheetViewController.xib; sourceTree = "<group>"; };
 		4EABAE7421CA9FF700189FA6 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		4EABAE7621CC544C00189FA6 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePresenter.swift; sourceTree = "<group>"; };
@@ -359,12 +363,10 @@
 			isa = PBXGroup;
 			children = (
 				4E6847FD22077D730000ABDE /* CinemasMapViewController.swift */,
-				4E8674992208DE2500508365 /* HalfModalPresentationController.swift */,
 				4E68480222078BCB0000ABDE /* Cinema.swift */,
-				4E8674952208D83F00508365 /* HalfModalTransitioningDelegate.swift */,
-				4E86749D2208EDBF00508365 /* HalfModalInteractiveTransition.swift */,
-				4E8674972208DA6400508365 /* ModalViewController.swift */,
-				4E86749B2208EB3900508365 /* HalfModalTransitionAnimator.swift */,
+				4E8674A02209D33A00508365 /* BottomSheetViewController.swift */,
+				4E8674A12209D33A00508365 /* BottomSheetViewController.xib */,
+				4E86749F2209D2FE00508365 /* HalfModal */,
 			);
 			path = Cinemas;
 			sourceTree = "<group>";
@@ -437,6 +439,18 @@
 				4E32CDB921C7F61C000A15D8 /* Models */,
 			);
 			path = Movie;
+			sourceTree = "<group>";
+		};
+		4E86749F2209D2FE00508365 /* HalfModal */ = {
+			isa = PBXGroup;
+			children = (
+				4E8674972208DA6400508365 /* ModalViewController.swift */,
+				4E86749B2208EB3900508365 /* HalfModalTransitionAnimator.swift */,
+				4E8674992208DE2500508365 /* HalfModalPresentationController.swift */,
+				4E86749D2208EDBF00508365 /* HalfModalInteractiveTransition.swift */,
+				4E8674952208D83F00508365 /* HalfModalTransitioningDelegate.swift */,
+			);
+			path = HalfModal;
 			sourceTree = "<group>";
 		};
 		4EB5C54221F4F98800863ACC /* List */ = {
@@ -578,6 +592,7 @@
 				4E2D135321FF69BD0056B4E1 /* OverviewTableViewCell.xib in Resources */,
 				4E2D134F21FF65950056B4E1 /* TrailersTableViewCell.xib in Resources */,
 				4E2D135621FF73CB0056B4E1 /* CastTableViewCell.xib in Resources */,
+				4E8674A32209D33A00508365 /* BottomSheetViewController.xib in Resources */,
 				4ED0286221BDA1D500094EAF /* Authorization.storyboard in Resources */,
 				4E6C11A82183A84900C914BD /* Assets.xcassets in Resources */,
 				4E2D135421FF6F030056B4E1 /* Movie.storyboard in Resources */,
@@ -665,6 +680,7 @@
 				4E27016521ED0D510021EF5B /* MovieCollectionViewController.swift in Sources */,
 				4EABAE7D21D01D1A00189FA6 /* MovieReview.swift in Sources */,
 				4E16AB6F21D555EB00CB0EFD /* PersonSectionHeaderCell.swift in Sources */,
+				4E8674A22209D33A00508365 /* BottomSheetViewController.swift in Sources */,
 				4ED9EE4121E9446500ADF05F /* Client+PersonInfo.swift in Sources */,
 				4E32CDC121C846E1000A15D8 /* RatingControl.swift in Sources */,
 				4E16AB6B21D52A2C00CB0EFD /* PersonMovieTableViewCell.swift in Sources */,

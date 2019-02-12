@@ -6,6 +6,9 @@ class CinemasMapViewController: UIViewController {
 
     var map: MKMapView!
     var locationManager: CLLocationManager!
+    var nearCinemas = [Cinema]()
+    var bottomSheet: BottomSheetViewController?
+    let exampleCinema = Cinema(address: "103 Orchard St, New York, NY 10002, США", name: "New Your Central Cinema", isOpened: true, lat: 59.9314393, lng: 30.3574075)
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -40,6 +43,24 @@ class CinemasMapViewController: UIViewController {
             locationManager.startUpdatingLocation()
         }
     }
+    
+    /// Shows bottom sheet view with detail information
+    ///
+    /// - Parameter cinema: Cinema object of selected annotation view
+    private func addBottomSheetView(withCinema cinema: Cinema) {
+        
+        let bottomSheetVC = BottomSheetViewController(cinema: cinema)
+        addChild(bottomSheetVC)
+        view.addSubview(bottomSheetVC.view)
+        bottomSheetVC.didMove(toParent: self)
+        let height = view.frame.height
+        let width = view.frame.width
+        bottomSheetVC.view.frame = CGRect(x: 0,
+                                          y: view.frame.maxY,
+                                          width: width,
+                                          height: height)
+        bottomSheet = bottomSheetVC
+    }
 
 }
 
@@ -55,9 +76,17 @@ extension CinemasMapViewController: CLLocationManagerDelegate {
         
         // TODO: Сохранять пользовательское местоположение в юзер дефолтс
         
+        // For test
+//        let annotation = MKPointAnnotation()
+//        annotation.coordinate = CLLocationCoordinate2D(latitude: exampleCinema.lat, longitude: exampleCinema.lng)
+//        annotation.title = exampleCinema.name
+//        self.map.addAnnotation(annotation)
+        
+        
         Client.shared.searchCinemas(lat: userLocation.coordinate.latitude, lng: userLocation.coordinate.longitude) { (cinemas) in
             
             guard let cinemas = cinemas else { return }
+            self.nearCinemas = cinemas
         // TODO: Показывать алерт
             for cinema in cinemas {
                 let annotation = MKPointAnnotation()
@@ -65,7 +94,6 @@ extension CinemasMapViewController: CLLocationManagerDelegate {
                 annotation.title = cinema.name
                 self.map.addAnnotation(annotation)
             }
-        // TODO: Добавить доп/инфо
         }
     }
 }
@@ -74,14 +102,23 @@ extension CinemasMapViewController: MKMapViewDelegate {
 
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("Tap")
-        print("\(view.annotation?.title)")
-        let modalViewController = ModalViewController()
-        let transitioningDelegate = HalfModalTransitioningDelegate(presentingViewController: self, presentedViewController: modalViewController)
-    
-        modalViewController.modalPresentationStyle = .custom
-        modalViewController.transitioningDelegate = transitioningDelegate
-        present(modalViewController, animated: true, completion: nil)
         
+        guard let anntotationCoordinates = view.annotation?.coordinate else { return }
+
+        let lat = anntotationCoordinates.latitude
+        let lng = anntotationCoordinates.longitude
+
+        guard let selectedCinema = nearCinemas.filter({ $0.lat == lat && $0.lng == lng}).first else { return }
+
+        if bottomSheet != nil {
+            bottomSheet!.view.removeFromSuperview()
+            bottomSheet!.removeFromParent()
+            bottomSheet = nil
+        }
+        
+        // For test
+//        addBottomSheetView(withCinema: exampleCinema)
+        
+        addBottomSheetView(withCinema: selectedCinema)
     }
 }

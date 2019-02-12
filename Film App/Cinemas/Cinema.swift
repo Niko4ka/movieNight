@@ -5,6 +5,14 @@ struct Cinema {
     var lat: Double
     var lng: Double
     
+    init(address: String, name: String, isOpened: Bool, lat: Double, lng: Double) {
+        self.address = address
+        self.name = name
+        self.isOpened = isOpened
+        self.lat = lat
+        self.lng = lng
+    }
+    
     init?(from json: Dictionary<String, Any>) {
         
 //        guard let address = json["formatted_address"] as? String,
