@@ -68,13 +68,10 @@ extension CinemasMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let userLocation = locations[0]
-        manager.stopUpdatingLocation()
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
         let region = MKCoordinateRegion(center: center, span: span)
         map.setRegion(region, animated: false)
-        
-        // TODO: Сохранять пользовательское местоположение в юзер дефолтс
         
         // For test
 //        let annotation = MKPointAnnotation()

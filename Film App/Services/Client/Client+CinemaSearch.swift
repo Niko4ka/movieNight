@@ -4,14 +4,6 @@ extension Client {
     
     func searchCinemas(lat: Double, lng: Double, completion: @escaping ([Cinema]?)->Void) {
         
-//        let url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
-//        let params: [String:Any] = [
-//            "query" : "cinemas",
-//            "location" : "\(lat), \(lng)",
-//            "radius" : 10000,
-//            "key" : googleKey
-//        ]
-        
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         let params: [String:Any] = [
             "rankby" : "distance",
@@ -32,5 +24,17 @@ extension Client {
         }
         
     }
+    
+//    func getCinemaDetails(byId id: String, completion: @escaping ([Cinema]?)->Void) {
+//        let url = "https://maps.googleapis.com/maps/api/place/details/json"
+//        let params: [String:Any] = [
+//            "placeid" : id,
+//            "key" : googleKey
+//        ]
+//
+//        AF.request(url, parameters: params).responseJSON { (response) in
+//
+//        }
+//    }
     
 }

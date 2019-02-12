@@ -68,6 +68,7 @@
 		4E86749E2208EDBF00508365 /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86749D2208EDBF00508365 /* HalfModalInteractiveTransition.swift */; };
 		4E8674A22209D33A00508365 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8674A02209D33A00508365 /* BottomSheetViewController.swift */; };
 		4E8674A32209D33A00508365 /* BottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E8674A12209D33A00508365 /* BottomSheetViewController.xib */; };
+		4E8674A522136B4000508365 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8674A422136B4000508365 /* Alert.swift */; };
 		4EABAE7521CA9FF700189FA6 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7421CA9FF700189FA6 /* VideoPlayerViewController.swift */; };
 		4EABAE7721CC544C00189FA6 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7621CC544C00189FA6 /* ReviewTableViewCell.swift */; };
 		4EABAE7921CC567E00189FA6 /* MoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */; };
@@ -185,6 +186,7 @@
 		4E86749D2208EDBF00508365 /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
 		4E8674A02209D33A00508365 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		4E8674A12209D33A00508365 /* BottomSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSheetViewController.xib; sourceTree = "<group>"; };
+		4E8674A422136B4000508365 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		4EABAE7421CA9FF700189FA6 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		4EABAE7621CC544C00189FA6 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePresenter.swift; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED0286A21BF2AC900094EAF /* KeychainService.swift */,
+				4E8674A422136B4000508365 /* Alert.swift */,
 				4E78BE3F21C3EEA00054FC5B /* ConfigurationService.swift */,
 				4EB5C55921FB83D100863ACC /* NotificationService.swift */,
 				4ED9ED6421E4112300ADF05F /* Client */,
@@ -634,6 +637,7 @@
 				4E32CDB321C73D2D000A15D8 /* InformationTableViewCell.swift in Sources */,
 				4E684801220788730000ABDE /* Client+CinemaSearch.swift in Sources */,
 				4EB5C54C21F78DFC00863ACC /* ExpandableHeaderView.swift in Sources */,
+				4E8674A522136B4000508365 /* Alert.swift in Sources */,
 				4EB5C54921F516A900863ACC /* ListTableViewCell.swift in Sources */,
 				4E78BE4021C3EEA00054FC5B /* ConfigurationService.swift in Sources */,
 				4E8674962208D83F00508365 /* HalfModalTransitioningDelegate.swift in Sources */,

@@ -4,6 +4,7 @@ struct Cinema {
     var isOpened: Bool?
     var lat: Double
     var lng: Double
+    var placeId: String?
     
     init(address: String, name: String, isOpened: Bool, lat: Double, lng: Double) {
         self.address = address
@@ -37,6 +38,10 @@ struct Cinema {
         if let openingHours = json["opening_hours"] as? [String: Any],
             let openedNow = openingHours["open_now"] as? Bool {
             self.isOpened = openedNow
+        }
+        
+        if let placeId = json["place_id"] as? String {
+            self.placeId = placeId
         }
     }
 }
