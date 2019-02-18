@@ -40,11 +40,18 @@ class TabBarController: UITabBarController {
     }
     
     private func getWishlistNavigationController() -> UINavigationController {
-        let wishlistVC = WishlistTableViewController()
+        
+        let wishlistVC = WishlistViewController()
         let wishlist = UINavigationController(rootViewController: wishlistVC)
         let wishlistNavigator = ProjectNavigator(navigationController: wishlist, isDarkMode: false)
         wishlistVC.navigator = wishlistNavigator
         return wishlist
+        
+//        let wishlistVC = WishlistTableViewController()
+//        let wishlist = UINavigationController(rootViewController: wishlistVC)
+//        let wishlistNavigator = ProjectNavigator(navigationController: wishlist, isDarkMode: false)
+//        wishlistVC.navigator = wishlistNavigator
+//        return wishlist
     }
 
 }

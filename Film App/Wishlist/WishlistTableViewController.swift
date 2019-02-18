@@ -33,9 +33,11 @@ class WishlistTableViewController: UITableViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.titleView = sectionSegmentedControl
-        navigationItem.leftBarButtonItem = editButtonItem
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showActions))
+        
+        if let parent = self.parent {
+            parent.navigationItem.titleView = sectionSegmentedControl
+            parent.navigationItem.leftBarButtonItem = editButtonItem
+        }
     }
     
     private func configureTableView() {
