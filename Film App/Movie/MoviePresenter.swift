@@ -13,8 +13,10 @@ class MoviePresenter: MovieTableViewPresenter {
         Client.shared.loadMovieDetails(forId: id, andType: type) { (details) in
             guard let details = details else {
                 
-                // TODO: Show alert and pop controller
                 controller.isLoading = false
+                Alert.shared.show(on: controller, withMessage: nil, completion: {
+                    controller.navigator?.pop()
+                })
                 return
             }
             controller.movieDetails = details

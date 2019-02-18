@@ -58,8 +58,12 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
         
         Client.shared.loadMovieCollection(collectionId: collectionId) { (result) in
             guard let result = result else {
-                // TODO: Show error
-                return }
+                self.isLoading = false
+                Alert.shared.show(on: self, withMessage: nil, completion: {
+                    self.navigator?.pop()
+                })
+                return
+            }
             
             if let coverPath = result.cover,
                 let url = URL(string: "https://image.tmdb.org/t/p/w780\(coverPath)") {

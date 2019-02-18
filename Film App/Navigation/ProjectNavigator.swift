@@ -34,6 +34,10 @@ class ProjectNavigator: Navigator {
         
     }
     
+    func pop() {
+        navigation.popViewController(animated: true)
+    }
+    
     /// Shows Android-like toast view with some label
     ///
     /// - Parameter text: text of the label

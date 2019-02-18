@@ -82,9 +82,12 @@ extension CinemasMapViewController: CLLocationManagerDelegate {
         
         Client.shared.searchCinemas(lat: userLocation.coordinate.latitude, lng: userLocation.coordinate.longitude) { (cinemas) in
             
-            guard let cinemas = cinemas else { return }
+            guard let cinemas = cinemas else {
+                Alert.shared.show(on: self)
+                return
+            }
             self.nearCinemas = cinemas
-        // TODO: Показывать алерт
+
             for cinema in cinemas {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2D(latitude: cinema.lat, longitude: cinema.lng)

@@ -101,7 +101,7 @@ class MoviesTableViewController: UITableViewController {
                 }
             }
         } else {
-            // TODO: Show alert
+            Alert.shared.show(on: self)
         }
         
     }

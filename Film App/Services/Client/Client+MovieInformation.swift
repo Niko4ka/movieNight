@@ -24,7 +24,6 @@ extension Client {
                     completion(nil)
                     return
             }
-            
             completion(details)
         }
     }
