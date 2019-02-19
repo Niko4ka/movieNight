@@ -44,6 +44,9 @@ class CatalogCollectionViewLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
+        super.prepare()
+        cache.removeAll()
+        
         let standardHeight = CatalogLayoutConstants.standardCellHeight
         let focusedHeight = CatalogLayoutConstants.focusedCellHeight
         
