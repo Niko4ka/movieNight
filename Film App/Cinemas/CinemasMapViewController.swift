@@ -38,6 +38,7 @@ class CinemasMapViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
+        locationManager.distanceFilter = 100.0
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
