@@ -16,7 +16,7 @@ class WishlistCollectionViewCell: UICollectionViewCell {
         
         let delta = 1 - (CatalogLayoutConstants.focusedCellHeight - frame.height) / (CatalogLayoutConstants.focusedCellHeight - CatalogLayoutConstants.standardCellHeight)
         
-        let minAlpha: CGFloat = 0.3
+        let minAlpha: CGFloat = 0.25
         let maxAlpha: CGFloat = 0.75
         coverView.alpha = maxAlpha - (delta * (maxAlpha - minAlpha))
         

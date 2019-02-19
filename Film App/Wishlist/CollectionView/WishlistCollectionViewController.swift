@@ -28,6 +28,7 @@ class WishlistCollectionViewController: UICollectionViewController {
         
         if let parent = self.parent {
             parent.navigationItem.titleView = sectionSegmentedControl
+            parent.navigationItem.leftBarButtonItem = nil
         }
     }
     
