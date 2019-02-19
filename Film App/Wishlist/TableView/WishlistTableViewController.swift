@@ -118,10 +118,11 @@ class WishlistTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! WishlistTableViewCell
-        if let type = cell.mediaType {
-            navigator?.navigate(to: .movie(id: cell.id, type: type))
-        } else { return }
+
+        let item = fetchedResultController.object(at: indexPath)
+        if let mediaType = item.mediaType, let mediaTypeName = mediaType.name, let type = MediaType(rawValue: mediaTypeName) {
+            navigator?.navigate(to: .movie(id: Int(item.id), type: type))
+        }
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
