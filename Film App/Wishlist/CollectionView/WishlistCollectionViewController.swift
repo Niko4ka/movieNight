@@ -99,10 +99,23 @@ class WishlistCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let layout = collectionViewLayout as? CatalogCollectionViewLayout else { return }
-        let offset = layout.scrollOffset * CGFloat(indexPath.item)
-        if collectionView.contentOffset.y != offset {
-            collectionView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
+        
+        if indexPath.item == layout.focusedItemIndex {
+    
+            let item = fetchedResultController.object(at: indexPath)
+            if let mediaType = item.mediaType, let mediaTypeName = mediaType.name, let type = MediaType(rawValue: mediaTypeName) {
+                navigator?.navigate(to: .movie(id: Int(item.id), type: type))
+            }
+            
+        } else {
+            let offset = layout.scrollOffset * CGFloat(indexPath.item)
+            if collectionView.contentOffset.y != offset {
+                collectionView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
+            }
+
         }
+        
+        
     }
     
 }
