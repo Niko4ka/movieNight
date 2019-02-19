@@ -17,10 +17,7 @@ class WishlistTableViewController: UITableViewController {
         return segmentedControl
     }()
     
-    struct Predicates {
-        static let tvPredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'tv'")
-        static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
-    }
+    
     
     // MARK: - View Did Load
     
@@ -29,7 +26,7 @@ class WishlistTableViewController: UITableViewController {
         
         configureNavigationBar()
         configureTableView()
-        fetchData(predicate: Predicates.moviePredicate)
+        fetchData(predicate: WishlistPredicates.moviePredicate)
     }
     
     private func configureNavigationBar() {
@@ -62,7 +59,7 @@ class WishlistTableViewController: UITableViewController {
         }
         
         if objects.count == 0 {
-            let backgroundView = getNoResultsView()
+            let backgroundView = UIView.getEmptyView(withText: "No movies in wishlist yet")
             tableView.backgroundView = backgroundView
             NotificationService.shared.removeReminderNotification()
         } else {
@@ -83,37 +80,12 @@ class WishlistTableViewController: UITableViewController {
     
     @objc private func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1 {
-            fetchData(predicate: Predicates.tvPredicate)
+            fetchData(predicate: WishlistPredicates.tvPredicate)
         } else {
-            fetchData(predicate: Predicates.moviePredicate)
+            fetchData(predicate: WishlistPredicates.moviePredicate)
         }
         tableView.reloadData()
     }
-    
-    /// Returns background view with label, that notifes user about the absence of movies in wishlist
-    ///
-    /// - Returns: view with label
-    private func getNoResultsView() -> UIView {
-        
-        let backgroundView = UIView()
-        backgroundView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.height)
-        backgroundView.backgroundColor = UIColor.white
-        let label = UILabel()
-        backgroundView.addSubview(label)
-        label.text = "No movies in wishlist yet"
-        label.font = UIFont.systemFont(ofSize: 15.0)
-        label.textColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
-        label.textAlignment = .center
-        
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: -0.15 * backgroundView.frame.height).isActive = true
-        label.widthAnchor.constraint(equalToConstant: backgroundView.frame.width - 32).isActive = true
-        
-        return backgroundView
-    }
-    
 
     // MARK: - Table view data source
     

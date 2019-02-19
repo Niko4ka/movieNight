@@ -1,12 +1,9 @@
-//
-//  WishlistViewController.swift
-//  Film App
-//
-//  Created by Вероника Данилова on 18/02/2019.
-//  Copyright © 2019 Veronika Danilova. All rights reserved.
-//
-
 import UIKit
+
+struct WishlistPredicates {
+    static let tvPredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'tv'")
+    static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
+}
 
 class WishlistViewController: UIViewController {
     
@@ -17,21 +14,28 @@ class WishlistViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Mode", style: .plain, target: self, action: #selector(selectViewMode))
 
-        showAsTable()
+        showAsCollection()
         
     }
     
     @objc func selectViewMode() {
         
         let sheet = UIAlertController(title: "Select prefered view mode", message: nil, preferredStyle: .actionSheet)
+        
         let tableMode = UIAlertAction(title: "List", style: .default) { _ in
+            guard let currentScreen = self.children.last as? WishlistCollectionViewController else { return }
+            currentScreen.view.removeFromSuperview()
+            currentScreen.removeFromParent()
             self.showAsTable()
-            print("List")
         }
+        
         let collectionMode = UIAlertAction(title: "Collection", style: .default) { _ in
+            guard let currentScreen = self.children.last as? WishlistTableViewController else { return }
+            currentScreen.view.removeFromSuperview()
+            currentScreen.removeFromParent()
             self.showAsCollection()
-            print("Collection")
         }
+        
         sheet.addAction(tableMode)
         sheet.addAction(collectionMode)
         present(sheet, animated: true, completion: nil)
@@ -46,7 +50,12 @@ class WishlistViewController: UIViewController {
     }
     
     private func showAsCollection() {
-        
+        let layout = CatalogCollectionViewLayout()
+        let wishlistCollection = WishlistCollectionViewController.init(collectionViewLayout: layout)
+        wishlistCollection.navigator = navigator
+        addChild(wishlistCollection)
+        view.addSubview(wishlistCollection.view)
+        wishlistCollection.didMove(toParent: self)
     }
 
 }

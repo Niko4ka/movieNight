@@ -21,6 +21,11 @@
 		4E16AB6F21D555EB00CB0EFD /* PersonSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB6E21D555EB00CB0EFD /* PersonSectionHeaderCell.swift */; };
 		4E16AB7321D57DE200CB0EFD /* MoviesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16AB7221D57DE200CB0EFD /* MoviesTableViewController.swift */; };
 		4E1E1FCC221A96FB00FCA8A6 /* WishlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FCB221A96FB00FCA8A6 /* WishlistViewController.swift */; };
+		4E1E1FD3221BB6D800FCA8A6 /* WishlistCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FCD221BA9AB00FCA8A6 /* WishlistCollectionViewController.swift */; };
+		4E1E1FD5221BB72C00FCA8A6 /* WishlistCollectionViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FD4221BB72C00FCA8A6 /* WishlistCollectionViewController+NSFetchedResultsControllerDelegate.swift */; };
+		4E1E1FD8221BB84900FCA8A6 /* WishlistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FD6221BB84900FCA8A6 /* WishlistCollectionViewCell.swift */; };
+		4E1E1FD9221BB84900FCA8A6 /* WishlistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E1E1FD7221BB84900FCA8A6 /* WishlistCollectionViewCell.xib */; };
+		4E1E1FDB221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FDA221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift */; };
 		4E27016121EBA9B70021EF5B /* Client+MoviesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */; };
 		4E27016321EBEEEF0021EF5B /* SliderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */; };
 		4E27016521ED0D510021EF5B /* MovieCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016421ED0D510021EF5B /* MovieCollectionViewController.swift */; };
@@ -135,6 +140,10 @@
 		4E16AB7221D57DE200CB0EFD /* MoviesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewController.swift; sourceTree = "<group>"; };
 		4E1E1FCB221A96FB00FCA8A6 /* WishlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistViewController.swift; sourceTree = "<group>"; };
 		4E1E1FCD221BA9AB00FCA8A6 /* WishlistCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistCollectionViewController.swift; sourceTree = "<group>"; };
+		4E1E1FD4221BB72C00FCA8A6 /* WishlistCollectionViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WishlistCollectionViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
+		4E1E1FD6221BB84900FCA8A6 /* WishlistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E1E1FD7221BB84900FCA8A6 /* WishlistCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishlistCollectionViewCell.xib; sourceTree = "<group>"; };
+		4E1E1FDA221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewLayout.swift; sourceTree = "<group>"; };
 		4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MoviesCategories.swift"; sourceTree = "<group>"; };
 		4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderHeaderView.swift; sourceTree = "<group>"; };
 		4E27016421ED0D510021EF5B /* MovieCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +325,10 @@
 			isa = PBXGroup;
 			children = (
 				4E1E1FCD221BA9AB00FCA8A6 /* WishlistCollectionViewController.swift */,
+				4E1E1FDA221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift */,
+				4E1E1FD4221BB72C00FCA8A6 /* WishlistCollectionViewController+NSFetchedResultsControllerDelegate.swift */,
+				4E1E1FD6221BB84900FCA8A6 /* WishlistCollectionViewCell.swift */,
+				4E1E1FD7221BB84900FCA8A6 /* WishlistCollectionViewCell.xib */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -594,6 +607,7 @@
 				4E2D134F21FF65950056B4E1 /* TrailersTableViewCell.xib in Resources */,
 				4E2D135621FF73CB0056B4E1 /* CastTableViewCell.xib in Resources */,
 				4E8674A32209D33A00508365 /* BottomSheetViewController.xib in Resources */,
+				4E1E1FD9221BB84900FCA8A6 /* WishlistCollectionViewCell.xib in Resources */,
 				4ED0286221BDA1D500094EAF /* Authorization.storyboard in Resources */,
 				4E6C11A82183A84900C914BD /* Assets.xcassets in Resources */,
 				4E2D135421FF6F030056B4E1 /* Movie.storyboard in Resources */,
@@ -635,6 +649,7 @@
 				4E32CDB321C73D2D000A15D8 /* InformationTableViewCell.swift in Sources */,
 				4E684801220788730000ABDE /* Client+CinemaSearch.swift in Sources */,
 				4EB5C54C21F78DFC00863ACC /* ExpandableHeaderView.swift in Sources */,
+				4E1E1FD3221BB6D800FCA8A6 /* WishlistCollectionViewController.swift in Sources */,
 				4E8674A522136B4000508365 /* Alert.swift in Sources */,
 				4EB5C54921F516A900863ACC /* ListTableViewCell.swift in Sources */,
 				4E78BE4021C3EEA00054FC5B /* ConfigurationService.swift in Sources */,
@@ -652,6 +667,7 @@
 				4ED9ED7D21E5635C00ADF05F /* Client+MovieInformation.swift in Sources */,
 				4E27016D21EE53120021EF5B /* PosterCollectionViewCell.swift in Sources */,
 				4ED9ED6E21E4154900ADF05F /* KeywordsViewController.swift in Sources */,
+				4E1E1FDB221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift in Sources */,
 				4EABAE7721CC544C00189FA6 /* ReviewTableViewCell.swift in Sources */,
 				4E32CDB821C7D155000A15D8 /* MovieCast.swift in Sources */,
 				4E32CDAD21C7378B000A15D8 /* OverviewTableViewCell.swift in Sources */,
@@ -685,7 +701,9 @@
 				4EABAE7B21CD319900189FA6 /* MovieCellIdentifiers.swift in Sources */,
 				4E27016321EBEEEF0021EF5B /* SliderHeaderView.swift in Sources */,
 				4E78BE3C21C0633C0054FC5B /* ItemCollectionViewCell.swift in Sources */,
+				4E1E1FD5221BB72C00FCA8A6 /* WishlistCollectionViewController+NSFetchedResultsControllerDelegate.swift in Sources */,
 				4ED9ED6321E40BF400ADF05F /* UISearchBarNoCancel.swift in Sources */,
+				4E1E1FD8221BB84900FCA8A6 /* WishlistCollectionViewCell.swift in Sources */,
 				4E16AB6921D51E5800CB0EFD /* PersonTableViewController.swift in Sources */,
 				4E27016821ED16E20021EF5B /* Client+MovieCollection.swift in Sources */,
 				4EB5C55421F8F2C400863ACC /* ListRequest.swift in Sources */,

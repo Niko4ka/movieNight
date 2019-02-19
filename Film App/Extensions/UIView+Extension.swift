@@ -25,6 +25,12 @@ extension UIView {
         }
     }
     
+    
+    
+    ///  Returns background view with label
+    ///
+    /// - Parameter text: Text of the label
+    /// - Returns: background view with label
     class func getEmptyView(withText text: String) -> UIView {
         let backgroundView = UIView()
         backgroundView.frame.size = UIScreen.main.bounds.size
