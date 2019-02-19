@@ -88,7 +88,7 @@ class ListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigator.navigate(to: .movie(id: data[indexPath.row].id, type: .movie))
+        navigator.navigate(to: .movie(id: data[indexPath.row].id, type: data[indexPath.row].mediaType))
     }
  
 }
