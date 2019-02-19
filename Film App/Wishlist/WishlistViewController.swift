@@ -13,9 +13,7 @@ class WishlistViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Mode", style: .plain, target: self, action: #selector(selectViewMode))
-
         showAsCollection()
-        
     }
     
     @objc func selectViewMode() {
@@ -36,8 +34,11 @@ class WishlistViewController: UIViewController {
             self.showAsCollection()
         }
         
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
         sheet.addAction(tableMode)
         sheet.addAction(collectionMode)
+        sheet.addAction(cancel)
         present(sheet, animated: true, completion: nil)
     }
 
@@ -55,6 +56,14 @@ class WishlistViewController: UIViewController {
         wishlistCollection.navigator = navigator
         addChild(wishlistCollection)
         view.addSubview(wishlistCollection.view)
+    
+        if let navigationController = self.navigationController,
+            let tabBarController = self.tabBarController {
+            let yOffset = navigationController.navigationBar.frame.maxY
+            let height = self.view.frame.height - navigationController.navigationBar.frame.height - tabBarController.tabBar.frame.height
+            wishlistCollection.view.frame = CGRect(x: 0, y: yOffset, width: self.view.frame.width, height: height)
+        }
+        
         wishlistCollection.didMove(toParent: self)
     }
 
