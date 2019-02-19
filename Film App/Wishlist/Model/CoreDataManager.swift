@@ -104,7 +104,7 @@ final class CoreDataManager {
         return fetchedResult
     }
     
-    public func saveItemToWishlist(mediaType: String, data: MovieDetails, poster: UIImage, saveDate: Date) {
+    public func saveItemToWishlist(mediaType: String, data: MovieDetails, poster: UIImage, backdrop: UIImage?, saveDate: Date) {
         
         let context = getContext()
         
@@ -117,6 +117,7 @@ final class CoreDataManager {
         item.voteCount = Int16(data.voteCount)
         item.releasedDate = data.releaseDate
         item.saveDate = saveDate
+        item.backdrop = backdrop
         
         let itemMediaType = createObject(from: MediaTypeEntity.self)
         itemMediaType.name = mediaType

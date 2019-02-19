@@ -160,9 +160,10 @@ class MovieTableViewController: UITableViewController {
             }
         } else {
             guard let details = movieDetails, let poster = moviePoster.image else { return }
+            let backdropImage = backdropImageView.image
             
             let currentDateTime = Date()
-            CoreDataManager.shared.saveItemToWishlist(mediaType: mediaType.rawValue, data: details, poster: poster, saveDate: currentDateTime)
+            CoreDataManager.shared.saveItemToWishlist(mediaType: mediaType.rawValue, data: details, poster: poster, backdrop: backdropImage, saveDate: currentDateTime)
             self.addToWishlistButton.isSelected = true
             
             if let movieTitle = movieDetails?.title {

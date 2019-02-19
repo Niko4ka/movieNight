@@ -84,8 +84,6 @@ class WishlistCollectionViewController: UICollectionViewController {
             return 0
         }
 
-        print("Number of items - \(sections[section].numberOfObjects)")
-
         return sections[section].numberOfObjects
 
     }

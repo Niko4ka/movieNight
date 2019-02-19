@@ -5,6 +5,7 @@
         <relationship name="movie" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Movie" inverseName="mediaType" inverseEntity="Movie" syncable="YES"/>
     </entity>
     <entity name="Movie" representedClassName="Movie" syncable="YES" codeGenerationType="class">
+        <attribute name="backdrop" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="genres" attributeType="String" defaultValueString=" " syncable="YES"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="poster" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -16,7 +17,7 @@
         <relationship name="mediaType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaTypeEntity" inverseName="movie" inverseEntity="MediaTypeEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Movie" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="MediaTypeEntity" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="Movie" positionX="-63" positionY="-18" width="128" height="195"/>
     </elements>
 </model>

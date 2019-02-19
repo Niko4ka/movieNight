@@ -27,7 +27,7 @@ class WishlistCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with movie: Movie) {
-        if let image = movie.poster as? UIImage {
+        if let image = movie.backdrop as? UIImage {
             backdropImageView.image = image
         }
         
