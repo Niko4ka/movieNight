@@ -1,12 +1,11 @@
 import UIKit
 
-class TabBarController: UITabBarController {
+class TabBarController: UITabBarController, ColorThemeObserver {
+    
+    private let defaultTintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.delegate = self
-        self.tabBar.barStyle = .black
         
         let movies = getMoviesNavigationController()
         movies.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "movies"), tag: 0)
@@ -20,7 +19,12 @@ class TabBarController: UITabBarController {
         let map = CinemasMapViewController()
         map.tabBarItem = UITabBarItem(title: "Cinemas", image: UIImage(named: "map"), tag: 3)
         
-        viewControllers = [movies, search, map, wishlist]
+        let settings = getSettings()
+        settings.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings"), tag: 4)
+        
+        viewControllers = [movies, search, map, wishlist, settings]
+        
+        addColorThemeObservers()
     }
     
     private func getMoviesNavigationController() -> UINavigationController {
@@ -46,26 +50,39 @@ class TabBarController: UITabBarController {
         let wishlistNavigator = ProjectNavigator(navigationController: wishlist, isDarkMode: false)
         wishlistVC.navigator = wishlistNavigator
         return wishlist
-        
-//        let wishlistVC = WishlistTableViewController()
-//        let wishlist = UINavigationController(rootViewController: wishlistVC)
-//        let wishlistNavigator = ProjectNavigator(navigationController: wishlist, isDarkMode: false)
-//        wishlistVC.navigator = wishlistNavigator
-//        return wishlist
+ 
+    }
+    
+    private func getSettings() -> SettingsTableViewController {
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let settings = storyboard.instantiateViewController(withIdentifier: "SettingsTVC") as! SettingsTableViewController
+        return settings
+    }
+    
+    func darkThemeEnabled() {
+        self.tabBar.barStyle = .black
+        self.tabBar.unselectedItemTintColor = .white
+        self.tabBar.tintColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+    }
+    
+    func darkThemeDisabled() {
+        self.tabBar.barStyle = .default
+        self.tabBar.unselectedItemTintColor = nil
+        self.tabBar.tintColor = defaultTintColor
     }
 
 }
 
-extension TabBarController: UITabBarControllerDelegate {
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        
-        if viewController == tabBarController.viewControllers?.first {
-            self.tabBar.barStyle = .black
-        } else {
-            self.tabBar.barStyle = .default
-        }
-        
-    }
-    
-}
+//extension TabBarController: UITabBarControllerDelegate {
+//
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//
+//        if viewController == tabBarController.viewControllers?.first {
+//            self.tabBar.barStyle = .black
+//        } else {
+//            self.tabBar.barStyle = .default
+//        }
+//
+//    }
+//
+//}
