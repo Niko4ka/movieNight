@@ -26,6 +26,9 @@
 		4E1E1FD8221BB84900FCA8A6 /* WishlistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FD6221BB84900FCA8A6 /* WishlistCollectionViewCell.swift */; };
 		4E1E1FD9221BB84900FCA8A6 /* WishlistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E1E1FD7221BB84900FCA8A6 /* WishlistCollectionViewCell.xib */; };
 		4E1E1FDB221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FDA221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift */; };
+		4E1E1FDF221D080D00FCA8A6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FDD221D080C00FCA8A6 /* SettingsTableViewController.swift */; };
+		4E1E1FE2221D08B800FCA8A6 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E1E1FE1221D08B800FCA8A6 /* Settings.storyboard */; };
+		4E1E1FE4221D113600FCA8A6 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FE3221D113600FCA8A6 /* NotificationName+Extension.swift */; };
 		4E27016121EBA9B70021EF5B /* Client+MoviesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */; };
 		4E27016321EBEEEF0021EF5B /* SliderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */; };
 		4E27016521ED0D510021EF5B /* MovieCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016421ED0D510021EF5B /* MovieCollectionViewController.swift */; };
@@ -144,6 +147,9 @@
 		4E1E1FD6221BB84900FCA8A6 /* WishlistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E1E1FD7221BB84900FCA8A6 /* WishlistCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishlistCollectionViewCell.xib; sourceTree = "<group>"; };
 		4E1E1FDA221BE5E000FCA8A6 /* CatalogCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewLayout.swift; sourceTree = "<group>"; };
+		4E1E1FDD221D080C00FCA8A6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		4E1E1FE1221D08B800FCA8A6 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		4E1E1FE3221D113600FCA8A6 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MoviesCategories.swift"; sourceTree = "<group>"; };
 		4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderHeaderView.swift; sourceTree = "<group>"; };
 		4E27016421ED0D510021EF5B /* MovieCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewController.swift; sourceTree = "<group>"; };
@@ -333,6 +339,15 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
+		4E1E1FDC221D07E900FCA8A6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4E1E1FDD221D080C00FCA8A6 /* SettingsTableViewController.swift */,
+				4E1E1FE1221D08B800FCA8A6 /* Settings.storyboard */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		4E27016621ED0EE20021EF5B /* MovieCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +431,7 @@
 		4E6C119F2183A84700C914BD /* Film App */ = {
 			isa = PBXGroup;
 			children = (
+				4E1E1FDC221D07E900FCA8A6 /* Settings */,
 				4ED0286321BDADB600094EAF /* Authorization (not used yet) */,
 				4E6847FF22077D790000ABDE /* Cinemas */,
 				4ED9ED7121E542DA00ADF05F /* Extensions */,
@@ -522,6 +538,7 @@
 			children = (
 				4E4C2A2C21C989C4000399CE /* String+Extension.swift */,
 				4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */,
+				4E1E1FE3221D113600FCA8A6 /* NotificationName+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -597,6 +614,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E16AB4B21D124B900CB0EFD /* CollectionTableViewCell.xib in Resources */,
+				4E1E1FE2221D08B800FCA8A6 /* Settings.storyboard in Resources */,
 				4E16AB5721D1747900CB0EFD /* WishlistTableViewCell.xib in Resources */,
 				4E78BE3B21C063390054FC5B /* ItemCollectionViewCell.xib in Resources */,
 				4E2D135121FF67560056B4E1 /* TrailerCollectionViewCell.xib in Resources */,
@@ -662,6 +680,7 @@
 				4ED0286D21BFE58100094EAF /* SearchViewController.swift in Sources */,
 				4E32CDB121C73B7E000A15D8 /* CastTableViewCell.swift in Sources */,
 				4E16AB6D21D52B2500CB0EFD /* PersonMovie.swift in Sources */,
+				4E1E1FDF221D080D00FCA8A6 /* SettingsTableViewController.swift in Sources */,
 				4E27017021EEAB1F0021EF5B /* CollectionCoverViewController.swift in Sources */,
 				4ED9ED8821E7BD5800ADF05F /* WishlistTableViewController.swift in Sources */,
 				4ED9ED7D21E5635C00ADF05F /* Client+MovieInformation.swift in Sources */,
@@ -695,6 +714,7 @@
 				4E16AB6F21D555EB00CB0EFD /* PersonSectionHeaderCell.swift in Sources */,
 				4E8674A22209D33A00508365 /* BottomSheetViewController.swift in Sources */,
 				4ED9EE4121E9446500ADF05F /* Client+PersonInfo.swift in Sources */,
+				4E1E1FE4221D113600FCA8A6 /* NotificationName+Extension.swift in Sources */,
 				4E32CDC121C846E1000A15D8 /* RatingControl.swift in Sources */,
 				4E1E1FCC221A96FB00FCA8A6 /* WishlistViewController.swift in Sources */,
 				4E16AB6B21D52A2C00CB0EFD /* PersonMovieTableViewCell.swift in Sources */,

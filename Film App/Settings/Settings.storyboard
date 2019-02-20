@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Settings Table View Controller-->
+        <scene sceneID="gRD-KR-CB7">
+            <objects>
+                <tableViewController storyboardIdentifier="SettingsTVC" id="1EE-we-lfZ" customClass="SettingsTableViewController" customModule="Film_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="CgI-mT-DYs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection footerTitle="Switch on enables dark theme, switch off enables light theme." id="FMc-dc-l34">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hdY-xb-GYo">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hdY-xb-GYo" id="oWD-S7-MIt">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1Tw-90-bca">
+                                                    <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="darkThemeSwitcherValueChanged:" destination="1EE-we-lfZ" eventType="valueChanged" id="g6Q-s2-Aja"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Dark theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydp-QL-ung">
+                                                    <rect key="frame" x="16" y="11.5" width="89" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ydp-QL-ung" firstAttribute="leading" secondItem="oWD-S7-MIt" secondAttribute="leadingMargin" id="DVv-uc-oVa"/>
+                                                <constraint firstItem="1Tw-90-bca" firstAttribute="centerY" secondItem="oWD-S7-MIt" secondAttribute="centerY" id="FMg-8d-QfJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="1Tw-90-bca" secondAttribute="trailing" constant="16" id="qyI-IB-b8J"/>
+                                                <constraint firstItem="Ydp-QL-ung" firstAttribute="centerY" secondItem="oWD-S7-MIt" secondAttribute="centerY" id="uo8-hc-HIe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection footerTitle="Select prefered wishlist view." id="hj5-aA-Zsr">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jvg-Gb-rJ6">
+                                        <rect key="frame" x="0.0" y="143" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jvg-Gb-rJ6" id="R6b-Ij-wAI">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Wishlist view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9A-e0-nya">
+                                                    <rect key="frame" x="16" y="11.5" width="99.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Yhc-ib-PlV">
+                                                    <rect key="frame" x="208" y="8" width="151" height="29"/>
+                                                    <segments>
+                                                        <segment title="List"/>
+                                                        <segment title="Collection"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="wishlistViewSegmentedControlValueChanged:" destination="1EE-we-lfZ" eventType="valueChanged" id="ORO-4k-kSR"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Yhc-ib-PlV" firstAttribute="centerY" secondItem="R6b-Ij-wAI" secondAttribute="centerY" id="74C-Oz-YO8"/>
+                                                <constraint firstAttribute="trailing" secondItem="Yhc-ib-PlV" secondAttribute="trailing" constant="16" id="CNO-Kr-EFv"/>
+                                                <constraint firstItem="k9A-e0-nya" firstAttribute="centerY" secondItem="R6b-Ij-wAI" secondAttribute="centerY" id="NBL-tn-SCp"/>
+                                                <constraint firstItem="k9A-e0-nya" firstAttribute="leading" secondItem="R6b-Ij-wAI" secondAttribute="leadingMargin" id="Xjj-Oo-Nan"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="1EE-we-lfZ" id="s3H-EX-RD9"/>
+                            <outlet property="delegate" destination="1EE-we-lfZ" id="JoX-8d-PYZ"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="darkThemeSwitcher" destination="1Tw-90-bca" id="1p1-Cc-Oi1"/>
+                        <outlet property="wishlistViewSegmentedControl" destination="Yhc-ib-PlV" id="25u-g3-8Dd"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q1C-KE-w7A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="462" y="-206"/>
+        </scene>
+    </scenes>
+</document>
