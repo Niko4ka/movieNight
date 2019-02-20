@@ -68,6 +68,28 @@ class WishlistCollectionViewController: UICollectionViewController {
         collectionView.reloadData()
     }
     
+    func showActivity(for cell: WishlistCollectionViewCell) {
+        
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let object = self.fetchedResultController.object(at: indexPath)
+        
+        var items: [Any]!
+        if let title = object.title {
+            if let releaseYear = object.releasedDate?.suffix(4), let genres = object.genres, let mediaType = object.mediaType?.name, let poster = object.poster as? UIImage {
+                let releaseYearString = String(releaseYear)
+                let description = title + " (" + releaseYearString + ")" + "\n" + genres
+                let url = "https://www.themoviedb.org/" + mediaType + "/" + "\(object.id)"
+                items = [description, url, poster]
+            } else {
+                items = [title]
+            }
+        }
+        
+        let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+        
+    }
+    
     // MARK: CollectionView methods
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -92,6 +114,7 @@ class WishlistCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishlistCollectionViewCell.reuseIdentifier, for: indexPath) as! WishlistCollectionViewCell
         let item = fetchedResultController.object(at: indexPath)
+        cell.delegate = self
         cell.configure(with: item)
 
         return cell

@@ -10,6 +10,17 @@ class WishlistCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     
+    weak var delegate: WishlistCollectionViewController!
+    var poster: UIImage?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction))
+        longPress.numberOfTouchesRequired = 1
+        addGestureRecognizer(longPress)
+    }
+    
 
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
@@ -34,6 +45,37 @@ class WishlistCollectionViewCell: UICollectionViewCell {
         titleLabel.text = movie.title
         genreLabel.text = movie.genres
         releaseDateLabel.text = movie.releasedDate
+        
+        if let posterImage = movie.poster as? UIImage {
+            poster = posterImage
+        }
+    }
+    
+    @objc func longPressAction() {
+        
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        if let movieName = titleLabel.text {
+            sheet.title = "What do you want to do with \"\(movieName)\"?"
+        }
+        
+        let delete = UIAlertAction(title: "Remove from wishlist", style: .destructive) { _ in
+            guard let indexPath = self.delegate.collectionView.indexPath(for: self) else { return }
+            let item = self.delegate.fetchedResultController.object(at: indexPath)
+            CoreDataManager.shared.delete(object: item)
+        }
+        
+        let share = UIAlertAction(title: "Share", style: .default) { _ in
+            self.delegate.showActivity(for: self)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        sheet.addAction(share)
+        sheet.addAction(delete)
+        sheet.addAction(cancel)
+        
+        delegate.present(sheet, animated: true, completion: nil)
     }
 
 }
