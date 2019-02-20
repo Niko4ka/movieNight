@@ -4,11 +4,12 @@ protocol Navigator: class {
     
     associatedtype Destination
     
-    init(navigationController: UINavigationController, isDarkMode: Bool)
+    init(navigationController: UINavigationController)
     func navigate(to destination: Destination)
 }
 
-class ProjectNavigator: Navigator {
+class ProjectNavigator: Navigator, ColorThemeObserver {
+
     
     enum Destination {
         case movie(id: Int, type: MediaType)
@@ -19,13 +20,12 @@ class ProjectNavigator: Navigator {
     
     private weak var navigation: UINavigationController!
     
-    required init(navigationController: UINavigationController, isDarkMode: Bool) {
+    required init(navigationController: UINavigationController) {
         self.navigation = navigationController
-        if isDarkMode {
-            self.navigation.navigationBar.barStyle = .blackTranslucent
-        } else {
-            self.navigation.navigationBar.isTranslucent = true
-        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeEnabled), name: .darkThemeEnabled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeDisabled), name: .darkThemeDisabled, object: nil)
+        
     }
     
     func navigate(to destination: Destination) {
@@ -79,6 +79,14 @@ class ProjectNavigator: Navigator {
             let listController = ListTableViewController(requestType: listRequest, title: listRequest.rawValue.title, navigator: self)
             return listController
         }
+    }
+    
+    func darkThemeEnabled() {
+        self.navigation.navigationBar.barStyle = .blackTranslucent
+    }
+    
+    func darkThemeDisabled() {
+        self.navigation.navigationBar.isTranslucent = true
     }
     
 }

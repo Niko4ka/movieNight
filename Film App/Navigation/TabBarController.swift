@@ -30,7 +30,7 @@ class TabBarController: UITabBarController, ColorThemeObserver {
     private func getMoviesNavigationController() -> UINavigationController {
         let moviesVC = MoviesTableViewController()
         let movies = UINavigationController(rootViewController: moviesVC)
-        let moviesNavigator = ProjectNavigator(navigationController: movies, isDarkMode: true)
+        let moviesNavigator = ProjectNavigator(navigationController: movies)
         moviesVC.navigator = moviesNavigator
         return movies
     }
@@ -38,7 +38,7 @@ class TabBarController: UITabBarController, ColorThemeObserver {
     private func getSearchNavigationController() -> UINavigationController {
         let searchVC = SearchViewController()
         let search = UINavigationController(rootViewController: searchVC)
-        let searchNavigator = ProjectNavigator(navigationController: search, isDarkMode: false)
+        let searchNavigator = ProjectNavigator(navigationController: search)
         searchVC.navigator = searchNavigator
         return search
     }
@@ -47,7 +47,7 @@ class TabBarController: UITabBarController, ColorThemeObserver {
         
         let wishlistVC = WishlistViewController()
         let wishlist = UINavigationController(rootViewController: wishlistVC)
-        let wishlistNavigator = ProjectNavigator(navigationController: wishlist, isDarkMode: false)
+        let wishlistNavigator = ProjectNavigator(navigationController: wishlist)
         wishlistVC.navigator = wishlistNavigator
         return wishlist
  
