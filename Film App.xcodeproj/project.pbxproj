@@ -29,6 +29,8 @@
 		4E1E1FDF221D080D00FCA8A6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FDD221D080C00FCA8A6 /* SettingsTableViewController.swift */; };
 		4E1E1FE2221D08B800FCA8A6 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E1E1FE1221D08B800FCA8A6 /* Settings.storyboard */; };
 		4E1E1FE4221D113600FCA8A6 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FE3221D113600FCA8A6 /* NotificationName+Extension.swift */; };
+		4E1E1FE6221D353900FCA8A6 /* ColorThemeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FE5221D353900FCA8A6 /* ColorThemeObserver.swift */; };
+		4E1E1FE8221D433D00FCA8A6 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E1FE7221D433D00FCA8A6 /* UIViewController+Extension.swift */; };
 		4E27016121EBA9B70021EF5B /* Client+MoviesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */; };
 		4E27016321EBEEEF0021EF5B /* SliderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */; };
 		4E27016521ED0D510021EF5B /* MovieCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27016421ED0D510021EF5B /* MovieCollectionViewController.swift */; };
@@ -150,6 +152,8 @@
 		4E1E1FDD221D080C00FCA8A6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4E1E1FE1221D08B800FCA8A6 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		4E1E1FE3221D113600FCA8A6 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		4E1E1FE5221D353900FCA8A6 /* ColorThemeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeObserver.swift; sourceTree = "<group>"; };
+		4E1E1FE7221D433D00FCA8A6 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		4E27016021EBA9B70021EF5B /* Client+MoviesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+MoviesCategories.swift"; sourceTree = "<group>"; };
 		4E27016221EBEEEF0021EF5B /* SliderHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderHeaderView.swift; sourceTree = "<group>"; };
 		4E27016421ED0D510021EF5B /* MovieCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewController.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1E1FDD221D080C00FCA8A6 /* SettingsTableViewController.swift */,
+				4E1E1FE5221D353900FCA8A6 /* ColorThemeObserver.swift */,
 				4E1E1FE1221D08B800FCA8A6 /* Settings.storyboard */,
 			);
 			path = Settings;
@@ -539,6 +544,7 @@
 				4E4C2A2C21C989C4000399CE /* String+Extension.swift */,
 				4ED9ED6021E40BCF00ADF05F /* UIView+Extension.swift */,
 				4E1E1FE3221D113600FCA8A6 /* NotificationName+Extension.swift */,
+				4E1E1FE7221D433D00FCA8A6 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -667,6 +673,7 @@
 				4E32CDB321C73D2D000A15D8 /* InformationTableViewCell.swift in Sources */,
 				4E684801220788730000ABDE /* Client+CinemaSearch.swift in Sources */,
 				4EB5C54C21F78DFC00863ACC /* ExpandableHeaderView.swift in Sources */,
+				4E1E1FE6221D353900FCA8A6 /* ColorThemeObserver.swift in Sources */,
 				4E1E1FD3221BB6D800FCA8A6 /* WishlistCollectionViewController.swift in Sources */,
 				4E8674A522136B4000508365 /* Alert.swift in Sources */,
 				4EB5C54921F516A900863ACC /* ListTableViewCell.swift in Sources */,
@@ -713,6 +720,7 @@
 				4EABAE7D21D01D1A00189FA6 /* MovieReview.swift in Sources */,
 				4E16AB6F21D555EB00CB0EFD /* PersonSectionHeaderCell.swift in Sources */,
 				4E8674A22209D33A00508365 /* BottomSheetViewController.swift in Sources */,
+				4E1E1FE8221D433D00FCA8A6 /* UIViewController+Extension.swift in Sources */,
 				4ED9EE4121E9446500ADF05F /* Client+PersonInfo.swift in Sources */,
 				4E1E1FE4221D113600FCA8A6 /* NotificationName+Extension.swift in Sources */,
 				4E32CDC121C846E1000A15D8 /* RatingControl.swift in Sources */,

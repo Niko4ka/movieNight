@@ -72,17 +72,3 @@ class TabBarController: UITabBarController, ColorThemeObserver {
     }
 
 }
-
-//extension TabBarController: UITabBarControllerDelegate {
-//
-//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//
-//        if viewController == tabBarController.viewControllers?.first {
-//            self.tabBar.barStyle = .black
-//        } else {
-//            self.tabBar.barStyle = .default
-//        }
-//
-//    }
-//
-//}

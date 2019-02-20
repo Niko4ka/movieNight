@@ -1,6 +1,6 @@
 import UIKit
 
-class MoviesTableViewController: UITableViewController {
+class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     
     private enum MoviesTableStates {
         case categories
@@ -41,6 +41,16 @@ class MoviesTableViewController: UITableViewController {
     
     var navigator: ProjectNavigator?
     var slider: SliderHeaderView?
+    var isDarkTheme: Bool = false {
+        didSet {
+            if isDarkTheme {
+                tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
+            } else {
+                tableView.backgroundColor = .white
+            }
+            tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +58,7 @@ class MoviesTableViewController: UITableViewController {
         navigationItem.titleView = sectionSegmentedControl
         configureTableView()
         loadCategoriesData()
+        addColorThemeObservers()
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
@@ -61,13 +72,22 @@ class MoviesTableViewController: UITableViewController {
         }
     }
     
+    @objc func darkThemeEnabled() {
+        print("Dark theme in MoviesTableViewController")
+        isDarkTheme = true
+    }
+    
+    @objc func darkThemeDisabled() {
+        print("Dark theme in MoviesTableViewController")
+        isDarkTheme = false
+    }
+    
     private func configureTableView() {
         slider = SliderHeaderView(navigator: navigator)
         tableView.tableHeaderView = slider
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 1))
         tableView.sectionFooterHeight = 0
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
-        tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         tableView.bounces = false
         tableView.allowsSelection = false
     }
@@ -147,9 +167,10 @@ class MoviesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
-        cell.navigator = navigator
-        cell.setDarkColorMode()
         
+        cell.colorDelegate = self
+        cell.navigator = navigator
+
         switch currentState {
         case .categories:
             

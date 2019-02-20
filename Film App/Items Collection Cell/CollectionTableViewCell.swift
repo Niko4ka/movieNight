@@ -26,6 +26,17 @@ class CollectionTableViewCell: UITableViewCell {
             itemsCollectionView.reloadData()
         }
     }
+    
+    weak var colorDelegate: ColorThemeCellObserver? {
+        didSet {
+            if colorDelegate!.isDarkTheme {
+                setDarkColorMode()
+            } else {
+                setLightColorMode()
+            }
+        }
+    }
+    
     var navigator: ProjectNavigator?
     var requestType: ListRequest?
     
@@ -51,6 +62,15 @@ class CollectionTableViewCell: UITableViewCell {
         headerView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
         headerTitle.textColor = UIColor.white
         itemsCollectionView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
+    }
+    
+    func setLightColorMode() {
+        
+        currentColorMode = .light
+        self.backgroundColor = .white
+        headerView.backgroundColor = .white
+        headerTitle.textColor = .black
+        itemsCollectionView.backgroundColor = .white
     }
     
     func removeHeaderView() {
