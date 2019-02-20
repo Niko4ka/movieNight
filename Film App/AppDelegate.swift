@@ -58,6 +58,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
         }
+        
+        let currentThemeIsDark = UserDefaults.standard.bool(forKey: "isDarkTheme")
+        if currentThemeIsDark {
+            NotificationCenter.default.post(name: .darkThemeEnabled, object: nil)
+        } else {
+            NotificationCenter.default.post(name: .darkThemeDisabled, object: nil)
+        }
+        
 
         return true
     }
