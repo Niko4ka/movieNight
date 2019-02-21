@@ -59,6 +59,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         configureTableView()
         loadCategoriesData()
         addColorThemeObservers()
+        checkCurrentColorTheme()
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
@@ -78,7 +79,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     }
     
     @objc func darkThemeDisabled() {
-        print("Dark theme in MoviesTableViewController")
+        print("Light theme in MoviesTableViewController")
         isDarkTheme = false
     }
     

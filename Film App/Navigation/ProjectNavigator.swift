@@ -86,6 +86,7 @@ class ProjectNavigator: Navigator, ColorThemeObserver {
     }
     
     func darkThemeDisabled() {
+        self.navigation.navigationBar.barStyle = .default
         self.navigation.navigationBar.isTranslucent = true
     }
     

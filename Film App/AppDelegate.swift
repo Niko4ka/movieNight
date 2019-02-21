@@ -62,8 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let currentThemeIsDark = UserDefaults.standard.bool(forKey: "isDarkTheme")
         if currentThemeIsDark {
             NotificationCenter.default.post(name: .darkThemeEnabled, object: nil)
+            print("Post dark theme")
         } else {
             NotificationCenter.default.post(name: .darkThemeDisabled, object: nil)
+            print("Post light theme")
         }
         
 
