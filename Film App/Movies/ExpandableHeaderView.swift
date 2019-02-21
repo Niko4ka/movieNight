@@ -22,8 +22,18 @@ class ExpandableHeaderView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel?.textColor = .white
-        contentView.backgroundColor = .darkThemeBackground
+        
+        if let colorDelegate = delegate as? ColorThemeCellObserver {
+            if colorDelegate.isDarkTheme {
+                textLabel?.textColor = .white
+                contentView.backgroundColor = .darkThemeBackground
+            } else {
+                textLabel?.textColor = .grayText
+                contentView.backgroundColor = .groupTableViewBackground
+            }
+            
+        }
+        
     }
     
     override init(reuseIdentifier: String?) {

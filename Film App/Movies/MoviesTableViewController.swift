@@ -101,13 +101,16 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         if !genres.isEmpty && genreSections.isEmpty {
             for genre in genres {
                 Client.shared.loadMoviesWithGenre(genre.id) { (result) in
+                    
+                    if result.isEmpty {
+                        Alert.shared.show(on: self)
+                    }
+                    
                     let item = GenreMovies.init(name: genre.name, movies: result)
                     self.genreSections.append(item)
                     self.tableView.reloadData()
                 }
             }
-        } else {
-            Alert.shared.show(on: self)
         }
         
     }
@@ -251,7 +254,7 @@ extension MoviesTableViewController {
     func darkThemeEnabled() {
         print("Dark theme in MoviesTableViewController")
         tableView.backgroundColor = .darkThemeBackground
-        sectionSegmentedControl.tintColor = UIColor.lightBlueTint
+        sectionSegmentedControl.tintColor = .lightBlueTint
         isDarkTheme = true
     }
     
