@@ -3,6 +3,8 @@ import ObjectiveC
 
 class SearchViewController: UIViewController {
     
+    // MARK: - Variables
+
     lazy var keywordsViewController: KeywordsViewController = {
         let src = KeywordsViewController(style: .plain)
         src.delegate = self
@@ -26,6 +28,8 @@ class SearchViewController: UIViewController {
     }()
     
     var navigator: ProjectNavigator!
+    
+    // MARK: - Methods
 
     override func loadView() {
         super.loadView()
@@ -41,6 +45,8 @@ class SearchViewController: UIViewController {
 
         createHintLabel()
         addResultsViewController()
+        addColorThemeObservers()
+        checkCurrentColorTheme()
     }
     
     /// Creates the hint label to be shown before the user starts printing a keyword
@@ -48,7 +54,7 @@ class SearchViewController: UIViewController {
         let hintLabel = UILabel()
         hintLabel.text = "Start printing keyword to search particular movies, TV shows or persons"
         hintLabel.font = UIFont.systemFont(ofSize: 15.0)
-        hintLabel.textColor = .grayText
+        hintLabel.textColor = .lightGray
         hintLabel.textAlignment = .center
         view.addSubview(hintLabel)
         hintLabel.numberOfLines = 0
@@ -115,4 +121,40 @@ extension SearchViewController: UISearchBarDelegate {
             keywordsViewController(keywordsViewController, didSelect: searchKeyword)
         }
     }
+}
+
+extension SearchViewController: ColorThemeObserver {
+    
+    func darkThemeEnabled() {
+        view.backgroundColor = .darkThemeBackground
+        keywordsViewController.tableView.backgroundColor = .darkThemeBackground
+        keywordsViewController.isDarkTheme = true
+        
+        if let textField = getTextFieldOfSearchBar() {
+            textField.backgroundColor = UIColor.groupTableViewBackground
+        }
+    }
+    
+    func darkThemeDisabled() {
+        view.backgroundColor = .white
+        keywordsViewController.tableView.backgroundColor = .white
+        keywordsViewController.isDarkTheme = false
+        
+        if let textField = getTextFieldOfSearchBar() {
+            textField.backgroundColor = nil
+        }
+    }
+    
+    private func getTextFieldOfSearchBar() -> UITextField? {
+        
+        for subview in searchController.searchBar.subviews {
+            for searchView in subview.subviews {
+                if searchView.isKind(of: UITextField.self) {
+                    return searchView as? UITextField
+                }
+            }
+        }
+        return nil
+    }
+    
 }

@@ -1,8 +1,15 @@
 import UIKit
 
-class ResultsTableViewController: UITableViewController {
+class ResultsTableViewController: UITableViewController, ColorThemeCellObserver {
     
-    public var data = [(title: String, objects: [DatabaseObject])]() {
+    var isDarkTheme: Bool = false {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    typealias resultObject = (title: String, objects: [DatabaseObject])
+    public var data = [resultObject]() {
         didSet {
             tableView.reloadData()
         }
@@ -23,12 +30,16 @@ class ResultsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tableView.bounces = false
         self.tableView.tableFooterView = UIView()
         self.tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
         }
+        
+        addColorThemeObservers()
+        checkCurrentColorTheme()
     }
     
     private func getRequestType(of objectsTitle: String) -> SearchListRequest? {
@@ -39,6 +50,18 @@ class ResultsTableViewController: UITableViewController {
         default: return nil
         }
     }
+    
+    private func configureCell(_ cell: CollectionTableViewCell, with object: resultObject) {
+
+        cell.navigator = navigator
+        cell.colorDelegate = self
+        cell.headerTitle.text = object.title
+        cell.data = object.objects
+        
+        if let requestType = getRequestType(of: object.title) {
+            cell.requestType = requestType
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -47,19 +70,10 @@ class ResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let title = data[indexPath.row].title
-        let items = data[indexPath.row].objects
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionTableViewCell
-        cell.navigator = navigator
-        cell.headerTitle.text = title
-        cell.data = items
-        
-        if let requestType = getRequestType(of: data[indexPath.row].title) {
-            cell.requestType = requestType
-        }
-        
+        configureCell(cell, with: data[indexPath.row])
+
         return cell
     }
     
@@ -100,6 +114,20 @@ extension ResultsTableViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         show(viewControllerToCommit, sender: self)
+    }
+    
+}
+
+extension ResultsTableViewController {
+    
+    func darkThemeEnabled() {
+        tableView.backgroundColor = .darkThemeBackground
+        isDarkTheme = true
+    }
+    
+    func darkThemeDisabled() {
+        tableView.backgroundColor = .white
+        isDarkTheme = false
     }
     
 }

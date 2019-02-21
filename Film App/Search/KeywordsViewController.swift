@@ -6,6 +6,12 @@ protocol KeywordsViewControllerDelegate: AnyObject {
 
 class KeywordsViewController: UITableViewController {
     
+    var isDarkTheme: Bool = false {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     var results = [SearchKeyword]() {
         didSet {
             tableView.reloadData()
@@ -16,17 +22,30 @@ class KeywordsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.bounces = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.tableFooterView = UIView()
+        
     }
     
     func keyword(at indexPath: IndexPath) -> SearchKeyword {
         return results[indexPath.row]
     }
     
+    private func setColorThemeFor(cell: UITableViewCell) {
+        if isDarkTheme {
+            cell.backgroundColor = .darkThemeBackground
+            cell.textLabel?.textColor = .white
+        } else {
+            cell.backgroundColor = .white
+            cell.textLabel?.textColor = .darkText
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = keyword(at: indexPath)
+        setColorThemeFor(cell: cell)
         return cell
     }
     
