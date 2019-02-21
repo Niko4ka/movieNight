@@ -8,4 +8,13 @@ extension Notification.Name {
     static var darkThemeDisabled: Notification.Name {
         return .init("darkThemeDisabled")
     }
+    
+    static var listWishlistViewSelected: Notification.Name {
+        return .init("listWishlistView")
+    }
+    
+    static var collectionWishlistViewSelected: Notification.Name {
+        return .init("collectionWishlistView")
+    }
+    
 }

@@ -4,8 +4,10 @@ import Kingfisher
 class SettingsTableViewController: UITableViewController, ColorThemeObserver {
     
     @IBOutlet weak var darkThemeSwitcher: UISwitch!
-    @IBOutlet weak var wishlistViewSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var listViewCell: UITableViewCell!
+    @IBOutlet weak var collectionViewCell: UITableViewCell!
     
+
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
     
@@ -13,6 +15,7 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
         super.viewDidLoad()
         addColorThemeObservers()
         checkCurrentColorTheme()
+        checkCurrentWishlistView()
     }
 
     @IBAction func darkThemeSwitcherValueChanged(_ sender: UISwitch) {
@@ -25,11 +28,12 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
         }
     }
     
-    @IBAction func wishlistViewSegmentedControlValueChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            userDefaults.set("list", forKey: "wishlistView")
+    private func checkCurrentWishlistView() {
+        let currentView = UserDefaults.standard.string(forKey: "wishlistView")
+        if currentView == "list" {
+            listViewCell.accessoryType = .checkmark
         } else {
-            userDefaults.set("collection", forKey: "wishlistView")
+            collectionViewCell.accessoryType = .checkmark
         }
     }
     
@@ -47,6 +51,35 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
             darkThemeSwitcher.setOn(false, animated: false)
         }
         tableView.backgroundColor = .groupTableViewBackground
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        switch cell {
+        case listViewCell:
+            if collectionViewCell.accessoryType == .checkmark {
+                collectionViewCell.accessoryType = .none
+            }
+            cell.accessoryType = .checkmark
+            userDefaults.set("list", forKey: "wishlistView")
+            notificationCenter.post(name: .listWishlistViewSelected, object: nil)
+            
+        case collectionViewCell:
+            if listViewCell.accessoryType == .checkmark {
+                listViewCell.accessoryType = .none
+            }
+            cell.accessoryType = .checkmark
+            userDefaults.set("collection", forKey: "wishlistView")
+            notificationCenter.post(name: .collectionWishlistViewSelected, object: nil)
+            
+        default:
+            break
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44.0
     }
 
 }
