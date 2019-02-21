@@ -10,7 +10,7 @@ class WishlistCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     
-    weak var delegate: WishlistCollectionViewController!
+    weak var delegate: WishlistCollectionViewController?
     var poster: UIImage?
     
     override func awakeFromNib() {
@@ -27,7 +27,12 @@ class WishlistCollectionViewCell: UICollectionViewCell {
         
         let delta = 1 - (CatalogLayoutConstants.focusedCellHeight - frame.height) / (CatalogLayoutConstants.focusedCellHeight - CatalogLayoutConstants.standardCellHeight)
         
-        let minAlpha: CGFloat = 0.25
+        var minAlpha: CGFloat = 0.25
+        if let delegate = delegate {
+            if !delegate.isDarkTheme {
+                minAlpha = 0.45
+            }
+        }
         let maxAlpha: CGFloat = 0.75
         coverView.alpha = maxAlpha - (delta * (maxAlpha - minAlpha))
         
@@ -49,9 +54,13 @@ class WishlistCollectionViewCell: UICollectionViewCell {
         if let posterImage = movie.poster as? UIImage {
             poster = posterImage
         }
+        
+        setColorTheme()
     }
     
     @objc func longPressAction() {
+        
+        guard let delegate = self.delegate, let indexPath = delegate.collectionView.indexPath(for: self) else { return }
         
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -60,13 +69,13 @@ class WishlistCollectionViewCell: UICollectionViewCell {
         }
         
         let delete = UIAlertAction(title: "Remove from wishlist", style: .destructive) { _ in
-            guard let indexPath = self.delegate.collectionView.indexPath(for: self) else { return }
-            let item = self.delegate.fetchedResultController.object(at: indexPath)
+            
+            let item = delegate.fetchedResultController.object(at: indexPath)
             CoreDataManager.shared.delete(object: item)
         }
         
         let share = UIAlertAction(title: "Share", style: .default) { _ in
-            self.delegate.showActivity(for: self)
+            delegate.showActivity(for: self)
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -76,6 +85,22 @@ class WishlistCollectionViewCell: UICollectionViewCell {
         sheet.addAction(cancel)
         
         delegate.present(sheet, animated: true, completion: nil)
+    }
+    
+    private func setColorTheme() {
+        guard let delegate = self.delegate else { return }
+        
+        if delegate.isDarkTheme {
+            coverView.backgroundColor = .black
+            titleLabel.textColor = .white
+            genreLabel.textColor = .white
+            releaseDateLabel.textColor = .white
+        } else {
+            coverView.backgroundColor = .white
+            titleLabel.textColor = .black
+            genreLabel.textColor = .darkText
+            releaseDateLabel.textColor = .darkText
+        }
     }
 
 }

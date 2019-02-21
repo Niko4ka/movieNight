@@ -5,7 +5,7 @@ struct WishlistPredicates {
     static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
 }
 
-class WishlistViewController: UIViewController {
+class WishlistViewController: UIViewController, ColorThemeObserver {
     
     var navigator: ProjectNavigator?
 
@@ -14,6 +14,8 @@ class WishlistViewController: UIViewController {
 
         checkCurrentViewMode()
         addWishlistViewObservers()
+        addColorThemeObservers()
+        checkCurrentColorTheme()
     }
     
     private func addWishlistViewObservers() {
@@ -67,4 +69,26 @@ class WishlistViewController: UIViewController {
         wishlistCollection.didMove(toParent: self)
     }
 
+}
+
+extension WishlistViewController {
+    
+    func darkThemeEnabled() {
+        if var child = self.children.last as? WishlistColorThemeObserver {
+            child.isDarkTheme = true
+        }
+        if let leftBarButtonItem = navigationItem.leftBarButtonItem {
+            leftBarButtonItem.tintColor = .lightBlueTint
+        }
+    }
+    
+    func darkThemeDisabled() {
+        if var child = self.children.last as? WishlistColorThemeObserver {
+            child.isDarkTheme = false
+        }
+        if let leftBarButtonItem = navigationItem.leftBarButtonItem {
+            leftBarButtonItem.tintColor = .defaultBlueTint
+        }
+    }
+    
 }

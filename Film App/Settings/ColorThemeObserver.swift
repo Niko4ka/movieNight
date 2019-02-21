@@ -10,3 +10,7 @@ import Foundation
 protocol ColorThemeCellObserver: ColorThemeObserver {
     var isDarkTheme: Bool { get set }
 }
+
+protocol WishlistColorThemeObserver {
+    var isDarkTheme: Bool { get set }
+}

@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class WishlistCollectionViewController: UICollectionViewController {
+class WishlistCollectionViewController: UICollectionViewController, WishlistColorThemeObserver {
     
     var navigator: ProjectNavigator?
     var fetchedResultController: NSFetchedResultsController<Movie>!
@@ -14,6 +14,13 @@ class WishlistCollectionViewController: UICollectionViewController {
         segmentedControl.addTarget(self, action: #selector(sectionSegmentedControlValueChanged(_:)), for: .valueChanged)
         return segmentedControl
     }()
+    
+    var isDarkTheme: Bool = false {
+        didSet {
+            changeBackground()
+            collectionView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +43,16 @@ class WishlistCollectionViewController: UICollectionViewController {
         collectionView.backgroundColor = .white
         collectionView.decelerationRate = .fast
         collectionView.register(UINib(nibName: "WishlistCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: WishlistCollectionViewCell.reuseIdentifier)
+    }
+    
+    private func changeBackground() {
+        if isDarkTheme {
+            sectionSegmentedControl.tintColor = .lightBlueTint
+            collectionView.backgroundColor = .darkThemeBackground
+        } else {
+            sectionSegmentedControl.tintColor = .defaultBlueTint
+            collectionView.backgroundColor = .white
+        }
     }
     
     private func fetchData(predicate: NSPredicate? = nil) {

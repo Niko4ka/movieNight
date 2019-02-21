@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class WishlistTableViewController: UITableViewController {
+class WishlistTableViewController: UITableViewController, WishlistColorThemeObserver {
     
     // MARK: - Outlets
     
@@ -17,7 +17,12 @@ class WishlistTableViewController: UITableViewController {
         return segmentedControl
     }()
     
-    
+    var isDarkTheme: Bool = false {
+        didSet {
+            changeBackground()
+            tableView.reloadData()
+        }
+    }
     
     // MARK: - View Did Load
     
@@ -27,6 +32,8 @@ class WishlistTableViewController: UITableViewController {
         configureNavigationBar()
         configureTableView()
         fetchData(predicate: WishlistPredicates.moviePredicate)
+        
+        addColorThemeObservers()
     }
     
     private func configureNavigationBar() {
@@ -41,6 +48,16 @@ class WishlistTableViewController: UITableViewController {
         tableView.bounces = false
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "WishlistTableViewCell", bundle: nil), forCellReuseIdentifier: "WishlistCell")
+    }
+    
+    private func changeBackground() {
+        if isDarkTheme {
+            sectionSegmentedControl.tintColor = .lightBlueTint
+            tableView.backgroundColor = .darkThemeBackground
+        } else {
+            sectionSegmentedControl.tintColor = .defaultBlueTint
+            tableView.backgroundColor = .white
+        }
     }
     
     // MARK: - Fetch data
@@ -111,6 +128,7 @@ class WishlistTableViewController: UITableViewController {
         
         if let cell = cell as? WishlistTableViewCell {
             let item = fetchedResultController.object(at: indexPath)
+            cell.isDarkTheme = isDarkTheme
             cell.configure(with: item)
         }
         
