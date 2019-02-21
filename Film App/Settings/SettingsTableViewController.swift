@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, ColorThemeObserver {
     
     @IBOutlet weak var darkThemeSwitcher: UISwitch!
     @IBOutlet weak var wishlistViewSegmentedControl: UISegmentedControl!
@@ -11,7 +11,8 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        addColorThemeObservers()
+        checkCurrentColorTheme()
     }
 
     @IBAction func darkThemeSwitcherValueChanged(_ sender: UISwitch) {
@@ -32,5 +33,19 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    func darkThemeEnabled() {
+        print("Dark theme in settings")
+        if !darkThemeSwitcher.isOn {
+            darkThemeSwitcher.setOn(true, animated: false)
+        }
+        tableView.backgroundColor = 
+    }
+
+    func darkThemeDisabled() {
+        print("Light theme in settings")
+        if darkThemeSwitcher.isOn {
+            darkThemeSwitcher.setOn(false, animated: false)
+        }
+    }
 
 }
