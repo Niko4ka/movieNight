@@ -36,7 +36,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     private func setDarkColorMode() {
         
-        mainView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
+        mainView.backgroundColor = .darkThemeBackground
         movieTitle.textColor = .white
         movieGenre.textColor = .lightGray
     }

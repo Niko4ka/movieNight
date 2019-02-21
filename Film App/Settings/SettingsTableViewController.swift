@@ -38,7 +38,7 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
         if !darkThemeSwitcher.isOn {
             darkThemeSwitcher.setOn(true, animated: false)
         }
-        tableView.backgroundColor = 
+        tableView.backgroundColor = .darkThemeBackground
     }
 
     func darkThemeDisabled() {
@@ -46,6 +46,7 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
         if darkThemeSwitcher.isOn {
             darkThemeSwitcher.setOn(false, animated: false)
         }
+        tableView.backgroundColor = .groupTableViewBackground
     }
 
 }

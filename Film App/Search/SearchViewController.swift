@@ -48,7 +48,7 @@ class SearchViewController: UIViewController {
         let hintLabel = UILabel()
         hintLabel.text = "Start printing keyword to search particular movies, TV shows or persons"
         hintLabel.font = UIFont.systemFont(ofSize: 15.0)
-        hintLabel.textColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
+        hintLabel.textColor = .grayText
         hintLabel.textAlignment = .center
         view.addSubview(hintLabel)
         hintLabel.numberOfLines = 0

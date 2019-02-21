@@ -71,7 +71,7 @@ class CastTableViewCell: UITableViewCell {
             let button = UIButton(type: .system)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
             button.contentHorizontalAlignment = .leading
-            button.setTitleColor(#colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1), for: .normal)
+            button.setTitleColor(.grayText, for: .normal)
             if let actorName = text {
                 button.setTitle(actorName + " \u{232A}", for: .normal)
             }
@@ -85,7 +85,7 @@ class CastTableViewCell: UITableViewCell {
         case .producer:
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 13.0)
-            label.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
+            label.textColor = .grayText
             if let actorName = text {
                 label.text = actorName
             }

@@ -43,11 +43,6 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     var slider: SliderHeaderView?
     var isDarkTheme: Bool = false {
         didSet {
-            if isDarkTheme {
-                tableView.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.1294117719, blue: 0.1411764771, alpha: 1)
-            } else {
-                tableView.backgroundColor = .white
-            }
             tableView.reloadData()
         }
     }
@@ -71,16 +66,6 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         if let slider = slider, let timer = slider.timer, timer.isValid {
             timer.invalidate()
         }
-    }
-    
-    @objc func darkThemeEnabled() {
-        print("Dark theme in MoviesTableViewController")
-        isDarkTheme = true
-    }
-    
-    @objc func darkThemeDisabled() {
-        print("Light theme in MoviesTableViewController")
-        isDarkTheme = false
     }
     
     private func configureTableView() {
@@ -257,4 +242,23 @@ extension MoviesTableViewController: ExpandableHeaderViewDelegate {
         let request = MovieGenresListRequest(genreName: genre.name, genreId: genre.id)
         navigator?.navigate(to: .list(listRequest: request))
     }
+}
+
+// MARK: - ColorThemeObserver
+
+extension MoviesTableViewController {
+    
+    func darkThemeEnabled() {
+        print("Dark theme in MoviesTableViewController")
+        tableView.backgroundColor = .darkThemeBackground
+        sectionSegmentedControl.tintColor = UIColor.lightBlueTint
+        isDarkTheme = true
+    }
+    
+    func darkThemeDisabled() {
+        print("Light theme in MoviesTableViewController")
+        tableView.backgroundColor = .white
+        isDarkTheme = false
+    }
+    
 }

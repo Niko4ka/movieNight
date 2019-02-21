@@ -2,7 +2,7 @@ import UIKit
 
 class TabBarController: UITabBarController, ColorThemeObserver {
     
-    private let defaultTintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,13 +62,13 @@ class TabBarController: UITabBarController, ColorThemeObserver {
     func darkThemeEnabled() {
         self.tabBar.barStyle = .black
         self.tabBar.unselectedItemTintColor = .white
-        self.tabBar.tintColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+        self.tabBar.tintColor = .lightBlueTint
     }
     
     func darkThemeDisabled() {
         self.tabBar.barStyle = .default
         self.tabBar.unselectedItemTintColor = nil
-        self.tabBar.tintColor = defaultTintColor
+        self.tabBar.tintColor = .defaultBlueTint
     }
 
 }

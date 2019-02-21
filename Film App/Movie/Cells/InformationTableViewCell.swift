@@ -44,7 +44,7 @@ class InformationTableViewCell: UITableViewCell {
         
         let valueLabel = UILabel()
         valueLabel.font = UIFont.systemFont(ofSize: 13.0)
-        valueLabel.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
+        valueLabel.textColor = .grayText
         valueLabel.text = data.value
         valueLabel.numberOfLines = 1
         

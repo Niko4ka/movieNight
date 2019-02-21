@@ -34,12 +34,12 @@ extension UIView {
     class func getEmptyView(withText text: String) -> UIView {
         let backgroundView = UIView()
         backgroundView.frame.size = UIScreen.main.bounds.size
-        backgroundView.backgroundColor = UIColor.white
+        backgroundView.backgroundColor = .white
         let label = UILabel()
         backgroundView.addSubview(label)
         label.text = text
         label.font = UIFont.systemFont(ofSize: 15.0)
-        label.textColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
+        label.textColor = .grayText
         label.textAlignment = .center
         
         label.numberOfLines = 0

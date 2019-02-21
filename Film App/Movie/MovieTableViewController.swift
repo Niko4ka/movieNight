@@ -204,9 +204,9 @@ class MovieTableViewController: UITableViewController {
         } else {
             addToWishlistButton.layer.cornerRadius = 5.0
             addToWishlistButton.layer.borderWidth = 1.0
-            addToWishlistButton.layer.borderColor = #colorLiteral(red: 0.2039215686, green: 0.4745098039, blue: 0.9647058824, alpha: 1)
+            addToWishlistButton.layer.borderColor = UIColor.defaultBlueTint.cgColor
             addToWishlistButton.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
-            addToWishlistButton.setTitleColor(#colorLiteral(red: 0.2039215686, green: 0.4745098039, blue: 0.9647058824, alpha: 1), for: .normal)
+            addToWishlistButton.setTitleColor(.defaultBlueTint, for: .normal)
             addToWishlistButton.setTitle("Add to wishlist", for: .normal)
         }
     }
