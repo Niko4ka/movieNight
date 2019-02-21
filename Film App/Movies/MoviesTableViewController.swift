@@ -261,6 +261,7 @@ extension MoviesTableViewController {
     func darkThemeDisabled() {
         print("Light theme in MoviesTableViewController")
         tableView.backgroundColor = .white
+        sectionSegmentedControl.tintColor = .defaultBlueTint
         isDarkTheme = false
     }
     
