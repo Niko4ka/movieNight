@@ -1,6 +1,12 @@
 import UIKit
 
-class ListTableViewController: UITableViewController {
+class ListTableViewController: UITableViewController, ColorThemeCellObserver {
+    
+    var isDarkTheme: Bool = false {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     var requestType: ListRequest!
     var navigator: ProjectNavigator!
@@ -50,6 +56,8 @@ class ListTableViewController: UITableViewController {
         super.viewDidLoad()
         
         configureTableView()
+        addColorThemeObservers()
+        checkCurrentColorTheme()
         loadData(request: requestType) {
             self.tableView.reloadData()
         }
@@ -82,6 +90,7 @@ class ListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! ListTableViewCell
         if indexPath.row < data.count {
+            cell.colorDelegate = self
             cell.configure(with: data[indexPath.row])
         }
         return cell
@@ -108,8 +117,19 @@ extension ListTableViewController: UITableViewDataSourcePrefetching {
                 })
             }
         }
-       
+    }
+}
+
+extension ListTableViewController {
+    
+    func darkThemeEnabled() {
+        tableView.backgroundColor = .darkThemeBackground
+        isDarkTheme = true
     }
     
+    func darkThemeDisabled() {
+        tableView.backgroundColor = .white
+        isDarkTheme = false
+    }
     
 }
