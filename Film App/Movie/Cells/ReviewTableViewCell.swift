@@ -2,6 +2,11 @@ import UIKit
 
 class ReviewTableViewCell: UITableViewCell {
     
+    weak var colorDelegate: ColorThemeCellObserver! {
+        didSet {
+            setColorTheme()
+        }
+    }
     
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var reviewTextView: UITextView!
@@ -19,5 +24,18 @@ class ReviewTableViewCell: UITableViewCell {
         reviewTextView.text = review.content
     }
    
+    private func setColorTheme() {
+        if colorDelegate.isDarkTheme {
+            backgroundColor = .darkThemeBackground
+            userNameLabel.textColor = .white
+            reviewTextView.textColor = .lightText
+            reviewTextView.backgroundColor = .darkThemeBackground
+        } else {
+            backgroundColor = .white
+            userNameLabel.textColor = .darkText
+            reviewTextView.textColor = .darkGray
+            reviewTextView.backgroundColor = .white
+        }
+    }
 
 }

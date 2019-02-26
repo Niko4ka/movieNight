@@ -30,7 +30,7 @@
                         <constraints>
                             <constraint firstAttribute="height" priority="750" constant="73" id="2br-Le-sI5"/>
                         </constraints>
-                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
@@ -59,6 +59,7 @@
                 <outlet property="descriptionHeight" destination="2br-Le-sI5" id="qoP-zl-Y4g"/>
                 <outlet property="descriptionTextView" destination="CXb-7e-gzP" id="OJ0-rt-HKS"/>
                 <outlet property="showMoreButton" destination="E0w-4F-TBt" id="ycu-xX-AGI"/>
+                <outlet property="titleLabel" destination="g39-RR-elX" id="oZd-ak-lpe"/>
             </connections>
             <point key="canvasLocation" x="-660" y="210.04497751124438"/>
         </tableViewCell>

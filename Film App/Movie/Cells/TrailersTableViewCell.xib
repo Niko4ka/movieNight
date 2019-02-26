@@ -49,6 +49,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="titleLabel" destination="Z6C-bM-XqR" id="kIR-lr-Nre"/>
                 <outlet property="trailersCollectionView" destination="zRY-No-wyJ" id="hZd-CC-7ZJ"/>
             </connections>
             <point key="canvasLocation" x="-714.39999999999998" y="279.76011994002999"/>

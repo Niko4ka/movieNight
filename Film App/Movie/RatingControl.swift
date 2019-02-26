@@ -27,7 +27,8 @@ class RatingControl: UIStackView {
         let label = UILabel()
         label.text = " (\(numberOfVotes))"
         label.font = UIFont.systemFont(ofSize: 11.0)
-        label.textColor = #colorLiteral(red: 0.4352941176, green: 0.4431372549, blue: 0.4745098039, alpha: 1)
+        label.textColor = .grayText
+        label.restorationIdentifier = "starsLabel"
         label.sizeToFit()
         addArrangedSubview(label)
         

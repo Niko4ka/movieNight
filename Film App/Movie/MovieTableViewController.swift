@@ -24,8 +24,8 @@ protocol VideoPlayerDelegate: class {
     func playVideo(withId id: String)
 }
 
-class MovieTableViewController: UITableViewController {
-    
+class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
+
     // MARK: - Outlets
     
     @IBOutlet var headerView: UIView!
@@ -51,14 +51,22 @@ class MovieTableViewController: UITableViewController {
     public var movieReviews: [MovieReview] = []
     public var similarMovies: [DatabaseObject] = []
     private var currentState: TableStates = .details
+    private var gradientLayerIsSet = false
 
     enum TableStates {
         case details
         case reviews
         case similar
     }
-    
+
     var navigator: ProjectNavigator?
+    
+    var isDarkTheme: Bool = false {
+        didSet {
+            setHeaderColorTheme()
+            tableView.reloadData()
+        }
+    }
     
     var isLoading: Bool = false {
         didSet {
@@ -87,6 +95,8 @@ class MovieTableViewController: UITableViewController {
         super.viewDidLoad()
         
         configureTableView()
+        addColorThemeObservers()
+        checkCurrentColorTheme()
         
         guard let id = movieId, let type = mediaType else { return }
         switch type {
@@ -110,12 +120,13 @@ class MovieTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "CastTableViewCell", bundle: nil), forCellReuseIdentifier: "Cast")
         tableView.register(UINib(nibName: "InformationTableViewCell", bundle: nil), forCellReuseIdentifier: "Information")
         tableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "Review")
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if backdropGradientView != nil && !backdropGradientView.isHidden {
-            self.setGradientView()
+        if backdropGradientView != nil && !backdropGradientView.isHidden && !gradientLayerIsSet {
+            setGradientView()
         }
         self.setAddToWishlistButton()
     }
@@ -183,13 +194,16 @@ class MovieTableViewController: UITableViewController {
     
     /// Adds gradient to backdropGradientView
     private func setGradientView() {
-        let gradientLayer = CAGradientLayer()
+
+        let mainColor: UIColor = .white
         let transparent = UIColor.init(white: 1, alpha: 0)
-        let white = UIColor.white
+        let gradientLayer = CAGradientLayer()
+        
         gradientLayer.frame = self.backdropGradientView.bounds
-        gradientLayer.colors =
-            [transparent.cgColor, white.cgColor]
+        gradientLayer.colors = [transparent.cgColor, mainColor.cgColor]
         self.backdropGradientView.layer.mask = gradientLayer
+        
+        if !gradientLayerIsSet { gradientLayerIsSet = true }
     }
     
     /// Sets style for selected/deselected addToWishlistButton
@@ -209,6 +223,40 @@ class MovieTableViewController: UITableViewController {
             addToWishlistButton.setTitleColor(.defaultBlueTint, for: .normal)
             addToWishlistButton.setTitle("Add to wishlist", for: .normal)
         }
+    }
+    
+    private func setHeaderColorTheme() {
+     
+        let starsLabel = getRatingStackViewLabel()
+        
+        if isDarkTheme {
+            headerView.backgroundColor = .darkThemeBackground
+            backdropGradientView.backgroundColor = .darkThemeBackground
+            titleLabel.textColor = .white
+            genresLabel.textColor = .lightText
+            releasedLabel.textColor = .lightText
+            starsLabel?.textColor = .lightText
+            movieSegmentedControl.tintColor = .lightGray
+        } else {
+            headerView.backgroundColor = .white
+            backdropGradientView.backgroundColor = .white
+            titleLabel.textColor = .darkText
+            genresLabel.textColor = .darkGray
+            releasedLabel.textColor = .darkGray
+            starsLabel?.textColor = .darkGray
+            movieSegmentedControl.tintColor = .darkGray
+        }
+    }
+    
+    private func getRatingStackViewLabel() -> UILabel? {
+        
+        for view in ratingStackView.subviews {
+            if view.restorationIdentifier == "starsLabel" {
+                return view as? UILabel
+            }
+        }
+        
+        return nil
     }
 
     // MARK: - Table view data source
@@ -295,6 +343,20 @@ extension MovieTableViewController: VideoPlayerDelegate {
         videoController.modalTransitionStyle = .crossDissolve
         videoController.modalPresentationStyle = .fullScreen
         present(videoController, animated: true, completion: nil)
+    }
+    
+}
+
+extension MovieTableViewController {
+    
+    func darkThemeEnabled() {
+        tableView.backgroundColor = .darkThemeBackground
+        isDarkTheme = true
+    }
+    
+    func darkThemeDisabled() {
+        tableView.backgroundColor = .white
+        isDarkTheme = false
     }
     
 }

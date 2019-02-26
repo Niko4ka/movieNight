@@ -2,8 +2,15 @@ import UIKit
 
 class InformationTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var keysStackView: UIStackView!
     @IBOutlet weak var valuesStackView: UIStackView!
+    
+    weak var colorDelegate: ColorThemeCellObserver! {
+        didSet {
+            setColorTheme()
+        }
+    }
 
     public func configure(with movie: MovieDetails) {
         
@@ -39,7 +46,7 @@ class InformationTableViewCell: UITableViewCell {
         
         let keyLabel = UILabel()
         keyLabel.font = UIFont.systemFont(ofSize: 13.0)
-        keyLabel.textColor = UIColor.black
+        keyLabel.textColor = UIColor.darkText
         keyLabel.text = data.key
         
         let valueLabel = UILabel()
@@ -51,6 +58,36 @@ class InformationTableViewCell: UITableViewCell {
         keysStackView.addArrangedSubview(keyLabel)
         valuesStackView.addArrangedSubview(valueLabel)
         
+    }
+    
+    private func setColorTheme() {
+        
+        var keys = [UILabel]()
+        var values = [UILabel]()
+        
+        for subview in keysStackView.subviews {
+            if let label = subview as? UILabel {
+                keys.append(label)
+            }
+        }
+        
+        for subview in valuesStackView.subviews {
+            if let label = subview as? UILabel {
+                values.append(label)
+            }
+        }
+        
+        if colorDelegate.isDarkTheme {
+            titleLabel.textColor = .white
+            keys.forEach { $0.textColor = .white }
+            values.forEach { $0.textColor = .lightText }
+            backgroundColor = .darkThemeBackground
+        } else {
+            titleLabel.textColor = .darkText
+            keys.forEach { $0.textColor = .darkText }
+            values.forEach { $0.textColor = .grayText }
+            backgroundColor = .white
+        }
     }
     
 }

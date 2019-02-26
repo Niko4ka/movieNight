@@ -2,12 +2,17 @@ import UIKit
 
 class OverviewTableViewCell: UITableViewCell {
     
-    
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionHeight: NSLayoutConstraint!
     @IBOutlet weak var descriptionBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var showMoreButton: UIButton!
     
+    weak var colorDelegate: ColorThemeCellObserver! {
+        didSet {
+            setColorTheme()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -64,6 +69,25 @@ class OverviewTableViewCell: UITableViewCell {
         
         size.height = textFrame.size.height
         return size.height
+    }
+    
+    private func setColorTheme() {
+        
+        if colorDelegate.isDarkTheme {
+            descriptionTextView.textColor = .lightText
+            descriptionTextView.backgroundColor = .darkThemeBackground
+            titleLabel.textColor = .white
+            showMoreButton.setTitleColor(.lightBlueTint, for: .normal)
+            backgroundColor = .darkThemeBackground
+        } else {
+            descriptionTextView.textColor = .darkGray
+            descriptionTextView.backgroundColor = .white
+            showMoreButton.setTitleColor(.defaultBlueTint, for: .normal)
+            titleLabel.textColor = .darkText
+            backgroundColor = .white
+        }
+        
+        
     }
     
 }

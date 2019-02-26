@@ -2,6 +2,7 @@ import UIKit
 
 class CastTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var castStackView: UIStackView!
     @IBOutlet weak var crewStackView: UIStackView!
     @IBOutlet weak var actorsTitleLabel: UILabel!
@@ -13,6 +14,12 @@ class CastTableViewCell: UITableViewCell {
     @IBOutlet weak var castStackViewBottom: NSLayoutConstraint!
     
     var navigator: ProjectNavigator?
+    
+    weak var colorDelegate: ColorThemeCellObserver! {
+        didSet {
+            setColorTheme()
+        }
+    }
     
     enum JobTypes {
         case actor
@@ -97,6 +104,37 @@ class CastTableViewCell: UITableViewCell {
     @objc private func showPersonProfile(sender: UIButton) {
         let id = sender.tag
         navigator?.navigate(to: .person(id: id))
+    }
+    
+    private func setColorTheme() {
+        
+        let titleLabels = [titleLabel, actorsTitleLabel, directorTitleLabel, writerTitleLabel, producersTitleLabel]
+        var textLabels = [UILabel]()
+        var actorButtons = [UIButton]()
+        
+        for subview in castStackView.subviews {
+            if let button = subview as? UIButton {
+                actorButtons.append(button)
+            }
+        }
+        
+        for subview in crewStackView.subviews {
+            if let label = subview as? UILabel, label.restorationIdentifier != "Director", label.restorationIdentifier != "Writer", label.restorationIdentifier != "Producers" {
+                textLabels.append(label)
+            }
+        }
+
+        if colorDelegate.isDarkTheme {
+            titleLabels.forEach { $0?.textColor = .white }
+            actorButtons.forEach { $0.setTitleColor(.lightText, for: .normal) }
+            textLabels.forEach { $0.textColor = .lightText }
+            backgroundColor = .darkThemeBackground
+        } else {
+            titleLabels.forEach { $0?.textColor = .darkText }
+            actorButtons.forEach { $0.setTitleColor(.grayText, for: .normal) }
+            textLabels.forEach { $0.textColor = .grayText }
+            backgroundColor = .white
+        }
     }
 
 }

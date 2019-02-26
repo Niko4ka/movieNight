@@ -49,6 +49,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="keysStackView" destination="Yi0-1s-GW0" id="Xpi-YQ-3RD"/>
+                <outlet property="titleLabel" destination="p8g-O3-UHh" id="66z-Ih-pNa"/>
                 <outlet property="valuesStackView" destination="Gh5-oP-UZg" id="B09-Db-fnT"/>
             </connections>
             <point key="canvasLocation" x="125.59999999999999" y="81.409295352323838"/>

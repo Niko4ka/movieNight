@@ -53,6 +53,7 @@ class MoviePresenter: MovieTableViewPresenter {
         case .trailers:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! TrailersTableViewCell
             cell.videoPlayer = controller
+            cell.colorDelegate = controller
                         
             if !controller.movieTrailers.isEmpty {
                 cell.trailers = controller.movieTrailers
@@ -62,6 +63,7 @@ class MoviePresenter: MovieTableViewPresenter {
             
         case .overview:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! OverviewTableViewCell
+            cell.colorDelegate = controller
             if controller.movieDetails != nil {
                 cell.configure(with: controller.movieDetails!)
             }
@@ -74,6 +76,7 @@ class MoviePresenter: MovieTableViewPresenter {
                 cell.configure(with: controller.movieCast!)
                 castCellConfigured = true
             }
+            cell.colorDelegate = controller
             return cell
             
         case .information:
@@ -81,6 +84,7 @@ class MoviePresenter: MovieTableViewPresenter {
             if controller.movieDetails != nil {
                 cell.configure(with: controller.movieDetails!)
             }
+            cell.colorDelegate = controller
             return cell
             
         case .review:
@@ -88,10 +92,12 @@ class MoviePresenter: MovieTableViewPresenter {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
                 cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(controller.mediaType.rawValue)")\" hasn't any reviews yet"
                 controller.tableView.separatorStyle = .none
+                cell.colorDelegate = controller
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! ReviewTableViewCell
                 cell.configure(with: controller.movieReviews[indexPath.row])
+                cell.colorDelegate = controller
                 return cell
             }
             
@@ -100,6 +106,7 @@ class MoviePresenter: MovieTableViewPresenter {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
                 cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(controller.mediaType.rawValue)")\" has no similar movies"
                 controller.tableView.separatorStyle = .none
+                cell.colorDelegate = controller
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell") as! CollectionTableViewCell
@@ -113,6 +120,7 @@ class MoviePresenter: MovieTableViewPresenter {
                         cell.requestType = SimilarListRequest.tv(name: details.title, id: controller.movieId)
                     }
                 }
+                cell.colorDelegate = controller
                 return cell
             }
         }
