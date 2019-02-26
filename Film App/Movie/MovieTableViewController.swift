@@ -218,15 +218,22 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         } else {
             addToWishlistButton.layer.cornerRadius = 5.0
             addToWishlistButton.layer.borderWidth = 1.0
-            addToWishlistButton.layer.borderColor = UIColor.defaultBlueTint.cgColor
             addToWishlistButton.titleLabel?.font = UIFont.systemFont(ofSize: 15.0)
-            addToWishlistButton.setTitleColor(.defaultBlueTint, for: .normal)
             addToWishlistButton.setTitle("Add to wishlist", for: .normal)
+            
+            if isDarkTheme {
+                addToWishlistButton.layer.borderColor = UIColor.lightBlueTint.cgColor
+                addToWishlistButton.setTitleColor(.lightBlueTint, for: .normal)
+            } else {
+                addToWishlistButton.layer.borderColor = UIColor.defaultBlueTint.cgColor
+                addToWishlistButton.setTitleColor(.defaultBlueTint, for: .normal)
+            }
         }
     }
     
     private func setHeaderColorTheme() {
      
+        setAddToWishlistButton()
         let starsLabel = getRatingStackViewLabel()
         
         if isDarkTheme {
