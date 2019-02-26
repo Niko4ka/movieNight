@@ -5,9 +5,10 @@ struct WishlistPredicates {
     static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
 }
 
-class WishlistViewController: UIViewController, ColorThemeObserver {
+class WishlistViewController: UIViewController, ColorThemeCellObserver {
     
     var navigator: ProjectNavigator?
+    var isDarkTheme: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +20,8 @@ class WishlistViewController: UIViewController, ColorThemeObserver {
     }
     
     private func addWishlistViewObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(showAsTable), name: .listWishlistViewSelected, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showAsCollection), name: .collectionWishlistViewSelected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(wishlistViewDidChange(_:)), name: .listWishlistViewSelected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(wishlistViewDidChange(_:)), name: .collectionWishlistViewSelected, object: nil)
     }
     
     private func checkCurrentViewMode() {
@@ -31,8 +32,16 @@ class WishlistViewController: UIViewController, ColorThemeObserver {
             showAsCollection()
         }
     }
+    
+    @objc func wishlistViewDidChange(_ notification: Notification) {
+        if notification.name.rawValue == "listWishlistView" {
+            showAsTable()
+        } else {
+            showAsCollection()
+        }
+    }
 
-    @objc func showAsTable() {
+    func showAsTable() {
         
         if let currentScreen = self.children.last as? WishlistCollectionViewController {
             currentScreen.view.removeFromSuperview()
@@ -44,9 +53,10 @@ class WishlistViewController: UIViewController, ColorThemeObserver {
         addChild(wishlistTable)
         view.addSubview(wishlistTable.view)
         wishlistTable.didMove(toParent: self)
+        wishlistTable.isDarkTheme = isDarkTheme
     }
     
-    @objc func showAsCollection() {
+    func showAsCollection() {
         
         if let currentScreen = self.children.last as? WishlistTableViewController {
             currentScreen.view.removeFromSuperview()
@@ -67,6 +77,7 @@ class WishlistViewController: UIViewController, ColorThemeObserver {
         }
         
         wishlistCollection.didMove(toParent: self)
+        wishlistCollection.isDarkTheme = isDarkTheme
     }
 
 }
@@ -74,8 +85,9 @@ class WishlistViewController: UIViewController, ColorThemeObserver {
 extension WishlistViewController {
     
     func darkThemeEnabled() {
+        isDarkTheme = true
         if var child = self.children.last as? WishlistColorThemeObserver {
-            child.isDarkTheme = true
+            child.isDarkTheme = isDarkTheme
         }
         if let leftBarButtonItem = navigationItem.leftBarButtonItem {
             leftBarButtonItem.tintColor = .lightBlueTint
@@ -83,8 +95,9 @@ extension WishlistViewController {
     }
     
     func darkThemeDisabled() {
+        isDarkTheme = false
         if var child = self.children.last as? WishlistColorThemeObserver {
-            child.isDarkTheme = false
+            child.isDarkTheme = isDarkTheme
         }
         if let leftBarButtonItem = navigationItem.leftBarButtonItem {
             leftBarButtonItem.tintColor = .defaultBlueTint

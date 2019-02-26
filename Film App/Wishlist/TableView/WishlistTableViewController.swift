@@ -41,6 +41,8 @@ class WishlistTableViewController: UITableViewController, WishlistColorThemeObse
         if let parent = self.parent {
             parent.navigationItem.titleView = sectionSegmentedControl
             parent.navigationItem.leftBarButtonItem = editButtonItem
+        } else {
+            
         }
     }
     
