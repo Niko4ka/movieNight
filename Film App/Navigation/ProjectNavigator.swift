@@ -83,11 +83,13 @@ class ProjectNavigator: Navigator, ColorThemeObserver {
     
     func darkThemeEnabled() {
         self.navigation.navigationBar.barStyle = .blackTranslucent
+        self.navigation.navigationBar.tintColor = .lightBlueTint
     }
     
     func darkThemeDisabled() {
         self.navigation.navigationBar.barStyle = .default
         self.navigation.navigationBar.isTranslucent = true
+        self.navigation.navigationBar.tintColor = .defaultBlueTint
     }
     
 }
