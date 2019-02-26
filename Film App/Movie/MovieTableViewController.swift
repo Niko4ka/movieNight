@@ -97,6 +97,7 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         configureTableView()
         addColorThemeObservers()
         checkCurrentColorTheme()
+        setNeedsStatusBarAppearanceUpdate()
         
         guard let id = movieId, let type = mediaType else { return }
         switch type {
@@ -107,6 +108,13 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         default:
             break
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isDarkTheme {
+            return .lightContent
+        }
+        return .default
     }
     
     private func configureTableView() {

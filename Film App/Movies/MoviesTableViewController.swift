@@ -55,6 +55,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         loadCategoriesData()
         addColorThemeObservers()
         checkCurrentColorTheme()
+        setNeedsStatusBarAppearanceUpdate()
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
@@ -66,6 +67,13 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         if let slider = slider, let timer = slider.timer, timer.isValid {
             timer.invalidate()
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isDarkTheme {
+            return .lightContent
+        }
+        return .default
     }
     
     private func configureTableView() {
@@ -252,14 +260,12 @@ extension MoviesTableViewController: ExpandableHeaderViewDelegate {
 extension MoviesTableViewController {
     
     func darkThemeEnabled() {
-        print("Dark theme in MoviesTableViewController")
         tableView.backgroundColor = .darkThemeBackground
         sectionSegmentedControl.tintColor = .lightBlueTint
         isDarkTheme = true
     }
     
     func darkThemeDisabled() {
-        print("Light theme in MoviesTableViewController")
         tableView.backgroundColor = .white
         sectionSegmentedControl.tintColor = .defaultBlueTint
         isDarkTheme = false

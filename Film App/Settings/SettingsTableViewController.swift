@@ -28,6 +28,13 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
         }
     }
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        if darkThemeSwitcher.isOn {
+            return .lightContent
+        }
+        return .default
+    }
+    
     private func checkCurrentWishlistView() {
         let currentView = UserDefaults.standard.string(forKey: "wishlistView")
         if currentView == "list" {

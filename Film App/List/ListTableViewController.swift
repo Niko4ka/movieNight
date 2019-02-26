@@ -58,9 +58,17 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
         configureTableView()
         addColorThemeObservers()
         checkCurrentColorTheme()
+        setNeedsStatusBarAppearanceUpdate()
         loadData(request: requestType) {
             self.tableView.reloadData()
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isDarkTheme {
+            return .lightContent
+        }
+        return .default
     }
     
     private func configureTableView() {
