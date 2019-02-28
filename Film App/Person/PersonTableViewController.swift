@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class PersonTableViewController: UITableViewController {
+class PersonTableViewController: UITableViewController, ColorThemeCellObserver {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -17,6 +17,12 @@ class PersonTableViewController: UITableViewController {
     var isLoading: Bool = false {
         didSet {
             updateLoading()
+        }
+    }
+    
+    var isDarkTheme: Bool = false {
+        didSet {
+            tableView.reloadData()
         }
     }
     
@@ -40,6 +46,9 @@ class PersonTableViewController: UITableViewController {
         
         tableView.tableFooterView = UIView()
         isLoading = true
+        
+        addColorThemeObservers()
+        checkCurrentColorTheme()
         
         getInfo(personId: personId)
         getMovies(forPersonId: personId)
@@ -151,6 +160,7 @@ class PersonTableViewController: UITableViewController {
                 header.sectionLabel.text = "TV Shows with \(name)"
             }
         }
+        header.colorDelegate = self
 
         return header
     }
@@ -163,14 +173,39 @@ class PersonTableViewController: UITableViewController {
         } else {
             cell.configure(with: personTvShows[indexPath.row])
         }
+        cell.colorDelegate = self
 
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.deselectRow(at: indexPath, animated: true)
         let cell = tableView.cellForRow(at: indexPath) as! PersonMovieTableViewCell
         navigator?.navigate(to: .movie(id: cell.id, type: cell.mediaType))
     }
 
+}
+
+extension PersonTableViewController {
+    
+    func darkThemeEnabled() {
+        profileImageView.superview?.backgroundColor = .darkThemeBackground
+        tableView.backgroundColor = .darkThemeBackground
+        profileImageView.backgroundColor = .darkThemeBackground
+        nameLabel.textColor = .white
+        jobLabel.textColor = .lightText
+        ageLabel.textColor = .lightText
+        isDarkTheme = true
+    }
+    
+    func darkThemeDisabled() {
+        profileImageView.superview?.backgroundColor = .white
+        tableView.backgroundColor = .white
+        profileImageView.backgroundColor = .white
+        nameLabel.textColor = .darkText
+        jobLabel.textColor = .darkGray
+        ageLabel.textColor = .darkGray
+        isDarkTheme = false
+    }
+    
 }

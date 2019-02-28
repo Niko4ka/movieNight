@@ -9,11 +9,12 @@ class PersonMovieTableViewCell: UITableViewCell {
     var id: Int!
     var mediaType: MediaType!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    weak var colorDelegate: ColorThemeCellObserver! {
+        didSet {
+            setColorTheme()
+        }
     }
-
+    
     public func configure(with movie: PersonMovie) {
         
         id = movie.id
@@ -35,6 +36,22 @@ class PersonMovieTableViewCell: UITableViewCell {
             moviePosterImageView.image = UIImage(named: "noPoster")
         }
         
+    }
+    
+    private func setColorTheme() {
+        if colorDelegate.isDarkTheme {
+            backgroundColor = .darkThemeBackground
+            moviePosterImageView.backgroundColor = .darkThemeBackground
+            movieTitleLabel.superview?.backgroundColor = .darkThemeBackground
+            movieTitleLabel.textColor = .white
+            personRoleLabel.textColor = .lightText
+        } else {
+            backgroundColor = .white
+            moviePosterImageView.backgroundColor = .white
+            movieTitleLabel.superview?.backgroundColor = .white
+            movieTitleLabel.textColor = .darkText
+            personRoleLabel.textColor = .darkGray
+        }
     }
 
 }
