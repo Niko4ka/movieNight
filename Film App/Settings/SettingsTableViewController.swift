@@ -45,7 +45,6 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
     }
     
     func darkThemeEnabled() {
-        print("Dark theme in settings")
         if !darkThemeSwitcher.isOn {
             darkThemeSwitcher.setOn(true, animated: false)
         }
@@ -53,7 +52,6 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
     }
 
     func darkThemeDisabled() {
-        print("Light theme in settings")
         if darkThemeSwitcher.isOn {
             darkThemeSwitcher.setOn(false, animated: false)
         }
