@@ -252,7 +252,7 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
             genresLabel.textColor = .lightText
             releasedLabel.textColor = .lightText
             starsLabel?.textColor = .lightText
-            movieSegmentedControl.tintColor = .lightGray
+            movieSegmentedControl.tintColor = .lightBlueTint
         } else {
             headerView.backgroundColor = .white
             backdropGradientView.backgroundColor = .white
