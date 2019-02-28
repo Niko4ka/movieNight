@@ -2,10 +2,12 @@ import UIKit
 
 class TabBarController: UITabBarController, ColorThemeObserver {
     
-    
+    weak var selectedItem: UITabBarItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
         
         let movies = getMoviesNavigationController()
         movies.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "movies"), tag: 0)
@@ -13,11 +15,11 @@ class TabBarController: UITabBarController, ColorThemeObserver {
         let search = getSearchNavigationController()
         search.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         
-        let wishlist = getWishlistNavigationController()
-        wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 2)
-        
         let map = CinemasMapViewController()
-        map.tabBarItem = UITabBarItem(title: "Cinemas", image: UIImage(named: "map"), tag: 3)
+        map.tabBarItem = UITabBarItem(title: "Cinemas", image: UIImage(named: "map"), tag: 2)
+        
+        let wishlist = getWishlistNavigationController()
+        wishlist.tabBarItem = UITabBarItem(title: "Wishlist", image: UIImage(named: "wishlist"), tag: 3)
         
         let settings = getSettings()
         settings.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings"), tag: 4)
@@ -71,4 +73,28 @@ class TabBarController: UITabBarController, ColorThemeObserver {
         self.tabBar.tintColor = .defaultBlueTint
     }
 
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        if selectedItem != nil && selectedItem == item {
+            return
+        } else {
+            selectedItem = item
+        }
+        
+        let tag = item.tag + 1
+        let itemView = tabBar.subviews[tag]
+        let imageView = itemView.subviews.first as! UIImageView
+        imageView.contentMode = .center
+
+        let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+        animation.duration = 0.2
+        animation.values = [1, 1.5, 0.5, 1]
+        animation.keyTimes = [0, 0.5, 0.75, 1]
+        imageView.layer.add(animation, forKey: "transform.scale")
+
+    }
 }
