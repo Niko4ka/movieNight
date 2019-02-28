@@ -247,6 +247,7 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         if isDarkTheme {
             headerView.backgroundColor = .darkThemeBackground
             backdropGradientView.backgroundColor = .darkThemeBackground
+            backdropContentView.backgroundColor = .darkThemeBackground
             titleLabel.textColor = .white
             genresLabel.textColor = .lightText
             releasedLabel.textColor = .lightText
@@ -255,6 +256,7 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         } else {
             headerView.backgroundColor = .white
             backdropGradientView.backgroundColor = .white
+            backdropContentView.backgroundColor = .white
             titleLabel.textColor = .darkText
             genresLabel.textColor = .darkGray
             releasedLabel.textColor = .darkGray
