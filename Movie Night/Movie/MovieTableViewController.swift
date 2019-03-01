@@ -1,6 +1,13 @@
 import UIKit
 
 protocol MovieTableViewPresenter: class {
+    
+    var movieDetails: MovieDetails? { get set }
+    var movieCast: MovieCast? { get set }
+    var movieTrailers: [MovieTrailer] { get set }
+    var movieReviews: [MovieReview] { get set }
+    var similarMovies: [DatabaseObject] { get set }
+    
     /// Loads Movie data to present in controller (details, trailers, similar movies, etc.)
     ///
     /// - Parameters:
@@ -44,14 +51,11 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
     
     public var mediaType: MediaType!
     public var movieId: Int!
-    private var presenter: MovieTableViewPresenter!
-    public var movieDetails: MovieDetails?
-    public var movieCast: MovieCast?
-    public var movieTrailers: [MovieTrailer] = []
-    public var movieReviews: [MovieReview] = []
-    public var similarMovies: [DatabaseObject] = []
-    private var currentState: TableStates = .details
+    
     private var gradientLayerIsSet = false
+    
+    var currentState: TableStates = .details
+    var presenter: MovieTableViewPresenter!
 
     enum TableStates {
         case details
@@ -77,6 +81,9 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
     private func updateLoading() {
         if isLoading {
             let activity = UIActivityIndicatorView(style: .gray)
+            if isDarkTheme {
+                activity.style = .white
+            }
             activity.startAnimating()
             
             tableView.backgroundView = activity
@@ -94,10 +101,12 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = MoviePresenter()
         configureTableView()
         addColorThemeObservers()
         checkCurrentColorTheme()
         setNeedsStatusBarAppearanceUpdate()
+        updateLoading()
         
         guard let id = movieId, let type = mediaType else { return }
         switch type {
@@ -118,8 +127,6 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
     }
     
     private func configureTableView() {
-        updateLoading()
-        presenter = MoviePresenter()
         
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "CollectionTableViewCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
@@ -128,7 +135,6 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         tableView.register(UINib(nibName: "CastTableViewCell", bundle: nil), forCellReuseIdentifier: "Cast")
         tableView.register(UINib(nibName: "InformationTableViewCell", bundle: nil), forCellReuseIdentifier: "Information")
         tableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "Review")
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -157,48 +163,52 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
             tableView.separatorStyle = .singleLine
             tableView.reloadData()
         }
-        
     }
     
     @IBAction func addToWishlistButtonPressed(_ sender: Any) {
         
         if addToWishlistButton.isSelected {
-            if let selectedMovie = CoreDataManager.shared.findMovie(withID: Int32(movieId)).first {
-                CoreDataManager.shared.delete(object: selectedMovie)
-                self.addToWishlistButton.isSelected = false
-                
-                if let movieTitle = movieDetails?.title {
-                    let toastText = "\"\(movieTitle)\" was removed from wishlist"
-                    navigator?.showToast(withText: toastText)
-                } else {
-                    let toastText = "This movie was removed from wishlist"
-                    navigator?.showToast(withText: toastText)
-                }
-                
-                setAddToWishlistButton()
-            }
+            removeMovieFromWishlist()
+            setAddToWishlistButton()
         } else {
-            guard let details = movieDetails, let poster = moviePoster.image else { return }
-            let backdropImage = backdropImageView.image
-            
-            let currentDateTime = Date()
-            CoreDataManager.shared.saveItemToWishlist(mediaType: mediaType.rawValue, data: details, poster: poster, backdrop: backdropImage, saveDate: currentDateTime)
-            self.addToWishlistButton.isSelected = true
-            
-            if let movieTitle = movieDetails?.title {
-                let toastText = "\"\(movieTitle)\" was added to wishlist"
-                navigator?.showToast(withText: toastText)
-            } else {
-                let toastText = "This movie was added to wishlist"
-                navigator?.showToast(withText: toastText)
-            }
-
+            addMovieToWishlist()
             setAddToWishlistButton()
         }
-
     }
     
     // MARK: - Private
+    
+    private func addMovieToWishlist() {
+        guard let details = presenter.movieDetails, let poster = moviePoster.image else { return }
+        let backdropImage = backdropImageView.image
+        
+        let currentDateTime = Date()
+        CoreDataManager.shared.saveItemToWishlist(mediaType: mediaType.rawValue, data: details, poster: poster, backdrop: backdropImage, saveDate: currentDateTime)
+        self.addToWishlistButton.isSelected = true
+        
+        if let movieTitle = presenter.movieDetails?.title {
+            let toastText = "\"\(movieTitle)\" was added to wishlist"
+            navigator?.showToast(withText: toastText)
+        } else {
+            let toastText = "This movie was added to wishlist"
+            navigator?.showToast(withText: toastText)
+        }
+    }
+    
+    private func removeMovieFromWishlist() {
+        if let selectedMovie = CoreDataManager.shared.findMovie(withID: Int32(movieId)).first {
+            CoreDataManager.shared.delete(object: selectedMovie)
+            self.addToWishlistButton.isSelected = false
+            
+            if let movieTitle = presenter.movieDetails?.title {
+                let toastText = "\"\(movieTitle)\" was removed from wishlist"
+                navigator?.showToast(withText: toastText)
+            } else {
+                let toastText = "This movie was removed from wishlist"
+                navigator?.showToast(withText: toastText)
+            }
+        }
+    }
     
     /// Adds gradient to backdropGradientView
     private func setGradientView() {
@@ -276,75 +286,6 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         return nil
     }
 
-    // MARK: - Table view data source
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if isLoading {
-            return 0
-        }
-
-        switch currentState {
-        case .details:
-            
-            if movieTrailers.isEmpty {
-                return 3
-            } else {
-                return 4
-            }
-            
-        case .reviews:
-            
-            if movieReviews.isEmpty {
-                return 1
-            } else {
-                return movieReviews.count
-            }
-            
-        case .similar:
-            
-            return 1
-        }
-    }
-        
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch currentState {
-        case .details:
-            
-            var rowIndex: Int!
-            if movieTrailers.isEmpty {
-                rowIndex = indexPath.row + 1
-            } else {
-                rowIndex = indexPath.row
-            }
-            
-            switch rowIndex {
-            case 0:
-                return presenter.createCell(self, withIdentifier: .trailers, in: tableView, forRowAt: indexPath)
-            case 1:
-                return presenter.createCell(self, withIdentifier: .overview, in: tableView, forRowAt: indexPath)
-            case 2:
-                return presenter.createCell(self, withIdentifier: .cast, in: tableView, forRowAt: indexPath)
-            case 3:
-                return presenter.createCell(self, withIdentifier: .information, in: tableView, forRowAt: indexPath)
-            default:
-                let cell = UITableViewCell()
-                return cell
-            }
-            
-        case .reviews:
-            
-            return presenter.createCell(self, withIdentifier: .review, in: tableView, forRowAt: indexPath)
-            
-        case .similar:
-            
-            return presenter.createCell(self, withIdentifier: .similar, in: tableView, forRowAt: indexPath)
-            
-        }
-
-    }
-    
 }
 
 // MARK: - VideoPlayerDelegate

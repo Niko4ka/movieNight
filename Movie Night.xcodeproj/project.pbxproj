@@ -113,6 +113,7 @@
 		4ED9ED8F21E8087F00ADF05F /* ProjectNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9ED8E21E8087F00ADF05F /* ProjectNavigator.swift */; };
 		4ED9EE3F21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */; };
 		4ED9EE4121E9446500ADF05F /* Client+PersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */; };
+		4EE368F22229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE368F12229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -237,6 +238,7 @@
 		4ED9ED8E21E8087F00ADF05F /* ProjectNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNavigator.swift; sourceTree = "<group>"; };
 		4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WishlistTableViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
 		4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+PersonInfo.swift"; sourceTree = "<group>"; };
+		4EE368F12229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieTableViewController+TableViewDataSource.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -483,6 +485,7 @@
 			children = (
 				4E78BE4121C445930054FC5B /* Movie.storyboard */,
 				4E32CDA721C73352000A15D8 /* MovieTableViewController.swift */,
+				4EE368F12229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift */,
 				4EABAE7A21CD319900189FA6 /* MovieCellIdentifiers.swift */,
 				4EABAE7821CC567E00189FA6 /* MoviePresenter.swift */,
 				4EABAE7421CA9FF700189FA6 /* VideoPlayerViewController.swift */,
@@ -724,6 +727,7 @@
 				4E32CDA821C73352000A15D8 /* MovieTableViewController.swift in Sources */,
 				4E5F38C32198F63C00AA3ECC /* VKHandler.swift in Sources */,
 				4E6C11A12183A84700C914BD /* AppDelegate.swift in Sources */,
+				4EE368F22229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift in Sources */,
 				4E27016521ED0D510021EF5B /* MovieCollectionViewController.swift in Sources */,
 				4EABAE7D21D01D1A00189FA6 /* MovieReview.swift in Sources */,
 				4E16AB6F21D555EB00CB0EFD /* PersonSectionHeaderCell.swift in Sources */,

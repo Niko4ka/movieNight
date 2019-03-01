@@ -5,6 +5,11 @@ import Kingfisher
 class MoviePresenter: MovieTableViewPresenter {
     
     var castCellConfigured = false
+    var movieDetails: MovieDetails?
+    var movieCast: MovieCast?
+    var movieTrailers: [MovieTrailer] = []
+    var movieReviews: [MovieReview] = []
+    var similarMovies: [DatabaseObject] = []
     
     func loadData(_ controller: MovieTableViewController, forMovieId id: Int, andType type: MediaType) {
         
@@ -19,29 +24,29 @@ class MoviePresenter: MovieTableViewPresenter {
                 })
                 return
             }
-            controller.movieDetails = details
+            self.movieDetails = details
             self.configureHeaderView(controller, with: details)
             controller.isLoading = false
         }
         
         Client.shared.loadMovieCast(forId: id, andType: type) { (cast) in
             if let cast = cast {
-                controller.movieCast = cast
+                self.movieCast = cast
                 controller.tableView.reloadData()
             }
         }
         
         Client.shared.loadMovieTrailers(forId: id, andType: type) { (trailers) in
-            controller.movieTrailers = trailers
+            self.movieTrailers = trailers
             controller.tableView.reloadData()
         }
         
         Client.shared.loadMovieReviews(forId: id, andType: type) { (reviews) in
-            controller.movieReviews = reviews
+            self.movieReviews = reviews
         }
         
         Client.shared.loadSimilarMovies(forId: id, andType: type) { (similar) in
-            controller.similarMovies = similar
+            self.similarMovies = similar
         }
 
     }
@@ -55,8 +60,8 @@ class MoviePresenter: MovieTableViewPresenter {
             cell.videoPlayer = controller
             cell.colorDelegate = controller
                         
-            if !controller.movieTrailers.isEmpty {
-                cell.trailers = controller.movieTrailers
+            if !movieTrailers.isEmpty {
+                cell.trailers = movieTrailers
                 cell.trailersCollectionView.reloadData()
             }
             return cell
@@ -64,16 +69,16 @@ class MoviePresenter: MovieTableViewPresenter {
         case .overview:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! OverviewTableViewCell
             cell.colorDelegate = controller
-            if controller.movieDetails != nil {
-                cell.configure(with: controller.movieDetails!)
+            if movieDetails != nil {
+                cell.configure(with: movieDetails!)
             }
             return cell
             
         case .cast:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! CastTableViewCell
             cell.navigator = controller.navigator
-            if controller.movieCast != nil && !castCellConfigured {
-                cell.configure(with: controller.movieCast!)
+            if movieCast != nil && !castCellConfigured {
+                cell.configure(with: movieCast!)
                 castCellConfigured = true
             }
             cell.colorDelegate = controller
@@ -81,14 +86,14 @@ class MoviePresenter: MovieTableViewPresenter {
             
         case .information:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! InformationTableViewCell
-            if controller.movieDetails != nil {
-                cell.configure(with: controller.movieDetails!)
+            if movieDetails != nil {
+                cell.configure(with: movieDetails!)
             }
             cell.colorDelegate = controller
             return cell
             
         case .review:
-            if controller.movieReviews.isEmpty {
+            if movieReviews.isEmpty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
                 cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(controller.mediaType.rawValue)")\" hasn't any reviews yet"
                 controller.tableView.separatorStyle = .none
@@ -96,13 +101,13 @@ class MoviePresenter: MovieTableViewPresenter {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as! ReviewTableViewCell
-                cell.configure(with: controller.movieReviews[indexPath.row])
+                cell.configure(with: movieReviews[indexPath.row])
                 cell.colorDelegate = controller
                 return cell
             }
             
         case .similar:
-            if controller.similarMovies.isEmpty {
+            if similarMovies.isEmpty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Empty") as! EmptyTableViewCell
                 cell.infoLabel.text = "\"\(controller.titleLabel.text ?? "This \(controller.mediaType.rawValue)")\" has no similar movies"
                 controller.tableView.separatorStyle = .none
@@ -112,8 +117,8 @@ class MoviePresenter: MovieTableViewPresenter {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell") as! CollectionTableViewCell
                 cell.navigator = controller.navigator
                 cell.headerTitle.text = "Similar"
-                cell.data = controller.similarMovies
-                if let details = controller.movieDetails {
+                cell.data = similarMovies
+                if let details = movieDetails {
                     if controller.mediaType == .movie {
                         cell.requestType = SimilarListRequest.movie(name: details.title, id: controller.movieId)
                     } else {
