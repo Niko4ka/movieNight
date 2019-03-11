@@ -114,6 +114,7 @@
 		4ED9EE3F21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */; };
 		4ED9EE4121E9446500ADF05F /* Client+PersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */; };
 		4EE368F22229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE368F12229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift */; };
+		4EE368F4223638C200CDAE52 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE368F3223638C200CDAE52 /* ListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -239,6 +240,7 @@
 		4ED9EE3E21E92A4600ADF05F /* WishlistTableViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WishlistTableViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
 		4ED9EE4021E9446500ADF05F /* Client+PersonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+PersonInfo.swift"; sourceTree = "<group>"; };
 		4EE368F12229171700CDAE52 /* MovieTableViewController+TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieTableViewController+TableViewDataSource.swift"; sourceTree = "<group>"; };
+		4EE368F3223638C200CDAE52 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -500,6 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				4EB5C54321F4F9A700863ACC /* ListTableViewController.swift */,
+				4EE368F3223638C200CDAE52 /* ListViewModel.swift */,
 				4EB5C55321F8F2C400863ACC /* ListRequest.swift */,
 				4EB5C54721F516A900863ACC /* ListTableViewCell.swift */,
 				4EB5C54821F516A900863ACC /* ListTableViewCell.xib */,
@@ -708,6 +711,7 @@
 				4E32CDB821C7D155000A15D8 /* MovieCast.swift in Sources */,
 				4E32CDAD21C7378B000A15D8 /* OverviewTableViewCell.swift in Sources */,
 				4ED9ED6821E4115300ADF05F /* Client+loadKeywords.swift in Sources */,
+				4EE368F4223638C200CDAE52 /* ListViewModel.swift in Sources */,
 				4EB5C54E21F78E7000863ACC /* GenreMovies.swift in Sources */,
 				4E1E1FEC221E5CC800FCA8A6 /* UIColor+Extension.swift in Sources */,
 				4E16AB4E21D14F2900CB0EFD /* EmptyTableViewCell.swift in Sources */,

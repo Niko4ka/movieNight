@@ -8,19 +8,10 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
         }
     }
     
-    var requestType: ListRequest!
-    var navigator: ProjectNavigator!
+    var requestType: ListRequest
+    var navigator: ProjectNavigator
     
-    var data = [DatabaseObject]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
-    var resultsCount = 0
-    var pagesCount = 0
-    var loadedPage = 1
-    var isLoadingNewData = false
+    private var viewModel: ListViewModel?
     
     var isLoading: Bool = false {
         didSet {
@@ -59,9 +50,10 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
         addColorThemeObservers()
         checkCurrentColorTheme()
         setNeedsStatusBarAppearanceUpdate()
-        loadData(request: requestType) {
-            self.tableView.reloadData()
-        }
+        
+        viewModel = ListViewModel(request: requestType, delegate: self)
+        isLoading = true
+        viewModel?.fetchData()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -77,35 +69,32 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
         tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListCell")
     }
     
-    private func loadData(request: ListRequest, completion: @escaping ()->Void) {
-        isLoading = true
-        Client.shared.loadList(of: request, onPage: loadedPage) { (results, totalPages, totalResults) in
-            self.data = self.data + results
-            self.resultsCount = totalResults
-            self.pagesCount = totalPages
-            self.isLoadingNewData = false
-            self.isLoading = false
-            completion()
-        }
-    }
+    
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resultsCount
+        return viewModel?.totalCount ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! ListTableViewCell
-        if indexPath.row < data.count {
-            cell.colorDelegate = self
-            cell.configure(with: data[indexPath.row])
+        
+        if isLoadingCell(for: indexPath) {
+            cell.configure(with: .none)
+        } else {
+            cell.configure(with: viewModel?.movie(at: indexPath.row))
         }
+        
+        cell.colorDelegate = self
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigator.navigate(to: .movie(id: data[indexPath.row].id, type: data[indexPath.row].mediaType))
+        if let viewModel = viewModel {
+            let item = viewModel.movie(at: indexPath.row)
+            navigator.navigate(to: .movie(id: item.id, type: item.mediaType))
+        }
     }
  
 }
@@ -113,17 +102,9 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
 extension ListTableViewController: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-
-        // TODO: нужно добавить проверку, чтобы текущая страница не была out of range
         
-        indexPaths.forEach {
-            if $0.row >= data.count && !isLoadingNewData {
-                isLoadingNewData = true
-                loadedPage += 1
-                loadData(request: requestType, completion: {
-                    self.tableView.reloadRows(at: indexPaths, with: .automatic)
-                })
-            }
+        if indexPaths.contains(where: isLoadingCell) {
+            viewModel?.fetchData()
         }
     }
 }
@@ -138,6 +119,45 @@ extension ListTableViewController {
     func darkThemeDisabled() {
         tableView.backgroundColor = .white
         isDarkTheme = false
+    }
+    
+}
+
+extension ListTableViewController: ListViewModelDelegate {
+    
+    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        
+        guard let newIndexPaths = newIndexPathsToReload else {
+            isLoading = false
+            tableView.reloadData()
+            return
+        }
+        
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPaths)
+        UIView.performWithoutAnimation {
+            tableView.reloadRows(at: indexPathsToReload, with: .none)
+        }
+        
+    }
+    
+    func onFetchFailed() {
+        isLoading = false
+        Alert.shared.show(on: self)
+    }
+    
+    
+}
+
+private extension ListTableViewController {
+    
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= viewModel?.currentCount ?? 0
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
     }
     
 }

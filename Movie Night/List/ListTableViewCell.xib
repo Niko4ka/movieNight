@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -52,11 +53,17 @@
                             <constraint firstAttribute="trailing" secondItem="4wR-el-096" secondAttribute="trailing" id="w4h-eV-Ija"/>
                         </constraints>
                     </view>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="K4y-ru-ebL">
+                        <rect key="frame" x="150" y="43" width="20" height="20"/>
+                        <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="K4y-ru-ebL" firstAttribute="centerY" secondItem="DXf-ss-0mu" secondAttribute="centerY" id="81W-tN-ce1"/>
                     <constraint firstAttribute="trailing" secondItem="eNL-iZ-7zu" secondAttribute="trailing" constant="8" id="OWv-PZ-3Dj"/>
                     <constraint firstItem="eNL-iZ-7zu" firstAttribute="centerY" secondItem="DXf-ss-0mu" secondAttribute="centerY" id="RPe-dm-Zea"/>
                     <constraint firstAttribute="bottom" secondItem="DXf-ss-0mu" secondAttribute="bottom" constant="8" id="Rab-Ia-YOE"/>
+                    <constraint firstItem="K4y-ru-ebL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="fvI-7n-zTw"/>
                     <constraint firstItem="eNL-iZ-7zu" firstAttribute="leading" secondItem="DXf-ss-0mu" secondAttribute="trailing" constant="8" id="nFl-8i-R9W"/>
                     <constraint firstItem="DXf-ss-0mu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="p17-PO-kyl"/>
                     <constraint firstItem="DXf-ss-0mu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="zF7-OX-nS9"/>
@@ -64,6 +71,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="activityIndicator" destination="K4y-ru-ebL" id="I1X-8B-VNk"/>
                 <outlet property="genresLabel" destination="Tc3-vZ-YNN" id="Yia-Dy-gw8"/>
                 <outlet property="movieTitleLabel" destination="4wR-el-096" id="LGv-0d-c8I"/>
                 <outlet property="posterImageView" destination="DXf-ss-0mu" id="0fv-6k-msy"/>
