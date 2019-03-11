@@ -22,7 +22,8 @@ class OverviewTableViewCell: UITableViewCell {
         descriptionTextView.textContainer.lineFragmentPadding = 0
     }
     
-    @IBAction func showMoreButtonPressed(_ sender: UIButton) {
+    
+    @IBAction func showMoreButtonPressed() {
         let height = getTextViewHeight(fromText: descriptionTextView.text)
         descriptionHeight.constant = height
         self.contentView.layoutIfNeeded()

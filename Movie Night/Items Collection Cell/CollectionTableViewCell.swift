@@ -48,12 +48,11 @@ class CollectionTableViewCell: UITableViewCell {
         itemsCollectionView.delegate = self
     }
     
-    @IBAction func seeAllButtonPressed(_ sender: UIButton) {
+    @IBAction func seeAllButtonPressed() {
         if let request = requestType {
             navigator?.navigate(to: .list(listRequest: request))
         }
     }
-    
 
     func setDarkColorMode() {
         

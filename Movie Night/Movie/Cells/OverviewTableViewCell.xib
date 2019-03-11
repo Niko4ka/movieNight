@@ -39,7 +39,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="Show more"/>
                         <connections>
-                            <action selector="showMoreButtonPressed:" destination="6Af-3t-BBZ" eventType="touchUpInside" id="60B-uU-o1w"/>
+                            <action selector="showMoreButtonPressed" destination="6Af-3t-BBZ" eventType="touchUpInside" id="OTZ-ii-jYd"/>
                         </connections>
                     </button>
                 </subviews>

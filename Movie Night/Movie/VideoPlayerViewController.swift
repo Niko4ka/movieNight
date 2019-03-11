@@ -42,7 +42,7 @@ class VideoPlayerViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func closeButtonTapped(_ sender: UIButton) {
+    @IBAction func closeButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
     

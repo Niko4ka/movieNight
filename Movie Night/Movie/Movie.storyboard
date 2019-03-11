@@ -231,7 +231,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="closeButtonTapped:" destination="q7n-L0-djk" eventType="touchUpInside" id="R9y-zm-9VW"/>
+                                    <action selector="closeButtonTapped" destination="q7n-L0-djk" eventType="touchUpInside" id="e1c-mz-v27"/>
                                 </connections>
                             </button>
                         </subviews>

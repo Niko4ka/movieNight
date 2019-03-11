@@ -61,8 +61,7 @@ class BottomSheetViewController: UIViewController {
     }
     
     
-    @IBAction func closeButtonTapped(_ sender: UIButton) {
-        
+    @IBAction func closeButtonTapped() {
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
             let frame = self?.view.frame
             self?.view.frame = CGRect(x: 0,
@@ -73,17 +72,14 @@ class BottomSheetViewController: UIViewController {
             self.view.removeFromSuperview()
             self.removeFromParent()
         }
-
     }
     
-    @IBAction func showTheRouteButtonTapped(_ sender: UIButton) {
-        
+    @IBAction func showTheRouteButtonTapped() {
         let coordinates = CLLocationCoordinate2D(latitude: selectedCinema.lat, longitude: selectedCinema.lng)
         let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
         let mapitem = MKMapItem(placemark: placemark)
         let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
         mapitem.openInMaps(launchOptions: options)
-
     }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {

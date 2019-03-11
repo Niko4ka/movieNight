@@ -165,9 +165,9 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         }
     }
     
-    @IBAction func addToWishlistButtonPressed(_ sender: Any) {
+    @IBAction func addToWishlistButtonPressed(_ sender: UIButton) {
         
-        if addToWishlistButton.isSelected {
+        if sender.isSelected {
             removeMovieFromWishlist()
             setAddToWishlistButton()
         } else {
