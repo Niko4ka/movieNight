@@ -174,9 +174,14 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         case .categories:
             
             cell.requestType = moviesCategoriesList[indexPath.row].requestType
-            cell.data = moviesCategoriesList[indexPath.row].items
             cell.headerTitle.text = moviesCategoriesList[indexPath.row].name
-            
+            let items = moviesCategoriesList[indexPath.row].items
+            if items.isEmpty {
+                cell.showActivityIndicator(withHeader: true)
+            } else {
+                cell.data = items
+            }
+
         case .genres:
             
             if let movies = genres[indexPath.section].movies {
