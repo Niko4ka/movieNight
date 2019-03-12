@@ -11,10 +11,13 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var headerTitle: UILabel!
     @IBOutlet weak var itemsCollectionView: UICollectionView!
     @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     public var data = [DatabaseObject]() {
         didSet {
+            activityIndicator.stopAnimating()
+            itemsCollectionView.isHidden = false
             itemsCollectionView.reloadData()
             itemsCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             headerViewHeight.constant = 30
@@ -75,6 +78,17 @@ class CollectionTableViewCell: UITableViewCell {
     func removeHeaderView() {
         headerViewHeight.constant = 0
         self.setNeedsLayout()
+    }
+    
+    func showActivityIndicator(withHeader needHeader: Bool) {
+        
+        if !needHeader {
+            headerView.alpha = 0
+        }
+        
+        itemsCollectionView.isHidden = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
     }
 }
 

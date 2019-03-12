@@ -13,7 +13,6 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         (name: MoviesCategoriesListRequest.upcomingMovies.rawValue.title, requestType: MoviesCategoriesListRequest.upcomingMovies, items: [])
     ]
     
-    var genreSections = [GenreMovies]()
     private var currentState: MoviesTableStates = .categories {
         didSet {
             tableView.reloadData()
@@ -29,11 +28,11 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         return segmentedControl
     }()
     
-    lazy var genres: [(id: Int, name: String)] = {
+    lazy var genres: [GenreSection] = {
         
-        var result = [(id: Int, name: String)]()
+        var result = [GenreSection]()
         if let genreArray = ConfigurationService.shared.movieGenres {
-            genreArray.forEach { result.append((id: $0.key, name: $0.value)) }
+            result = genreArray.compactMap { GenreSection(id: $0.key, name: $0.value)}
             result.sort(by: { $0.name < $1.name })
         }
         return result
@@ -104,30 +103,27 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         }
     }
     
-    private func showGenres() {
+    private func loadMoviesForGenreInSection(_ section: Int) {
         
-        if !genres.isEmpty && genreSections.isEmpty {
-            for genre in genres {
-                Client.shared.loadMoviesWithGenre(genre.id) { (result) in
-                    
-                    if result.isEmpty {
-                        Alert.shared.show(on: self)
-                    }
-                    
-                    let item = GenreMovies.init(name: genre.name, movies: result)
-                    self.genreSections.append(item)
-                    self.tableView.reloadData()
-                }
+        Client.shared.loadMoviesWithGenre(genres[section].id) { (result) in
+            
+            if result.isEmpty {
+                Alert.shared.show(on: self)
+            }
+            
+            self.genres[section].setMovies(result)
+
+            UIView.performWithoutAnimation {
+                let indexSet = IndexSet(integer: section)
+                self.tableView.reloadSections(indexSet, with: .none)
             }
         }
-        
     }
     
     @objc private func sectionSegmentedControlValueChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1 {
             tableView.tableHeaderView = nil
             currentState = .genres
-            showGenres()
         } else {
             tableView.tableHeaderView = slider
             currentState = .categories
@@ -142,7 +138,12 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         case .categories:
             return 1
         case .genres:
-            return genreSections.count
+            if !genres.isEmpty {
+                return genres.count
+            } else {
+                return 0
+            }
+            
         }
         
     }
@@ -152,7 +153,8 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         case .categories:
             return moviesCategoriesList.count
         case .genres:
-            if genreSections[section].expanded {
+            
+            if genres[section].expanded {
                 return 1
             } else {
                 return 0
@@ -177,8 +179,14 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
             
         case .genres:
             
-            cell.data = genreSections[indexPath.section].movies
-            cell.removeHeaderView()
+            if let movies = genres[indexPath.section].movies {
+                cell.data = movies
+                cell.removeHeaderView()
+            } else {
+                cell.showActivityIndicator(withHeader: false)
+                loadMoviesForGenreInSection(indexPath.section)
+            }
+
         }
         
         return cell
@@ -197,13 +205,25 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if currentState == .genres {
-            if genreSections[indexPath.section].expanded {
+            if genres[indexPath.section].expanded {
                 return 220
             } else {
                 return 0
             }
         }
             
+        return 250.0
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if currentState == .genres {
+            if genres[indexPath.section].expanded {
+                return 220
+            } else {
+                return 0
+            }
+        }
+        
         return 250.0
     }
     
@@ -222,7 +242,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         if currentState == .genres {
             let header = ExpandableHeaderView()
             header.setup(genre: genres[section], section: section, delegate: self)
-            header.seeAllButton.isHidden = genreSections[section].expanded ? false : true
+            header.seeAllButton.isHidden = genres[section].expanded ? false : true
             return header
         }
         
@@ -234,22 +254,22 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
 extension MoviesTableViewController: ExpandableHeaderViewDelegate {
     
     func toggleSection(header: ExpandableHeaderView, section: Int) {
-
-        genreSections[section].expanded = !genreSections[section].expanded
-        header.seeAllButton.isHidden = !genreSections[section].expanded
-
-        tableView.beginUpdates()
-
-        if !genreSections[section].expanded  {
+        
+        genres[section].expanded = !genres[section].expanded
+        header.seeAllButton.isHidden = !genres[section].expanded
+        
+        if !genres[section].expanded  {
             tableView.deleteRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
         } else {
             tableView.insertRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
         }
-
+        
+        tableView.beginUpdates()
         tableView.endUpdates()
+
     }
     
-    func showGenreList(genre: (id: Int, name: String)) {
+    func showGenreList(genre: GenreSection) {
         let request = MovieGenresListRequest(genreName: genre.name, genreId: genre.id)
         navigator?.navigate(to: .list(listRequest: request))
     }

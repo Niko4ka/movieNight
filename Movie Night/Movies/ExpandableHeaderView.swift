@@ -2,7 +2,7 @@ import UIKit
 
 protocol ExpandableHeaderViewDelegate: class {
     func toggleSection(header: ExpandableHeaderView, section: Int)
-    func showGenreList(genre: (id: Int, name: String))
+    func showGenreList(genre: GenreSection)
 }
 
 class ExpandableHeaderView: UITableViewHeaderFooterView {
@@ -10,9 +10,9 @@ class ExpandableHeaderView: UITableViewHeaderFooterView {
     var delegate: ExpandableHeaderViewDelegate?
     var section: Int?
     var seeAllButton: UIButton!
-    var genre: (id: Int, name: String)?
+    var genre: GenreSection?
     
-    func setup(genre: (id: Int, name: String), section: Int, delegate: ExpandableHeaderViewDelegate) {
+    func setup(genre: GenreSection, section: Int, delegate: ExpandableHeaderViewDelegate) {
         
         self.delegate = delegate
         self.section = section

@@ -64,19 +64,26 @@
                         </collectionViewFlowLayout>
                         <cells/>
                     </collectionView>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uQl-NO-YXx">
+                        <rect key="frame" x="169.5" y="116.5" width="20" height="20"/>
+                        <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="1ow-7I-KNR" secondAttribute="trailing" id="0gb-Aj-56L"/>
                     <constraint firstAttribute="trailing" secondItem="Ym9-f1-C0m" secondAttribute="trailing" id="2dI-KD-fYP"/>
                     <constraint firstItem="Ym9-f1-C0m" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HZ9-Iw-noT"/>
+                    <constraint firstItem="uQl-NO-YXx" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aNW-PK-azR"/>
                     <constraint firstItem="1ow-7I-KNR" firstAttribute="top" secondItem="Ym9-f1-C0m" secondAttribute="bottom" id="i32-TX-ppk"/>
                     <constraint firstAttribute="bottom" secondItem="1ow-7I-KNR" secondAttribute="bottom" id="kLC-9t-F9g"/>
                     <constraint firstItem="1ow-7I-KNR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="sUS-94-M0A"/>
                     <constraint firstItem="Ym9-f1-C0m" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="suW-WX-p1L"/>
+                    <constraint firstItem="uQl-NO-YXx" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="zhk-ed-lmd"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="activityIndicator" destination="uQl-NO-YXx" id="R6O-2U-Tp8"/>
                 <outlet property="headerTitle" destination="YJb-lN-fD3" id="afm-Vv-zaR"/>
                 <outlet property="headerView" destination="Ym9-f1-C0m" id="CGE-ee-1fc"/>
                 <outlet property="headerViewHeight" destination="n9z-NH-viR" id="8Td-bK-az0"/>
