@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class WishlistTableViewController: UITableViewController, WishlistColorThemeObserver {
+class WishlistTableViewController: UITableViewController, WishlistMainViewProtocol, ColorThemeCellObserver {
     
     // MARK: - Outlets
     
@@ -32,11 +32,9 @@ class WishlistTableViewController: UITableViewController, WishlistColorThemeObse
         configureNavigationBar()
         configureTableView()
         fetchData(predicate: WishlistPredicates.moviePredicate)
-        
-        addColorThemeObservers()
     }
     
-    private func configureNavigationBar() {
+    func configureNavigationBar() {
         
         if let parent = self.parent {
             parent.navigationItem.titleView = sectionSegmentedControl

@@ -5,6 +5,11 @@ struct WishlistPredicates {
     static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
 }
 
+protocol WishlistMainViewProtocol {
+    var sectionSegmentedControl: UISegmentedControl { get }
+    func configureNavigationBar()
+}
+
 class WishlistViewController: UIViewController, ColorThemeCellObserver {
     
     var navigator: ProjectNavigator?
@@ -15,8 +20,7 @@ class WishlistViewController: UIViewController, ColorThemeCellObserver {
 
         checkCurrentViewMode()
         addWishlistViewObservers()
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
         setNeedsStatusBarAppearanceUpdate()
     }
     
@@ -94,7 +98,7 @@ extension WishlistViewController {
     
     func darkThemeEnabled() {
         isDarkTheme = true
-        if var child = self.children.last as? WishlistColorThemeObserver {
+        if let child = self.children.last as? ColorThemeCellObserver {
             child.isDarkTheme = isDarkTheme
         }
         if let leftBarButtonItem = navigationItem.leftBarButtonItem {
@@ -104,7 +108,7 @@ extension WishlistViewController {
     
     func darkThemeDisabled() {
         isDarkTheme = false
-        if var child = self.children.last as? WishlistColorThemeObserver {
+        if let child = self.children.last as? ColorThemeCellObserver {
             child.isDarkTheme = isDarkTheme
         }
         if let leftBarButtonItem = navigationItem.leftBarButtonItem {

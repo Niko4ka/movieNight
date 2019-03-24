@@ -1,8 +1,8 @@
 import UIKit
 import CoreData
 
-class WishlistCollectionViewController: UICollectionViewController, WishlistColorThemeObserver {
-    
+class WishlistCollectionViewController: UICollectionViewController, WishlistMainViewProtocol, ColorThemeCellObserver {
+  
     var navigator: ProjectNavigator?
     var fetchedResultController: NSFetchedResultsController<Movie>!
     
@@ -31,7 +31,7 @@ class WishlistCollectionViewController: UICollectionViewController, WishlistColo
 
     }
     
-    private func configureNavigationBar() {
+    func configureNavigationBar() {
         
         if let parent = self.parent {
             parent.navigationItem.titleView = sectionSegmentedControl
