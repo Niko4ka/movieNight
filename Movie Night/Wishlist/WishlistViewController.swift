@@ -1,8 +1,8 @@
 import UIKit
 
 struct WishlistPredicates {
-    static let tvPredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'tv'")
-    static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] 'movie'")
+    static let tvPredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] %@", "tv")
+    static let moviePredicate = NSPredicate(format: "mediaType.name CONTAINS[cd] %@", "movie")
 }
 
 protocol WishlistMainViewProtocol {

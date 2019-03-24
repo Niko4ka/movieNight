@@ -92,7 +92,7 @@ final class CoreDataManager {
             request = NSFetchRequest(entityName: entityName)
         }
         
-        let predicate = NSPredicate(format: "id = '\(id)'")
+        let predicate = NSPredicate(format: "id = %d", id)
         request.predicate = predicate
         
         do {
