@@ -103,8 +103,7 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
         
         presenter = MoviePresenter()
         configureTableView()
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
         setNeedsStatusBarAppearanceUpdate()
         updateLoading()
         

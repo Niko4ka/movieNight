@@ -47,8 +47,7 @@ class PersonTableViewController: UITableViewController, ColorThemeCellObserver {
         tableView.tableFooterView = UIView()
         isLoading = true
         
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
         
         getInfo(personId: personId)
         getMovies(forPersonId: personId)

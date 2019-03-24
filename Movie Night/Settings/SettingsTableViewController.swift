@@ -13,8 +13,7 @@ class SettingsTableViewController: UITableViewController, ColorThemeObserver {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
         checkCurrentWishlistView()
     }
 

@@ -52,8 +52,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         navigationItem.titleView = sectionSegmentedControl
         configureTableView()
         loadCategoriesData()
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
         setNeedsStatusBarAppearanceUpdate()
         
         if traitCollection.forceTouchCapability == .available {

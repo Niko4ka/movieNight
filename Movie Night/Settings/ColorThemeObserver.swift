@@ -1,16 +1,46 @@
 import Foundation
 
-@objc protocol ColorThemeObserver: class {
+protocol ColorThemeObserver: class, NSObjectProtocol {
 
-    @objc func darkThemeEnabled()
-    @objc func darkThemeDisabled()
-    
+    func darkThemeEnabled()
+    func darkThemeDisabled()
 }
 
 protocol ColorThemeCellObserver: ColorThemeObserver {
     var isDarkTheme: Bool { get set }
 }
 
-protocol WishlistColorThemeObserver {
-    var isDarkTheme: Bool { get set }
+extension ColorThemeCellObserver where Self: WishlistMainViewProtocol {
+    func darkThemeEnabled() {}
+    func darkThemeDisabled() {}
+}
+
+extension ColorThemeObserver {
+    
+    func setupColorThemeObserver() {
+        addColorThemeObservers()
+        checkCurrentColorTheme()
+    }
+    
+    private func addColorThemeObservers() {
+        
+        NotificationCenter.default.addObserver(forName: .darkThemeEnabled, object: nil, queue: nil) { [weak self] (notification) in
+            self?.darkThemeEnabled()
+        }
+        
+        NotificationCenter.default.addObserver(forName: .darkThemeDisabled, object: nil, queue: nil) { [weak self] (notification) in
+            self?.darkThemeDisabled()
+        }
+    }
+    
+    private func checkCurrentColorTheme() {
+        
+        let currentThemeIsDark = UserDefaults.standard.bool(forKey: "isDarkTheme")
+        if currentThemeIsDark {
+            darkThemeEnabled()
+        } else {
+            darkThemeDisabled()
+        }
+    }
+    
 }

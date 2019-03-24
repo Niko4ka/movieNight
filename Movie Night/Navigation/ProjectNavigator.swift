@@ -8,7 +8,7 @@ protocol Navigator: class {
     func navigate(to destination: Destination)
 }
 
-class ProjectNavigator: Navigator, ColorThemeObserver {
+class ProjectNavigator: NSObject, Navigator, ColorThemeObserver {
 
     
     enum Destination {
@@ -22,10 +22,8 @@ class ProjectNavigator: Navigator, ColorThemeObserver {
     
     required init(navigationController: UINavigationController) {
         self.navigation = navigationController
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeEnabled), name: .darkThemeEnabled, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeDisabled), name: .darkThemeDisabled, object: nil)
-        
+        super.init()
+        setupColorThemeObserver()
     }
     
     func navigate(to destination: Destination) {

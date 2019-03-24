@@ -1,24 +1,30 @@
 import UIKit
 
-extension UIViewController {
+extension ColorThemeObserver where Self: UIViewController {
     
     func addColorThemeObservers() {
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(forName: .darkThemeEnabled, object: nil, queue: nil) { [weak self] (notification) in
+            guard self != nil else { return }
+            self?.darkThemeEnabled()
+        }
+        notificationCenter.addObserver(forName: .darkThemeDisabled, object: nil, queue: nil) { [weak self] (notification) in
+            guard self != nil else { return }
+            self?.darkThemeDisabled()
+        }
         
-        guard self is ColorThemeObserver else  { return }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeEnabled), name: .darkThemeEnabled, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeDisabled), name: .darkThemeDisabled, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeEnabled), name: .darkThemeEnabled, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeDisabled), name: .darkThemeDisabled, object: nil)
     }
     
     func checkCurrentColorTheme() {
         
-        guard let controller = self as? ColorThemeObserver else  { return }
-        
         let currentThemeIsDark = UserDefaults.standard.bool(forKey: "isDarkTheme")
         if currentThemeIsDark {
-            controller.darkThemeEnabled()
+            self.darkThemeEnabled()
         } else {
-            controller.darkThemeDisabled()
+            self.darkThemeDisabled()
         }
     }
     

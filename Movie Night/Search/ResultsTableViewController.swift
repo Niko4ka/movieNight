@@ -38,8 +38,7 @@ class ResultsTableViewController: UITableViewController, ColorThemeCellObserver 
             registerForPreviewing(with: self, sourceView: view)
         }
         
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
     }
     
     private func getRequestType(of objectsTitle: String) -> SearchListRequest? {

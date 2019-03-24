@@ -26,7 +26,7 @@ class TabBarController: UITabBarController, ColorThemeObserver {
         
         viewControllers = [movies, search, map, wishlist, settings]
         
-        addColorThemeObservers()
+        setupColorThemeObserver()
     }
     
     private func getMoviesNavigationController() -> UINavigationController {

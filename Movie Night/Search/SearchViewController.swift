@@ -45,8 +45,7 @@ class SearchViewController: UIViewController {
 
         createHintLabel()
         addResultsViewController()
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
         setNeedsStatusBarAppearanceUpdate()
     }
     

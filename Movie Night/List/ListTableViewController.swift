@@ -47,8 +47,7 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
         super.viewDidLoad()
         
         configureTableView()
-        addColorThemeObservers()
-        checkCurrentColorTheme()
+        setupColorThemeObserver()
         setNeedsStatusBarAppearanceUpdate()
         
         viewModel = ListViewModel(request: requestType, delegate: self)
