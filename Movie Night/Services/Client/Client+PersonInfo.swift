@@ -13,27 +13,26 @@ extension Client {
     ///
     /// - Parameters:
     ///   - id: person id
-    ///   - completion: completion handler, which contains PersonInfo if success or nil if failed
-    func loadPersonInfo(id: Int, completion: @escaping (PersonInfo?)->Void) {
+    ///   - completion: completion handler, which contains PersonInfo if success or error if failed
+    func loadPersonInfo(id: Int, completion: @escaping (Result<PersonInfo>)->Void) {
 
         request(path: "/person/\(id)").responseJSON { (response) in
             
-            guard let json = response.result.value as? [String: Any] else { return }
-            
-            guard let name = json["name"] as? String,
-                let gender = json["gender"] as? Int else  {
-                completion(nil)
+            guard let json = response.result.value as? [String: Any],
+                let name = json["name"] as? String,
+                let gender = json["gender"] as? Int else {
+                completion(.error)
                 return
             }
             
             let department = json["known_for_department"] as? String
             let profilePath = json["profile_path"] as? String
             let birthday = json["birthday"] as? String
-            let deathday: String? = json["deathday"] as? String
+            let deathday = json["deathday"] as? String
             
             let info = PersonInfo(name: name, gender: gender, department: department, profilePath: profilePath, birthday: birthday, deathday: deathday)
             
-            completion(info)
+            completion(.success(info))
         }
         
     }
@@ -42,18 +41,18 @@ extension Client {
     ///
     /// - Parameters:
     ///   - id: person id
-    ///   - completion: completion handler, which contains an array of PersonMovie structures if success or an empty array if failed
-    func loadPersonMovies(personId id: Int, completion: @escaping ([PersonMovie])->Void) {
+    ///   - completion: completion handler, which contains an array of PersonMovies if success or error if failed
+    func loadPersonMovies(personId id: Int, completion: @escaping (Result<[PersonMovie]>)->Void) {
         
         request(path: "/person/\(id)/movie_credits").responseJSON { (response) in
             guard let json = response.result.value as? [String: Any],
                 let cast = json["cast"] as? [Dictionary<String, Any>] else {
-                completion([])
+                completion(.error)
                 return
             }
 
             let movies = cast.compactMap { PersonMovie(ofType: .movie, from: $0) }
-            completion(movies)
+            completion(.success(movies))
         }
     }
     
@@ -61,21 +60,20 @@ extension Client {
     ///
     /// - Parameters:
     ///   - id: person id
-    ///   - completion: completion handler, which contains an array of PersonMovie structures if success or an empty array if failed
-    func loadPersonTvShows(personId id: Int, completion: @escaping ([PersonMovie])->Void) {
+    ///   - completion: completion handler, which contains an array of PersonMovies if success or error if failed
+    func loadPersonTvShows(personId id: Int, completion: @escaping (Result<[PersonMovie]>)->Void) {
         
         request(path: "/person/\(id)/tv_credits").responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let cast = json["cast"] as? [Dictionary<String, Any>] else {
-                    completion([])
+                    completion(.error)
                     return
             }
             
             let tvShows = cast.compactMap { PersonMovie(ofType: .tvShow, from: $0) }
-            completion(tvShows)
+            completion(.success(tvShows))
         }
-        
     }
 
 }

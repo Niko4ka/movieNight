@@ -92,15 +92,19 @@ extension SearchViewController: KeywordsViewControllerDelegate {
             searchBar.text = keyword
         }
         
-        Client.shared.loadSearchResults(forKey: keyword) { (results) in
+        Client.shared.loadSearchResults(forKey: keyword) { (result) in
             guard searchBar.text == keyword else { return }
             
-            let data = [ ("Movies", results.movies),
-                         ("tvShows", results.tvShows),
-                         ("Persons", results.persons) ]
-            
-            self.resultsViewController.keyword = keyword
-            self.resultsViewController.data = data.filter { !$0.1.isEmpty }
+            switch result {
+            case .success(let results):
+                let data = [ ("Movies", results.movies),
+                             ("tvShows", results.tvShows),
+                             ("Persons", results.persons) ]
+                self.resultsViewController.keyword = keyword
+                self.resultsViewController.data = data.filter { !$0.1.isEmpty }
+            case .error:
+                Alert.shared.show(on: self)
+            }
         }
     }
     

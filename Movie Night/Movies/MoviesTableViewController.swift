@@ -86,19 +86,34 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     
     private func loadCategoriesData() {
         
-        Client.shared.loadMoviesCategory(.nowPlaying) { (movies) in
-            self.moviesCategoriesList[0].items = movies
-            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        Client.shared.loadMoviesCategory(.nowPlaying) { (result) in
+            switch result {
+            case .success(let movies):
+                self.moviesCategoriesList[0].items = movies
+                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+            case .error:
+                break
+            }
         }
         
-        Client.shared.loadMoviesCategory(.popular) { (movies) in
-            self.moviesCategoriesList[1].items = movies
-            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+        Client.shared.loadMoviesCategory(.popular) { (result) in
+            switch result {
+            case .success(let movies):
+                self.moviesCategoriesList[1].items = movies
+                self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+            case .error:
+                break
+            }
         }
         
-        Client.shared.loadMoviesCategory(.upcoming) { (movies) in
-            self.moviesCategoriesList[2].items = movies
-            self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+        Client.shared.loadMoviesCategory(.upcoming) { (result) in
+            switch result {
+            case .success(let movies):
+                self.moviesCategoriesList[2].items = movies
+                self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+            case .error:
+                break
+            }
         }
     }
     
@@ -106,15 +121,15 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         
         Client.shared.loadMoviesWithGenre(genres[section].id) { (result) in
             
-            if result.isEmpty {
+            switch result {
+            case .success(let movies):
+                self.genres[section].setMovies(movies)
+                UIView.performWithoutAnimation {
+                    let indexSet = IndexSet(integer: section)
+                    self.tableView.reloadSections(indexSet, with: .none)
+                }
+            case .error:
                 Alert.shared.show(on: self)
-            }
-            
-            self.genres[section].setMovies(result)
-
-            UIView.performWithoutAnimation {
-                let indexSet = IndexSet(integer: section)
-                self.tableView.reloadSections(indexSet, with: .none)
             }
         }
     }

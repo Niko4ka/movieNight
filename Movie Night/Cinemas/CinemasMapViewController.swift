@@ -81,19 +81,19 @@ extension CinemasMapViewController: CLLocationManagerDelegate {
 //        self.map.addAnnotation(annotation)
         
         
-        Client.shared.searchCinemas(lat: userLocation.coordinate.latitude, lng: userLocation.coordinate.longitude) { (cinemas) in
+        Client.shared.searchCinemas(lat: userLocation.coordinate.latitude, lng: userLocation.coordinate.longitude) { (result) in
             
-            guard let cinemas = cinemas else {
+            switch result {
+            case .success(let cinemas):
+                self.nearCinemas = cinemas
+                for cinema in cinemas {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: cinema.lat, longitude: cinema.lng)
+                    annotation.title = cinema.name
+                    self.map.addAnnotation(annotation)
+                }
+            case .error:
                 Alert.shared.show(on: self)
-                return
-            }
-            self.nearCinemas = cinemas
-
-            for cinema in cinemas {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2D(latitude: cinema.lat, longitude: cinema.lng)
-                annotation.title = cinema.name
-                self.map.addAnnotation(annotation)
             }
         }
     }

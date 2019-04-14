@@ -15,8 +15,8 @@ extension Client {
     ///
     /// - Parameters:
     ///   - category: MoviesCategoty case
-    ///   - completion: completion handler, which contains an array of DatabaseObject structures if success or an empty array if failed
-    func loadMoviesCategory(_ category: MoviesCategory, completion: @escaping ([DatabaseObject])->Void) {
+    ///   - completion: completion handler, which contains an array of DatabaseObjects if success or error if failed
+    func loadMoviesCategory(_ category: MoviesCategory, completion: @escaping (Result<[DatabaseObject]>)->Void) {
         
         let params: [String:Any] = [
             "page" : 1,
@@ -27,12 +27,11 @@ extension Client {
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    let results = [DatabaseObject]()
-                    completion(results)
+                    completion(.error)
                     return
             }
             let results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
-            completion(results)            
+            completion(.success(results))
         }
     }
     

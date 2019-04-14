@@ -1,3 +1,5 @@
+typealias ListResults = (results: [DatabaseObject], totalPages: Int, totalResults: Int)
+
 extension Client {
     
     /// Loads a list of movies for particulas request
@@ -6,7 +8,7 @@ extension Client {
     ///   - requestType: type of request, which conforms ListRequest protocol
     ///   - page: page number
     ///   - completion: completion handler, which contains a tuple, that consists of an array of DatabaseObject structures, total pages quantity and total results quantity, if success or a tuple, that consists of an empty array and zeros, if failed
-    func loadList(of requestType: ListRequest, onPage page: Int, completion: @escaping ([DatabaseObject], Int, Int)->Void) {
+    func loadList(of requestType: ListRequest, onPage page: Int, completion: @escaping (Result<ListResults>)->Void) {
         switch requestType.rawValue.type {
         case .movieGenres:
             loadMoviesListWithGenreId(requestType.rawValue.path, onPage: page, completion: completion)
@@ -23,9 +25,9 @@ extension Client {
         }
     }
     
-    private func loadMoviesCategoriesList(path: String, onPage page: Int, completion: @escaping ([DatabaseObject], Int, Int)->Void) {
+    private func loadMoviesCategoriesList(path: String, onPage page: Int, completion: @escaping (Result<ListResults>)->Void) {
         
-        let params = [ "page" : page]
+        let params = ["page" : page]
         
         request(path: path, params: params).responseJSON { (response) in
             
@@ -35,18 +37,17 @@ extension Client {
                 let totalResults = json["total_results"] as? Int,
                 let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    completion(results, 0, 0)
+                    completion(.error)
                     return
             }
             
             results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
-            completion(results, totalPages, totalResults)
+            completion(.success((results: results, totalPages: totalPages, totalResults: totalResults)))
         }
     }
     
-    private func loadSimilarMoviesList(path: String, mediaType: MediaType, onPage page: Int, completion: @escaping ([DatabaseObject], Int, Int)->Void) {
+    private func loadSimilarMoviesList(path: String, mediaType: MediaType, onPage page: Int, completion: @escaping (Result<ListResults>)->Void) {
         
-        var similar = [DatabaseObject]()
         let params = [ "page" : page ]
     
         request(path: path, params: params).responseJSON { (response) in
@@ -55,17 +56,16 @@ extension Client {
                 let totalResults = json["total_results"] as? Int,
                 let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    completion(similar, 0, 0)
+                    completion(.error)
                     return
             }
             
-            similar = dictionary.compactMap { DatabaseObject(ofType: mediaType, fromJson: $0) }
-            completion(similar, totalPages, totalResults)
+            let similar = dictionary.compactMap { DatabaseObject(ofType: mediaType, fromJson: $0) }
+            completion(.success((results: similar, totalPages: totalPages, totalResults: totalResults)))
         }
-        
     }
     
-    private func loadSearchResultsList(forKey key: String, path: String, mediaType: MediaType, onPage page: Int, completion: @escaping ([DatabaseObject], Int, Int)->Void) {
+    private func loadSearchResultsList(forKey key: String, path: String, mediaType: MediaType, onPage page: Int, completion: @escaping (Result<ListResults>)->Void) {
         
         let params: [String:Any] = [
             "query" : key,
@@ -73,23 +73,21 @@ extension Client {
             "include_adult" : "false"
         ]
         request(path: path, params: params).responseJSON { (response) in
-            
-            var results = [DatabaseObject]()
-            
+
             guard let json = response.result.value as? [String: Any],
                 let totalResults = json["total_results"] as? Int,
                 let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    completion(results, 0, 0)
+                    completion(.error)
                     return
             }
 
-            results = dictionary.compactMap { DatabaseObject(ofType: mediaType, fromJson: $0) }
-            completion(results, totalPages, totalResults)
+            let results = dictionary.compactMap { DatabaseObject(ofType: mediaType, fromJson: $0) }
+            completion(.success((results: results, totalPages: totalPages, totalResults: totalResults)))
         }
     }
     
-    private func loadMoviesListWithGenreId(_ genreId: String, onPage page: Int, completion: @escaping ([DatabaseObject], Int, Int)->Void) {
+    private func loadMoviesListWithGenreId(_ genreId: String, onPage page: Int, completion: @escaping (Result<ListResults>)->Void) {
         
         let params: [String:Any] = [
             "sort_by" : "popularity.desc",
@@ -100,21 +98,17 @@ extension Client {
         
         request(path: "/discover/movie", params: params).responseJSON { (response) in
             
-            var results = [DatabaseObject]()
-            
             guard let json = response.result.value as? [String: Any],
                 let totalResults = json["total_results"] as? Int,
                 let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    completion(results, 0, 0)
+                    completion(.error)
                     return
             }
             
-            results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
-            completion(results, totalPages, totalResults)
-            
+            let results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
+            completion(.success((results: results, totalPages: totalPages, totalResults: totalResults)))
         }
-        
     }
     
 }

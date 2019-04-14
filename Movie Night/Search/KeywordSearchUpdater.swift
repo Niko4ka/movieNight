@@ -12,8 +12,14 @@ class KeywordSearchUpdater: NSObject, UISearchResultsUpdating {
         if searchText.count < 3  {
             results.results = []
         } else {
-            Client.shared.loadKeywords(key: searchText) { (keywords) in
-                results.results = keywords
+            Client.shared.loadKeywords(key: searchText) { (result) in
+                switch result {
+                case .success(let keywords):
+                    results.results = keywords
+                case .error:
+                    // TODO: add error case
+                    return
+                }
             }
         }
     }

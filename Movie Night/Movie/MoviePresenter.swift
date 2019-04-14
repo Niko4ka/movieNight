@@ -15,38 +15,58 @@ class MoviePresenter: MovieTableViewPresenter {
         
         controller.isLoading = true
         
-        Client.shared.loadMovieDetails(forId: id, andType: type) { (details) in
-            guard let details = details else {
-                
+        Client.shared.loadMovieDetails(forId: id, andType: type) { (result) in
+            
+            switch result {
+            case .success(let details):
+                self.movieDetails = details
+                self.configureHeaderView(controller, with: details)
+                controller.isLoading = false
+            case .error:
                 controller.isLoading = false
                 Alert.shared.show(on: controller, withMessage: nil, completion: {
                     controller.navigator?.pop()
                 })
                 return
             }
-            self.movieDetails = details
-            self.configureHeaderView(controller, with: details)
-            controller.isLoading = false
         }
         
-        Client.shared.loadMovieCast(forId: id, andType: type) { (cast) in
-            if let cast = cast {
+        Client.shared.loadMovieCast(forId: id, andType: type) { (result) in
+            switch result {
+            case .success(let cast):
                 self.movieCast = cast
                 controller.tableView.reloadData()
+            case .error:
+                break
             }
         }
         
-        Client.shared.loadMovieTrailers(forId: id, andType: type) { (trailers) in
-            self.movieTrailers = trailers
-            controller.tableView.reloadData()
+        Client.shared.loadMovieTrailers(forId: id, andType: type) { (result) in
+            switch result {
+            case .success(let trailers):
+                self.movieTrailers = trailers
+                controller.tableView.reloadData()
+            case .error:
+                break
+            }
         }
         
-        Client.shared.loadMovieReviews(forId: id, andType: type) { (reviews) in
-            self.movieReviews = reviews
+        Client.shared.loadMovieReviews(forId: id, andType: type) { (result) in
+            switch result {
+            case .success(let reviews):
+                self.movieReviews = reviews
+            case .error:
+                break
+            }
         }
         
-        Client.shared.loadSimilarMovies(forId: id, andType: type) { (similar) in
-            self.similarMovies = similar
+        Client.shared.loadSimilarMovies(forId: id, andType: type) { (result) in
+            switch result {
+            case .success(let similar):
+                self.similarMovies = similar
+            case .error:
+                break
+            }
         }
 
     }

@@ -36,38 +36,29 @@ final class ListViewModel {
     func fetchData() {
         
         guard !isFetchInProgress else { return }
-        
         isFetchInProgress = true
         
-        Client.shared.loadList(of: request, onPage: currentPage) { (results, totalPages, totalResults) in
-            
+        Client.shared.loadList(of: request, onPage: currentPage) { (result) in
             // TODO: - возможно totalPages не нужен будет???
-            
-            guard !results.isEmpty else {
+            switch result {
+                
+            case .success(let listResults):
+                self.total = listResults.totalResults
+                self.data.append(contentsOf: listResults.results)
+                if self.currentPage > 1 {
+                    let indexPathsToReload = self.calculateIndexPathToReload(from: listResults.results)
+                    self.delegate?.onFetchCompleted(with: indexPathsToReload)
+                } else {
+                    self.delegate?.onFetchCompleted(with: .none)
+                }
+                self.currentPage += 1
+                self.isFetchInProgress = false
+                
+            case .error:
                 self.isFetchInProgress = false
                 self.delegate?.onFetchFailed()
-                return
             }
-            
-            
-            
-            self.total = totalResults
-            self.data.append(contentsOf: results)
-            
-//            self.delegate?.onFetchCompleted(with: .none)
-            
-            if self.currentPage > 1 {
-                let indexPathsToReload = self.calculateIndexPathToReload(from: results)
-                self.delegate?.onFetchCompleted(with: indexPathsToReload)
-            } else {
-                self.delegate?.onFetchCompleted(with: .none)
-            }
-            
-            self.currentPage += 1
-            self.isFetchInProgress = false
         }
-        
-        
     }
 
     private func calculateIndexPathToReload(from newData: [DatabaseObject]) -> [IndexPath] {
@@ -75,6 +66,5 @@ final class ListViewModel {
         let endIndex = startIndex + newData.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
-    
     
 }

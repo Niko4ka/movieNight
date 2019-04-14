@@ -8,23 +8,18 @@ extension Client {
     /// - Parameters:
     ///   - id: movie or TV Show id
     ///   - type: mediatype(.movie or .tvShow)
-    ///   - completion: completion handler, which contains MovieDetails if success or nil if failed
-    func loadMovieDetails(forId id: Int, andType type: MediaType, completion: @escaping (MovieDetails?)->Void) {
+    ///   - completion: completion handler, which contains MovieDetails if success or error if failed
+    func loadMovieDetails(forId id: Int, andType type: MediaType, completion: @escaping (Result<MovieDetails>)->Void) {
         
-        var path: String = ""
-        if type == .movie {
-            path = "/movie/\(id)"
-        } else {
-            path = "/tv/\(id)"
-        }
+        let path = type == .movie ? "/movie/\(id)" : "/tv/\(id)"
         
         request(path: path, params: [:]).responseJSON { (response) in
             guard let json = response.result.value as? [String: Any],
                 let details = MovieDetails(ofType: type, from: json) else {
-                    completion(nil)
+                    completion(.error)
                     return
             }
-            completion(details)
+            completion(.success(details))
         }
     }
     
@@ -33,26 +28,19 @@ extension Client {
     /// - Parameters:
     ///   - id: movie or TV Show id
     ///   - type: mediatype(.movie or .tvShow)
-    ///   - completion: completion handler, which contains MovieCast if success or nil if failed
-    func loadMovieCast(forId id: Int, andType type: MediaType, completion: @escaping (MovieCast?)->Void) {
+    ///   - completion: completion handler, which contains MovieCast if success or error if failed
+    func loadMovieCast(forId id: Int, andType type: MediaType, completion: @escaping (Result<MovieCast>)->Void) {
         
-        var path: String = ""
-        if type == .movie {
-            path = "/movie/\(id)/credits"
-        } else {
-            path = "/tv/\(id)/credits"
-        }
+        let path: String = type == .movie ? "/movie/\(id)/credits" : "/tv/\(id)/credits"
         
         request(path: path, params: [:]).responseJSON { (response) in
             guard let json = response.result.value as? [String: Any],
                 let cast = MovieCast(ofType: type, from: json) else {
-                    completion(nil)
+                    completion(.error)
                     return
             }
-            
-            completion(cast)
+            completion(.success(cast))
         }
-        
     }
     
     /// Loads movie trailers from Youtube
@@ -60,33 +48,25 @@ extension Client {
     /// - Parameters:
     ///   - id: movie or TV Show id
     ///   - type: mediatype(.movie or .tvShow)
-    ///   - completion: completion handler, which contains an array of MovieTrailer structures if success or an empty array if failed
-    func loadMovieTrailers(forId id: Int, andType type: MediaType, completion: @escaping ([MovieTrailer])->Void) {
+    ///   - completion: completion handler, which contains an array of MovieTrailers if success or error if failed
+    func loadMovieTrailers(forId id: Int, andType type: MediaType, completion: @escaping (Result<[MovieTrailer]>)->Void) {
         
         var trailers = [MovieTrailer]()
-        var path: String = ""
-        if type == .movie {
-            path = "/movie/\(id)/videos"
-        } else {
-            path = "/tv/\(id)/videos"
-        }
+        let path = type == .movie ? "/movie/\(id)/videos" : "/tv/\(id)/videos"
         
         request(path: path, params: [:]).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let results = json["results"] as? [Dictionary<String, Any>] else {
-                    completion(trailers)
+                    completion(.error)
                     return
             }
             
             let trailersLoadingGroup = DispatchGroup()
             
             for video in results {
-                
                 trailersLoadingGroup.enter()
-                
                 if let youtubeId = video["key"] as? String {
-                    
                     self.loadYoutubeVideo(withId: youtubeId, completion: { (trailer) in
                         if let trailer = trailer {
                             trailers.append(trailer)
@@ -99,10 +79,9 @@ extension Client {
             }
             
             trailersLoadingGroup.notify(queue: .main) {
-                completion(trailers)
+                completion(.success(trailers))
             }
         }
-        
     }
     
     /// Loads movie reviews
@@ -110,35 +89,22 @@ extension Client {
     /// - Parameters:
     ///   - id: movie or TV Show id
     ///   - type: mediatype(.movie or .tvShow)
-    ///   - completion: completion handler, which contains an array of MovieReview structures if success or an empty array if failed
-    func loadMovieReviews(forId id: Int, andType type: MediaType, completion: @escaping ([MovieReview])->Void) {
+    ///   - completion: completion handler, which contains an array of MovieReviews if success or error if failed
+    func loadMovieReviews(forId id: Int, andType type: MediaType, completion: @escaping (Result<[MovieReview]>)->Void) {
         
-        var reviews = [MovieReview]()
-        var path: String = ""
-        if type == .movie {
-            path = "/movie/\(id)/reviews"
-        } else {
-            path = "/tv/\(id)/reviews"
-        }
+        let path = type == .movie ? "/movie/\(id)/reviews" : "/tv/\(id)/reviews"
         
         request(path: path, params: [:]).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let results = json["results"] as? [Dictionary<String, Any>] else {
-                    completion(reviews)
+                    completion(.error)
                     return
             }
             
-            if !results.isEmpty {
-                for result in results {
-                    if let review = MovieReview(from: result) {
-                        reviews.append(review)
-                    }
-                }
-                completion(reviews)
-            }
+            let reviews = results.compactMap { MovieReview(from: $0) }
+            completion(.success(reviews))
         }
-        
     }
     
     /// Loads similar movies
@@ -146,34 +112,22 @@ extension Client {
     /// - Parameters:
     ///   - id: movie or TV Show id
     ///   - type: mediatype(.movie or .tvShow)
-    ///   - completion: completion handler, which contains an array of DatabaseObject structures if success or an empty array if failed
-    func loadSimilarMovies(forId id: Int, andType type: MediaType, completion: @escaping ([DatabaseObject])->Void) {
-        
-        var similar = [DatabaseObject]()
-        var path: String = ""
-        if type == .movie {
-            path = "/movie/\(id)/similar"
-        } else {
-            path = "/tv/\(id)/similar"
-        }
+    ///   - completion: completion handler, which contains an array of DatabaseObjects  if success or error if failed
+    func loadSimilarMovies(forId id: Int, andType type: MediaType, completion: @escaping (Result<[DatabaseObject]>)->Void) {
+
+        let path = type == .movie ? "/movie/\(id)/similar" : "/tv/\(id)/similar"
         
         request(path: path, params: [:]).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let results = json["results"] as? [Dictionary<String, Any>] else {
-                    completion(similar)
+                    completion(.error)
                     return
             }
             
-            for result in results {
-                if let item = DatabaseObject(ofType: type, fromJson: result) {
-                    similar.append(item)
-                }
-            }
-            
-            completion(similar)
+            let similar = results.compactMap { DatabaseObject(ofType: type, fromJson: $0) }
+            completion(.success(similar))
         }
-        
     }
     
 

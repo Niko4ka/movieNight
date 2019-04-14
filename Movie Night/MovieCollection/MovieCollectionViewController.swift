@@ -57,36 +57,36 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
         isLoading = true
         
         Client.shared.loadMovieCollection(collectionId: collectionId) { (result) in
-            guard let result = result else {
-                self.isLoading = false
-                Alert.shared.show(on: self, withMessage: nil, completion: {
-                    self.navigator?.pop()
-                })
-                return
-            }
             
-            if let coverPath = result.cover,
-                let url = URL(string: "https://image.tmdb.org/t/p/w780\(coverPath)") {
+            switch result {
+            case .success(let collectionInfo):
+                guard let coverPath = collectionInfo.cover,
+                    let url = URL(string: "https://image.tmdb.org/t/p/w780\(coverPath)") else { return }
                 
-                Client.shared.loadImageRequest(url: url).responseData { (response) in
-                    if let data = response.value {
-                        
+                Client.shared.loadImage(url: url) { (result) in
+                    switch result {
+                    case .success(let data):
                         let coverController = CollectionCoverViewController(data: data)
                         coverController.modalTransitionStyle = .crossDissolve
                         coverController.modalPresentationStyle = .overFullScreen
                         self.present(coverController, animated: true, completion: {
                             self.isLoading = false
-                            if !result.parts.isEmpty {
-                                self.parts = result.parts
+                            if !collectionInfo.parts.isEmpty {
+                                self.parts = collectionInfo.parts
                             }
                         })
-                    } else {
+                    case .error:
                         self.isLoading = false
-                        if !result.parts.isEmpty {
-                            self.parts = result.parts
+                        if !collectionInfo.parts.isEmpty {
+                            self.parts = collectionInfo.parts
                         }
                     }
                 }
+            case .error:
+                self.isLoading = false
+                Alert.shared.show(on: self, withMessage: nil, completion: {
+                    self.navigator?.pop()
+                })
             }
         }
     }
@@ -112,9 +112,7 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
     // MARK: Protocols implementation
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
         return parts.count
-
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -2,6 +2,11 @@ import Alamofire
 
 final class Client {
     
+    enum Result<T> {
+        case success(T)
+        case error
+    }
+    
     private let themoviedbKey = "81c0943d1596e1cc2b1c8de9e9ba8945"
     let googleKey = "AIzaSyAluG5wfH3vDhket7F2b2pFAzdgKH6F4mk"
     
@@ -23,9 +28,5 @@ final class Client {
         let urlString = "https://api.themoviedb.org/3\(path)"
         return AF.request(urlString, parameters: injectParams(params))
     }
-    
-    func loadImageRequest(url: URLConvertible) -> DataRequest {
-        return AF.request(url)
-    }
-    
+
 }

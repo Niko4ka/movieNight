@@ -1,35 +1,28 @@
 import Foundation
 
+typealias CollectionInfo = (cover: String?, parts: [DatabaseObject])
+
 extension Client {
     
     /// Loads particular movie collection
     ///
     /// - Parameters:
     ///   - id: collection id
-    ///   - completion: completion handler, which contains a tuple of cover path and movie parts information if success or nil if failed
-    func loadMovieCollection(collectionId id: Int, completion: @escaping ((cover: String?, parts: [DatabaseObject])?)->Void) {
-        
-        var cover: String?
+    ///   - completion: completion handler, which contains CollectionInfo if success or error if failed
+    func loadMovieCollection(collectionId id: Int, completion: @escaping (Result<CollectionInfo>)->Void) {
         
         request(path: "/collection/\(id)").responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["parts"] as? [Dictionary<String, Any>] else {
-                    completion(nil)
+                    completion(.error)
                     return
             }
-            
-            if let coverPath = json["poster_path"] as? String {
-                cover = coverPath
-            }
-            
+            let cover = json["poster_path"] as? String
             let parts = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
             let result = (cover: cover, parts: parts)
-            
-            
-            completion(result)
+            completion(.success(result))
         }
-        
     }
     
 }

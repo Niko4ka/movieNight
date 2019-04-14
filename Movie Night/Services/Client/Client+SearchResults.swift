@@ -11,7 +11,7 @@ extension Client {
     /// - Parameters:
     ///   - key: selected keyword
     ///   - completion: completion handler, which contains SearchResults structure with minimum one non-empty array if success or SearchResults structure with all empty arrays if failed or had no results
-    func loadSearchResults(forKey key: String, completion: @escaping (SearchResults)->Void) {
+    func loadSearchResults(forKey key: String, completion: @escaping (Result<SearchResults>)->Void) {
         
         let params: [String:Any] = [
             "language" : "en",
@@ -19,17 +19,16 @@ extension Client {
             "page" : 1,
             "include_adult" : "false"
         ]
+        
         request(path: "/search/multi", params: params).responseJSON { (response) in
             
             guard let json = response.result.value as? [String: Any],
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
-                    let results = SearchResults()
-                    completion(results)
+                    completion(.error)
                     return
             }
             
             var results = SearchResults()
-            
             let objects = dictionary.compactMap { DatabaseObject(fromJson: $0) }
             
             for object in objects {
@@ -43,7 +42,7 @@ extension Client {
                 }
             }
 
-            completion(results)
+            completion(.success(results))
         }
     }
     

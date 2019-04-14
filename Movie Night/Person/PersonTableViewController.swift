@@ -63,43 +63,12 @@ class PersonTableViewController: UITableViewController, ColorThemeCellObserver {
     private func getInfo(personId id: Int) {
         personLoadingGroup.enter()
         
-        Client.shared.loadPersonInfo(id: id) { (info) in
-            
-            guard let info = info else {
-                self.personLoadingGroup.leave()
-                return
-            }
-            
-            self.nameLabel.text = info.name
-            self.navigationItem.title = info.name
-            
-            if let department = info.department {
-                if department == "Acting" && info.gender == 2 {
-                    self.jobLabel.text = "Actor"
-                }
-                
-                if department == "Acting" && info.gender == 1 {
-                    self.jobLabel.text = "Actress"
-                }
-                
-                if department == "Acting" && info.gender == 0 {
-                    self.jobLabel.text = ""
-                }
-            }
-            
-            if let profilePath = info.profilePath,
-                let url = URL(string: "https://image.tmdb.org/t/p/w185\(profilePath)") {
-                self.profileImageView.kf.setImage(with: url)
-            } else {
-                self.profileImageView.image = UIImage(named: "noPoster")
-            }
-            
-            if let birthday = info.birthday {
-                let deathday: String? = info.deathday
-                if deathday == nil {
-                    let age = birthday.calculateCurrentAge()
-                    self.ageLabel.text = age + " years old"
-                }
+        Client.shared.loadPersonInfo(id: id) { (result) in
+            switch result {
+            case .success(let info):
+                self.setPersonInfo(info)
+            case .error:
+                break
             }
             self.personLoadingGroup.leave()
         }
@@ -109,8 +78,13 @@ class PersonTableViewController: UITableViewController, ColorThemeCellObserver {
         
         personLoadingGroup.enter()
         
-        Client.shared.loadPersonMovies(personId: id) { (movies) in
-            self.personMovies = movies
+        Client.shared.loadPersonMovies(personId: id) { (result) in
+            switch result {
+            case .success(let movies):
+                self.personMovies = movies
+            case .error:
+                break
+            }
             self.personLoadingGroup.leave()
         }
     }
@@ -119,9 +93,48 @@ class PersonTableViewController: UITableViewController, ColorThemeCellObserver {
         
         personLoadingGroup.enter()
         
-        Client.shared.loadPersonTvShows(personId: id) { (tvShows) in
-            self.personTvShows = tvShows
+        Client.shared.loadPersonTvShows(personId: id) { (result) in
+            switch result {
+            case .success(let tvShows):
+                self.personTvShows = tvShows
+            case .error:
+                break
+            }
             self.personLoadingGroup.leave()
+        }
+    }
+    
+    private func setPersonInfo( _ info: PersonInfo) {
+        self.nameLabel.text = info.name
+        self.navigationItem.title = info.name
+        
+        if let department = info.department {
+            if department == "Acting" && info.gender == 2 {
+                self.jobLabel.text = "Actor"
+            }
+            
+            if department == "Acting" && info.gender == 1 {
+                self.jobLabel.text = "Actress"
+            }
+            
+            if department == "Acting" && info.gender == 0 {
+                self.jobLabel.text = ""
+            }
+        }
+        
+        if let profilePath = info.profilePath,
+            let url = URL(string: "https://image.tmdb.org/t/p/w185\(profilePath)") {
+            self.profileImageView.kf.setImage(with: url)
+        } else {
+            self.profileImageView.image = UIImage(named: "noPoster")
+        }
+        
+        if let birthday = info.birthday {
+            let deathday: String? = info.deathday
+            if deathday == nil {
+                let age = birthday.calculateCurrentAge()
+                self.ageLabel.text = age + " years old"
+            }
         }
     }
 
