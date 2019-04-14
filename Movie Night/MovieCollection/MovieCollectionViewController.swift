@@ -84,7 +84,7 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
                 }
             case .error:
                 self.isLoading = false
-                Alert.shared.show(on: self, withMessage: nil, completion: {
+                self.showError(completion: {
                     self.navigator?.pop()
                 })
             }

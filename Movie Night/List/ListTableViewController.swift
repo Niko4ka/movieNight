@@ -141,9 +141,8 @@ extension ListTableViewController: ListViewModelDelegate {
     
     func onFetchFailed() {
         isLoading = false
-        Alert.shared.show(on: self)
+        showError()
     }
-    
     
 }
 

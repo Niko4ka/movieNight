@@ -93,7 +93,7 @@ extension CinemasMapViewController: CLLocationManagerDelegate {
                     self.map.addAnnotation(annotation)
                 }
             case .error:
-                Alert.shared.show(on: self)
+                self.showError()
             }
         }
     }

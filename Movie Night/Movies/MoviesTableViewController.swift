@@ -129,7 +129,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
                     self.tableView.reloadSections(indexSet, with: .none)
                 }
             case .error:
-                Alert.shared.show(on: self)
+                self.showError()
             }
         }
     }

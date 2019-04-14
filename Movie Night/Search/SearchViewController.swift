@@ -103,7 +103,7 @@ extension SearchViewController: KeywordsViewControllerDelegate {
                 self.resultsViewController.keyword = keyword
                 self.resultsViewController.data = data.filter { !$0.1.isEmpty }
             case .error:
-                Alert.shared.show(on: self)
+                self.showError()
             }
         }
     }

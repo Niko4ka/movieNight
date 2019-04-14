@@ -1,31 +1,21 @@
 import UIKit
 
-extension ColorThemeObserver where Self: UIViewController {
+extension UIViewController {
     
-    func addColorThemeObservers() {
-
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(forName: .darkThemeEnabled, object: nil, queue: nil) { [weak self] (notification) in
-            guard self != nil else { return }
-            self?.darkThemeEnabled()
-        }
-        notificationCenter.addObserver(forName: .darkThemeDisabled, object: nil, queue: nil) { [weak self] (notification) in
-            guard self != nil else { return }
-            self?.darkThemeDisabled()
-        }
+    func showError(withMessage message: String? = nil, completion: (()->())? = nil) {
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeEnabled), name: .darkThemeEnabled, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(ColorThemeObserver.darkThemeDisabled), name: .darkThemeDisabled, object: nil)
-    }
-    
-    func checkCurrentColorTheme() {
+        let commonMessage = "Looks like something went wrong :( \n Please, try again later"
         
-        let currentThemeIsDark = UserDefaults.standard.bool(forKey: "isDarkTheme")
-        if currentThemeIsDark {
-            self.darkThemeEnabled()
-        } else {
-            self.darkThemeDisabled()
+        let alertMessage = message ?? commonMessage
+        let alert = UIAlertController(title: "Ooops...", message: alertMessage, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+            alert.dismiss(animated: true, completion: nil)
+            if completion != nil {
+                completion!()
+            }
         }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

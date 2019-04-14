@@ -24,7 +24,7 @@ class MoviePresenter: MovieTableViewPresenter {
                 controller.isLoading = false
             case .error:
                 controller.isLoading = false
-                Alert.shared.show(on: controller, withMessage: nil, completion: {
+                controller.showError(completion: {
                     controller.navigator?.pop()
                 })
                 return
