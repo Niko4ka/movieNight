@@ -12,23 +12,10 @@ extension MovieTableViewController {
         
         switch currentState {
         case .details:
-            
-            if presenter.movieTrailers.isEmpty {
-                return 3
-            } else {
-                return 4
-            }
-            
+            return presenter.movieTrailers.isEmpty ? 3 : 4
         case .reviews:
-            
-            if presenter.movieReviews.isEmpty {
-                return 1
-            } else {
-                return presenter.movieReviews.count
-            }
-            
+            return presenter.movieReviews.isEmpty ? 1 : presenter.movieReviews.count
         case .similar:
-            
             return 1
         }
     }
@@ -38,13 +25,8 @@ extension MovieTableViewController {
         switch currentState {
         case .details:
             
-            var rowIndex: Int!
-            if presenter.movieTrailers.isEmpty {
-                rowIndex = indexPath.row + 1
-            } else {
-                rowIndex = indexPath.row
-            }
-            
+            let rowIndex = presenter.movieTrailers.isEmpty ? indexPath.row + 1 : indexPath.row
+
             switch rowIndex {
             case 0:
                 return presenter.createCell(self, withIdentifier: .trailers, in: tableView, forRowAt: indexPath)
@@ -55,8 +37,7 @@ extension MovieTableViewController {
             case 3:
                 return presenter.createCell(self, withIdentifier: .information, in: tableView, forRowAt: indexPath)
             default:
-                let cell = UITableViewCell()
-                return cell
+                return UITableViewCell()
             }
             
         case .reviews:

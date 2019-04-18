@@ -12,7 +12,7 @@ class SliderHeaderView: UIView {
     ]
     
     weak var timer: Timer?
-    var navigator: ProjectNavigator?
+    let navigator: ProjectNavigator?
 
     init(navigator: ProjectNavigator?) {
         self.navigator = navigator

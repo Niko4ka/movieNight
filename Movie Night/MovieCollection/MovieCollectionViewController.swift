@@ -25,7 +25,6 @@ class MovieCollectionViewController: UICollectionViewController, UICollectionVie
         if isLoading {
             let activity = UIActivityIndicatorView(style: .white)
             activity.startAnimating()
-            
             collectionView.backgroundView = activity
         } else {
             collectionView.backgroundView = nil

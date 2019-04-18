@@ -39,7 +39,6 @@ class InformationTableViewCell: UITableViewCell {
             keysStackView.layoutIfNeeded()
             valuesStackView.layoutIfNeeded()
         }
-
     }
     
     private func createInfo(from data: (key: String, value: String)) {
@@ -57,7 +56,6 @@ class InformationTableViewCell: UITableViewCell {
         
         keysStackView.addArrangedSubview(keyLabel)
         valuesStackView.addArrangedSubview(valueLabel)
-        
     }
     
     private func setColorTheme() {

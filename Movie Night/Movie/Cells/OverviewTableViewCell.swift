@@ -37,19 +37,14 @@ class OverviewTableViewCell: UITableViewCell {
     
     public func configure(with movie: MovieDetails) {
         
-        if !movie.description.isEmpty {
-            self.descriptionTextView.text = movie.description
-        } else {
-            self.descriptionTextView.text = "No overview"
-        }
-        
+        self.descriptionTextView.text = !movie.description.isEmpty ? movie.description : "No overview"
+
         let height = self.getTextViewHeight(fromText: self.descriptionTextView.text)
         if height <= self.descriptionHeight.constant {
             self.descriptionHeight.constant = height
             self.showMoreButton.isHidden = true
             self.descriptionBottomConstraint.constant = 8.0
         }
-
     }
     
     private func getTextViewHeight(fromText text: String) -> CGFloat {
@@ -86,9 +81,7 @@ class OverviewTableViewCell: UITableViewCell {
             showMoreButton.setTitleColor(.defaultBlueTint, for: .normal)
             titleLabel.textColor = .darkText
             backgroundColor = .white
-        }
-        
-        
+        } 
     }
     
 }

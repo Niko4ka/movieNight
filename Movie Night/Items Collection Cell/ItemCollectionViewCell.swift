@@ -9,7 +9,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
     public var objectID: Int!
     public var mediaType: MediaType!
     
-
     func configure(with object: DatabaseObject, colorMode: CollectionColorMode) {
         
         self.objectID = object.id
@@ -35,14 +34,12 @@ class ItemCollectionViewCell: UICollectionViewCell {
     }
     
     private func setDarkColorMode() {
-        
         mainView.backgroundColor = .darkThemeBackground
         movieTitle.textColor = .white
         movieGenre.textColor = .lightGray
     }
     
     private func setLightColorMode() {
-        
         mainView.backgroundColor = .white
         movieTitle.textColor = .black
         movieGenre.textColor = .darkGray

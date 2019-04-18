@@ -25,10 +25,7 @@ class WishlistViewController: UIViewController, ColorThemeCellObserver {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isDarkTheme {
-            return .lightContent
-        }
-        return .default
+        return isDarkTheme ? .lightContent : .default
     }
     
     private func addWishlistViewObservers() {

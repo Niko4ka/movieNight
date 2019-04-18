@@ -68,10 +68,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isDarkTheme {
-            return .lightContent
-        }
-        return .default
+        return isDarkTheme ? .lightContent : .default
     }
     
     private func configureTableView() {
@@ -147,19 +144,12 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         switch currentState {
         case .categories:
             return 1
         case .genres:
-            if !genres.isEmpty {
-                return genres.count
-            } else {
-                return 0
-            }
-            
+            return !genres.isEmpty ? genres.count : 0
         }
-        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -167,13 +157,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         case .categories:
             return moviesCategoriesList.count
         case .genres:
-            
-            if genres[section].expanded {
-                return 1
-            } else {
-                return 0
-            }
-            
+            return genres[section].expanded ? 1 : 0
         }
     }
     
@@ -209,26 +193,19 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
         }
         
         return cell
-
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch currentState {
-        case .categories:
-            return 0
-        case .genres:
-            return 44.0
+        case .categories: return 0
+        case .genres: return 44.0
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if currentState == .genres {
-            if genres[indexPath.section].expanded {
-                return 220
-            } else {
-                return 0
-            }
+            return genres[indexPath.section].expanded ? 220 : 0
         }
             
         return 250.0
@@ -236,11 +213,7 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if currentState == .genres {
-            if genres[indexPath.section].expanded {
-                return 220
-            } else {
-                return 0
-            }
+            return genres[indexPath.section].expanded ? 220 : 0
         }
         
         return 250.0
@@ -249,10 +222,8 @@ class MoviesTableViewController: UITableViewController, ColorThemeCellObserver {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 
         switch currentState {
-        case .categories:
-            return 0
-        case .genres:
-            return 2.0
+        case .categories: return 0
+        case .genres: return 2.0
         }
     }
     

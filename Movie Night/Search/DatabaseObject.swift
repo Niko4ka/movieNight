@@ -121,7 +121,6 @@ struct DatabaseObject {
                             self.genres.append(", " + genre)
                         }
                     }
-                    
                 default:
                     break
                 }

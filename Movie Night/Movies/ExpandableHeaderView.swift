@@ -7,13 +7,12 @@ protocol ExpandableHeaderViewDelegate: class {
 
 class ExpandableHeaderView: UITableViewHeaderFooterView {
     
-    var delegate: ExpandableHeaderViewDelegate?
+    weak var delegate: ExpandableHeaderViewDelegate?
     var section: Int?
     var seeAllButton: UIButton!
     var genre: GenreSection?
     
     func setup(genre: GenreSection, section: Int, delegate: ExpandableHeaderViewDelegate) {
-        
         self.delegate = delegate
         self.section = section
         self.genre = genre
@@ -31,9 +30,7 @@ class ExpandableHeaderView: UITableViewHeaderFooterView {
                 textLabel?.textColor = .grayText
                 contentView.backgroundColor = .groupTableViewBackground
             }
-            
         }
-        
     }
     
     override init(reuseIdentifier: String?) {

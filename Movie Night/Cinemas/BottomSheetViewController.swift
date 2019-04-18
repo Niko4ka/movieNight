@@ -10,8 +10,7 @@ class BottomSheetViewController: UIViewController {
     @IBOutlet weak var isOpenedLabel: UILabel!
     @IBOutlet weak var showTheRouteButton: UIButton!
     
-    
-    var selectedCinema: Cinema!
+    let selectedCinema: Cinema
     let fullView: CGFloat = 100
     var partialView: CGFloat = 500
     
@@ -112,7 +111,6 @@ class BottomSheetViewController: UIViewController {
                                              width: self.view.frame.width,
                                              height: self.view.frame.height)
                 }
-                
             }, completion: nil)
         }
         

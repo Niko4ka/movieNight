@@ -39,11 +39,11 @@ final class ListViewModel {
         isFetchInProgress = true
         
         Client.shared.loadList(of: request, onPage: currentPage) { (result) in
-            // TODO: - возможно totalPages не нужен будет???
+
             switch result {
                 
             case .success(let listResults):
-                self.total = listResults.totalResults
+                self.total = listResults.total
                 self.data.append(contentsOf: listResults.results)
                 if self.currentPage > 1 {
                     let indexPathsToReload = self.calculateIndexPathToReload(from: listResults.results)

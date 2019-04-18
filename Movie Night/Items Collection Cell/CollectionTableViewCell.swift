@@ -85,7 +85,6 @@ class CollectionTableViewCell: UITableViewCell {
         if !needHeader {
             headerView.alpha = 0
         }
-        
         itemsCollectionView.isHidden = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
@@ -112,7 +111,6 @@ extension CollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let item = data[indexPath.item]
-        
         if item.mediaType != MediaType.person {
             navigator?.navigate(to: .movie(id: item.id, type: item.mediaType))
         }

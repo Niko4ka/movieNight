@@ -17,9 +17,7 @@ enum MoviesCategoriesListRequest: ListRequest {
     case upcomingMovies
     
     var mediaType: MediaType {
-        switch self {
-        case .nowPlayingMovies, .popularMovies, .upcomingMovies: return .movie
-        }
+        return .movie
     }
     
     var rawValue: (type: ListRequests, title: String, path: String) {

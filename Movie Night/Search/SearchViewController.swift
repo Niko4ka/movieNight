@@ -51,10 +51,7 @@ class SearchViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         let isDarkTheme = UserDefaults.standard.bool(forKey: "isDarkTheme")
-        if isDarkTheme {
-            return .lightContent
-        }
-        return .default
+        return isDarkTheme ? .lightContent : .default
     }
     
     /// Creates the hint label to be shown before the user starts printing a keyword

@@ -34,7 +34,8 @@ class RatingControl: UIStackView {
         
         let viewWidth = (self.frame.height * 5) + 10.0 + label.frame.width
         
-        if let index = constraints.index(where: { $0.identifier == "ratingControlWidth" }), let widthConstraint = [constraints[index]].first {
+        if let index = constraints.index(where: { $0.identifier == "ratingControlWidth" }),
+            let widthConstraint = [constraints[index]].first {
             widthConstraint.constant = viewWidth
         }
 

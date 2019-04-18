@@ -51,7 +51,7 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
     
     public var mediaType: MediaType!
     public var movieId: Int!
-    
+
     private var gradientLayerIsSet = false
     
     var currentState: TableStates = .details
@@ -119,10 +119,7 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isDarkTheme {
-            return .lightContent
-        }
-        return .default
+        return isDarkTheme ? .lightContent : .default
     }
     
     private func configureTableView() {
@@ -281,7 +278,6 @@ class MovieTableViewController: UITableViewController, ColorThemeCellObserver {
                 return view as? UILabel
             }
         }
-        
         return nil
     }
 

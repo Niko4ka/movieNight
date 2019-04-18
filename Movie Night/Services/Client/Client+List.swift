@@ -1,4 +1,4 @@
-typealias ListResults = (results: [DatabaseObject], totalPages: Int, totalResults: Int)
+typealias ListResults = (results: [DatabaseObject], total: Int)
 
 extension Client {
     
@@ -35,14 +35,13 @@ extension Client {
             
             guard let json = response.result.value as? [String: Any],
                 let totalResults = json["total_results"] as? Int,
-                let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
                     completion(.error)
                     return
             }
             
             results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
-            completion(.success((results: results, totalPages: totalPages, totalResults: totalResults)))
+            completion(.success((results: results, total: totalResults)))
         }
     }
     
@@ -54,14 +53,13 @@ extension Client {
             
             guard let json = response.result.value as? [String: Any],
                 let totalResults = json["total_results"] as? Int,
-                let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
                     completion(.error)
                     return
             }
             
             let similar = dictionary.compactMap { DatabaseObject(ofType: mediaType, fromJson: $0) }
-            completion(.success((results: similar, totalPages: totalPages, totalResults: totalResults)))
+            completion(.success((results: similar, total: totalResults)))
         }
     }
     
@@ -76,14 +74,13 @@ extension Client {
 
             guard let json = response.result.value as? [String: Any],
                 let totalResults = json["total_results"] as? Int,
-                let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
                     completion(.error)
                     return
             }
 
             let results = dictionary.compactMap { DatabaseObject(ofType: mediaType, fromJson: $0) }
-            completion(.success((results: results, totalPages: totalPages, totalResults: totalResults)))
+            completion(.success((results: results, total: totalResults)))
         }
     }
     
@@ -100,14 +97,13 @@ extension Client {
             
             guard let json = response.result.value as? [String: Any],
                 let totalResults = json["total_results"] as? Int,
-                let totalPages = json["total_pages"] as? Int,
                 let dictionary = json["results"] as? [Dictionary<String, Any>] else {
                     completion(.error)
                     return
             }
             
             let results = dictionary.compactMap { DatabaseObject(ofType: .movie, fromJson: $0) }
-            completion(.success((results: results, totalPages: totalPages, totalResults: totalResults)))
+            completion(.success((results: results, total: totalResults)))
         }
     }
     

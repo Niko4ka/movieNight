@@ -56,10 +56,7 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isDarkTheme {
-            return .lightContent
-        }
-        return .default
+        return isDarkTheme ? .lightContent : .default
     }
     
     private func configureTableView() {
@@ -67,8 +64,6 @@ class ListTableViewController: UITableViewController, ColorThemeCellObserver {
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListCell")
     }
-    
-    
 
     // MARK: - Table view data source
 

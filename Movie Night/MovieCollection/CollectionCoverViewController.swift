@@ -4,7 +4,7 @@ import Kingfisher
 /// UIViewController, that shows the movie collection cover and dismiss itself after established time interval
 class CollectionCoverViewController: UIViewController {
     
-    private var data: Data!
+    private let data: Data
     lazy private var coverImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         imageView.backgroundColor = UIColor.black
@@ -24,8 +24,7 @@ class CollectionCoverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.coverImageView.image = UIImage(data: data)
+        coverImageView.image = UIImage(data: data)
     }
     
     override func viewDidAppear(_ animated: Bool) {
